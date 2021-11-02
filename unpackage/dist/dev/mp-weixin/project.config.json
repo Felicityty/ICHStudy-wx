@@ -12,15 +12,19 @@
   "projectname": "YX_Mobile",
   "condition": {
     "search": {
+      "current": -1,
       "list": []
     },
     "conversation": {
+      "current": -1,
       "list": []
     },
     "game": {
+      "current": -1,
       "list": []
     },
     "miniprogram": {
+      "current": -1,
       "list": []
     }
   }

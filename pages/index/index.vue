@@ -3,11 +3,13 @@
 		<!-- <image class="logo" src="/static/logo.png"></image> -->
 		<view class="text-area">
 			<text class="title">{{title}}</text>
+			<button type="default" @click="test">test</button>
 		</view>
 	</view>
 </template>
 
 <script>
+	import { exampleGET, examplePOST } from '../../api/example.js'
 	export default {
 		data() {
 			return {
@@ -18,7 +20,19 @@
 
 		},
 		methods: {
-
+			test() {
+				// exampleGET()
+				// 	.then(res => {
+				// 		console.log(res)
+				// 	})
+				// 	.catch(err => console.log(err))
+				examplePOST()
+					.then(res => {
+						console.log(res)
+						console.log(JSON.parse(res.data))
+					})
+					.catch(err => console.log(err))
+			}					
 		}
 	}
 </script>

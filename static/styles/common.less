@@ -1,0 +1,135 @@
+//全局公共样式 less
+//字体大小，标题15，内容14，小内容13，更小内容12，更大标题18，一般标题15、18加粗一起使用
+@huge-font-size: 20px;
+@big-font-size: 18px;
+@title-font-size: 15px;
+@content-font-size: 14px;
+@tip-font-size: 13px;
+@small-font-size: 12px;
+
+//颜色
+@white:#ffffff;//白色
+@yellow-color: #E8AA32;//辅助色
+@primary-color: #082042;
+
+.white-color{
+  color:@white
+}
+.primary-color{
+  color:@primary-color
+}
+.title-font-size{
+  font-size:@title-font-size;
+}
+.bolder-font{
+  font-weight: bolder;
+}
+.small-font-size{
+  font-size:@small-font-size;
+}
+.background-table{
+  background-color: #eef1f6;
+}
+
+//可控flex盒子
+.flex-box(@direction:row,@justify-content:center,@align-items:center){
+  display: flex;
+  flex-direction: @direction;
+  -webkit-flex-direction: @direction;
+  justify-content: @justify-content;
+  -webkit-justify-content: @justify-content;
+  align-items: @align-items;
+  -webkit-align-items: @align-items;
+}
+.flex-nowrap{
+  flex-wrap: nowrap;
+}
+.flex-center-item{
+  .flex-box(row,center,center)
+}
+.flex-between-center{
+  .flex-box(row,space-between,center)
+}
+.flex-around-center{
+  .flex-box(row,space-around,center)
+}
+.flex-start-center{
+  .flex-box(row,flex-start,center)
+}
+.flex-start-start{
+  .flex-box(row,flex-start,flex-start)
+}
+.flex-end-center{
+  .flex-box(row,flex-end,center)
+}
+.flex-column-center-start{
+  .flex-box(column,center,flex-start)
+}
+.flex-column-center{
+  .flex-box(column,center,center)
+}
+.flex-column-center-between{
+  .flex-box(column,center,space-between)
+}
+.flex-between-between{
+  .flex-box(row,space-between,space-between)
+}
+.flex-column-between-between{
+  .flex-box(column,space-between,space-between)
+}
+//多行文本省略
+.text-line-overflow(@height:22px,@clamp:2){
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: @clamp;
+  overflow: hidden;
+  line-height:@height;
+}
+//预设两行文字省略
+.text-line-overflow-two{
+  .text-line-overflow()
+}
+//单行文本溢出
+.text-line-overflow-one{
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.pointer{
+  cursor: pointer;
+}
+.padding-20{
+  padding: 20px;
+}
+.padding-10{
+  padding: 10px;
+}
+.margin-left-10{
+  margin-left:10px;
+}
+.margin-left-20{
+  margin-left:20px;
+}
+.margin-top-20{
+  margin-top: 20px;
+}
+.margin-top-10{
+  margin-top: 10px;
+}
+.margin-bottom-20{
+  margin-bottom: 20px;
+}
+.border-box{
+  box-sizing: border-box;
+}
+.width-100p{
+  width:100%;
+}
+.width-50p{
+  width:50%;
+}
+.width-auto{
+	width: auto !important;
+}
+.height-100p{
+	height:100%;
+}

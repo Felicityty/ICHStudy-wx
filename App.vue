@@ -14,4 +14,9 @@
 
 <style>
 	/*每个页面公共css */
+	page {
+		width: 750rpx;
+		background: white;
+	}
+
 </style>
