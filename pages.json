@@ -1,6 +1,18 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
+			"path": "pages/VR/index",
+			"style": {
+				"navigationBarTitleText": "VR/AR"
+			}
+		},
+		{
+			"path": "pages/VR/vrDetail",
+			"style": {
+				"navigationBarTitleText": "VR详情"
+			}
+		},
+		{
 			"path": "pages/home/index",
 			"style": {
 				"navigationBarTitleText": "首页"
