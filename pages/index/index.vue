@@ -64,4 +64,20 @@
 		font-size: 36rpx;
 		color: #8f8f94;
 	}
+	
+	.bottom-bar {
+		height: 98rpx;
+		width: 100%;
+		background-color: #ff0000;
+		position: fixed;
+		bottom: 68rpx;
+	}
+	
+	.bottom {
+		height: 68rpx;
+		width: 100%;
+		background-color: #007AFF;
+		position: fixed;
+		bottom: 0;
+	}
 </style>
