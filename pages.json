@@ -1,22 +1,74 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
-			"path": "pages/index/index",
+			"path": "pages/home/index",
 			"style": {
-				"navigationBarTitleText": "index"
+				"navigationBarTitleText": "首页"
 			}
 		},
 		{
-			"path": "pages/home/index",
+			"path": "pages/tourist/index",
 			"style": {
-				"navigationBarTitleText": "home"
+				"navigationBarTitleText": "研学旅行"
+			}
+		},
+		{
+			"path": "pages/products/index",
+			"style": {
+				"navigationBarTitleText": "文创产品"
+			}
+		},
+		{
+			"path": "pages/me/index",
+			"style": {
+				"navigationBarTitleText": "我的"
+			}
+		},
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "index"
 			}
 		}
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
+		"navigationBarBackgroundColor": "#F9F3EB"
+	},
+	"tabBar":{
+		"color": "#7A5A32",
+		"selectedColor": "#7A5A32",
+		"backgroundColor": "#E6DECC",
+		"position": "bottom",
+		"borderStyle": "black",
+		"list":[
+			{
+				"pagePath": "pages/home/index",
+				"text": "首页",
+				"iconPath": "./static/images/buttomIcons/home-1.png",
+				"selectedIconPath": "static/images/buttomIcons/home-2.png"
+			},
+			{
+				"pagePath": "pages/tourist/index",
+				"text": "研学旅行",
+				"iconPath": "./static/images/buttomIcons/tourist-1.png",
+				"selectedIconPath": "static/images/buttomIcons/tourist-2.png"
+			},
+			{
+				"pagePath": "pages/products/index",
+				"text": "文创产品",
+				"iconPath": "./static/images/buttomIcons/product-1.png",
+				"selectedIconPath": "./static/images/buttomIcons/product-2.png"
+			},
+			{
+				"pagePath": "pages/me/index",
+				"text": "我的",
+				"iconPath": "static/images/buttomIcons/me-1.png",
+				"selectedIconPath": "./static/images/buttomIcons/me-2.png"
+			}
+		]
+		
 	}
+	
 }

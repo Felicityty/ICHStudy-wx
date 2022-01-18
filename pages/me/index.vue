@@ -10,7 +10,7 @@
 	export default {
 		data() {
 			return {
-				title: '首页'
+				title: '我的'
 			}
 		},
 		onLoad() {

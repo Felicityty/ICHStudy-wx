@@ -16,7 +16,7 @@
 	/*每个页面公共css */
 	page {
 		width: 750rpx;
-		background: white;
+		background: #F9F3EB;
 	}
 
 </style>
