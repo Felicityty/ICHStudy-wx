@@ -1,86 +1,142 @@
 {
-	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-		{
-			"path": "pages/VR/index",
-			"style": {
-				"navigationBarTitleText": "VR/AR"
-			}
-		},
-		{
-			"path": "pages/VR/vrDetail",
-			"style": {
-				"navigationBarTitleText": "VR详情"
-			}
-		},
-		{
-			"path": "pages/home/index",
-			"style": {
-				"navigationBarTitleText": "首页"
-			}
-		},
-		{
-			"path": "pages/tourist/index",
-			"style": {
-				"navigationBarTitleText": "研学旅行"
-			}
-		},
-		{
-			"path": "pages/products/index",
-			"style": {
-				"navigationBarTitleText": "文创产品"
-			}
-		},
-		{
-			"path": "pages/me/index",
-			"style": {
-				"navigationBarTitleText": "我的"
-			}
-		},
-		{
-			"path": "pages/index/index",
-			"style": {
-				"navigationBarTitleText": "index"
-			}
-		}
-	],
-	"globalStyle": {
-		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F9F3EB"
-	},
-	"tabBar":{
-		"color": "#7A5A32",
-		"selectedColor": "#7A5A32",
-		"backgroundColor": "#E6DECC",
-		"position": "bottom",
-		"borderStyle": "black",
-		"list":[
-			{
-				"pagePath": "pages/home/index",
-				"text": "首页",
-				"iconPath": "./static/images/buttomIcons/home-1.png",
-				"selectedIconPath": "static/images/buttomIcons/home-2.png"
-			},
-			{
-				"pagePath": "pages/tourist/index",
-				"text": "研学旅行",
-				"iconPath": "./static/images/buttomIcons/tourist-1.png",
-				"selectedIconPath": "static/images/buttomIcons/tourist-2.png"
-			},
-			{
-				"pagePath": "pages/products/index",
-				"text": "文创产品",
-				"iconPath": "./static/images/buttomIcons/product-1.png",
-				"selectedIconPath": "./static/images/buttomIcons/product-2.png"
-			},
-			{
-				"pagePath": "pages/me/index",
-				"text": "我的",
-				"iconPath": "static/images/buttomIcons/me-1.png",
-				"selectedIconPath": "./static/images/buttomIcons/me-2.png"
-			}
-		]
-		
-	}
-	
+    "pages" : [
+        // pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+        {
+            "path" : "pages/home/index",
+            "style" : {
+                "navigationBarTitleText" : "首页",
+                "enablePullDownRefresh" : true
+            }
+        },
+				{
+            "path" : "pages/home/course/index",
+            "style" : {
+                "navigationBarTitleText" : "研学课程",
+                "enablePullDownRefresh" : true
+            }
+        },
+        {
+            "path" : "pages/home/course/detail",
+            "style" : {
+                "navigationBarTitleText" : "课程详情",
+                "enablePullDownRefresh" : true
+            }
+        },
+				{
+            "path" : "pages/VR/index",
+            "style" : {
+                "navigationBarTitleText" : "VR/AR",
+                "enablePullDownRefresh" : true
+            }
+        },
+        {
+            "path" : "pages/VR/vrDetail",
+            "style" : {
+                "navigationBarTitleText" : "VR详情",
+                "enablePullDownRefresh" : true
+            }
+        },
+        {
+            "path" : "pages/products/index",
+            "style" : {
+                "navigationBarTitleText" : "文创产品",
+                "enablePullDownRefresh" : true
+            }
+        },
+        {
+            "path" : "pages/tourist/index",
+            "style" : {
+                "navigationBarTitleText" : "研学旅行",
+                "enablePullDownRefresh" : true
+            }
+        },
+        {
+            "path" : "pages/me/index",
+            "style" : {
+                "navigationBarTitleText" : "我的",
+                "enablePullDownRefresh" : true
+            }
+        },
+				{
+				    "path" : "pages/me/setting/index",
+				    "style" : {
+				        "navigationBarTitleText" : "个人设置",
+				        "enablePullDownRefresh" : true
+				    }
+				},
+				{
+				    "path" : "pages/me/setting/history",
+				    "style" : {
+				        "navigationBarTitleText" : "历史记录",
+				        "enablePullDownRefresh" : true
+				    }
+				},
+				{
+				    "path" : "pages/me/setting/nickname",
+				    "style" : {
+				        "navigationBarTitleText" : "昵称",
+				        "enablePullDownRefresh" : true
+				    }
+				},
+				{
+				    "path" : "pages/me/setting/signature",
+				    "style" : {
+				        "navigationBarTitleText" : "个人签名",
+				        "enablePullDownRefresh" : true
+				    }
+				},
+				{
+				    "path" : "pages/me/setting/language",
+				    "style" : {
+				        "navigationBarTitleText" : "语言",
+				        "enablePullDownRefresh" : true
+				    }
+				},
+        {
+            "path" : "pages/index/index",
+            "style" : {
+                "navigationBarTitleText" : "index",
+                "enablePullDownRefresh" : true
+            }
+        }
+    ],
+    "globalStyle" : {
+        "navigationBarTextStyle" : "black",
+        "navigationBarTitleText" : "uni-app",
+        "navigationBarBackgroundColor" : "#F9F3EB",
+        "backgroundColor" : "#F9F3EB"
+    },
+    "tabBar" : {
+        "color" : "#7A5A32",
+        "selectedColor" : "#7A5A32",
+        "backgroundColor" : "#E6DECC",
+        "position" : "bottom",
+        "borderStyle" : "black",
+        "list" : [
+            {
+                "pagePath" : "pages/home/index",
+                "text" : "首页",
+                "iconPath" : "./static/images/buttomIcons/home-1.png",
+                "selectedIconPath" : "static/images/buttomIcons/home-2.png"
+            },
+            {
+                "pagePath" : "pages/tourist/index",
+                "text" : "研学旅行",
+                "iconPath" : "./static/images/buttomIcons/tourist-1.png",
+                "selectedIconPath" : "static/images/buttomIcons/tourist-2.png"
+            },
+            {
+                "pagePath" : "pages/products/index",
+                "text" : "文创产品",
+                "iconPath" : "./static/images/buttomIcons/product-1.png",
+                "selectedIconPath" : "./static/images/buttomIcons/product-2.png"
+            },
+            {
+                "pagePath" : "pages/me/index",
+                "text" : "我的",
+                "iconPath" : "static/images/buttomIcons/me-1.png",
+                "selectedIconPath" : "./static/images/buttomIcons/me-2.png"
+            }
+        ]
+    }
 }
