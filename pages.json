@@ -9,7 +9,7 @@
 			}
 		},
 		{
-			"path": "./pages/home/course/index",
+			"path": "pages/home/course/index",
 			"style": {
 				"navigationBarTitleText": "研学课程",
 				"enablePullDownRefresh": true
@@ -83,7 +83,7 @@
 		  }
 		},
 		{
-		  "path" : "./pages/me/setting/signature",
+		  "path" : "pages/me/setting/signature",
 			"style" : {
 			  "navigationBarTitleText" : "个人签名"
 		  }
