@@ -13,6 +13,9 @@
 </script>
 
 <style>
+	
+	@import url("static/fonts/fonts.css");
+	
 	/*每个页面公共css */
 	page {
 		width: 750rpx;

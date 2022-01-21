@@ -1,6 +1,13 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
+			"path": "pages/home/index",
+			"style": {
+				"navigationBarTitleText": "首页",
+				"navigationStyle": "custom"
+			}
+		},
+		{
 			"path": "pages/VR/index",
 			"style": {
 				"navigationBarTitleText": "VR/AR"
@@ -9,13 +16,8 @@
 		{
 			"path": "pages/VR/vrDetail",
 			"style": {
-				"navigationBarTitleText": "VR详情"
-			}
-		},
-		{
-			"path": "pages/home/index",
-			"style": {
-				"navigationBarTitleText": "首页"
+				"navigationBarTitleText": "VR详情",
+				"navigationStyle": "custom"
 			}
 		},
 		{
@@ -34,6 +36,30 @@
 			"path": "pages/me/index",
 			"style": {
 				"navigationBarTitleText": "我的"
+			}
+		},
+		{
+			"path": "pages/about/index",
+			"style": {
+				"navigationBarTitleText": "关于"
+			}
+		},
+		{
+			"path": "pages/about/platformIntro",
+			"style": {
+				"navigationBarTitleText": "平台介绍"
+			}
+		},
+		{
+			"path": "pages/about/aboutUs",
+			"style": {
+				"navigationBarTitleText": "关于我们"
+			}
+		},
+		{
+			"path": "pages/about/teamIntro",
+			"style": {
+				"navigationBarTitleText": "团队介绍"
 			}
 		},
 		{
