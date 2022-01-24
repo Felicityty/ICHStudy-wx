@@ -11,19 +11,20 @@
 		
 		<view class="video_list">
 			<view class="video_list_click" @click="showAll = !showAll">
-				<text style="color: #382321; font-size: 32rpx;">视频列表</text>
-				<image :src="Unfold()" mode="aspectFit" class="video_list_img"></image>
+				<text class="video_list_headtext">视频列表</text>
+				<image :src="unfold()" mode="aspectFit" class="video_list_img"></image>
 			</view>
-			<view v-for="(item, index) in showList" :key="item" class="video_list_content">{{item}}
-			<image src="../../../static/images/iCons/zhengzaibofang.png" mode="aspectFit" class="video_list_content_img"></image>
+			<view v-for="(item, index) in showList" :key="item" class="video_list_content" @click="select(index)">
+			{{item.name}}
+			<image :src="video(index)" mode="aspectFit" class="video_list_content_img"></image>
 			</view>
 		</view>
 		
 		<view class="commend">推荐</view>
 		<view class="course_commend">
-			<view class="course_commend_content" v-for="(item,index) in courseItem" :key="index">
+			<view class="course_commend_content" v-for="(item,index) in courseItem" :key="item" @click="go()">
 				<image :src="item.img" mode="aspectFill" class="course_commend_img"></image>
-				<text style="color: #382321; font-size: 28rpx; margin-top: 20rpx;">{{ item.name }}</text>
+				<text class="course_commend_text">{{ item.name }}</text>
 			</view>
 		</view>
 	</view>
@@ -35,8 +36,20 @@
 			return{
 				name: '皮影之光',
 				details: '皮影戏，旧称“影子戏”或“灯影戏”，是一种用蜡烛或燃烧的酒精等光源照射兽皮或纸板做成的人物剪影以表演故事的民间戏剧。',
-			  toLearnList:['皮影操纵学习','皮影欣赏','aabb','aabbcc','aabbccdd','aabbccddee'],   //进行显示的数据
-			  showAll:false,
+			  toLearnList:[
+					{
+						name: '皮影操纵学习'
+					},
+					{
+						name: '皮影欣赏'
+					},
+					{
+						name: 'aaa'
+					}
+				],   //进行显示的数据
+			  showAll: false,
+				play: 0,
+				bofang: '../../../static/images/iCons/zhengzaibofang.png',
 				courseItem: [
 					{
 						name: '富阳剪纸',
@@ -58,29 +71,45 @@
 			}
 		},
 		methods:{
-			Unfold(){
+			go(){
+				console.log(1)
+				uni.navigateTo({
+					url: "../course/detail"
+				})
+			},
+			unfold(){
 				if(this.showAll == false){　　　　　　　　　　　//对箭头进行处理
 				    return '../../../static/images/iCons/arrowDownBrown.png'
 				  }else{
 				    return '../../../static/images/iCons/arrowUpBrown.png'
-				  } 
+				} 
+			},
+			select(index){
+				this.play = index
+			},
+			video(index){
+				if(this.play === index){　　　　　　　　　　　
+				    return '../../../static/images/iCons/zhengzaibofang.png'
+				  }else{
+				    return ''
+				}
 			}
 		},
 		computed:{
 		   showList:function(){
 		     if(this.showAll == false){                    //当数据不需要完全显示的时候
-		       var showList = [];　　　　　　　　　　　　　　//定义一个空数组
-		       if(this.toLearnList.length > 0){　　　　　　//先不显示
-		         for(var i=0;i<0;i++){
-		           showList.push(this.toLearnList[i])
-		         }
-		       }else{
-		         showList = this.toLearnList
-		       }
-		       return showList;　　　　　　　　　　　　　　　　 //返回当前数组
-		     }else{
-		       return this.toLearnList;
-		     }
+		      let showList = [];　　　　　　　　　　　　　　//定义一个空数组
+		      if(this.toLearnList.length > 0){　　　　　　//先不显示
+		        for(var i=0;i<0;i++){
+		          showList.push(this.toLearnList[i])
+		        }
+		      }else{
+		        showList = this.toLearnList
+		      }
+		      return showList;　　　　　　　　　　　　　　　　 //返回当前数组
+		    }else{
+		      return this.toLearnList;
+		    }
 		   }
 		 }
 	}
@@ -127,6 +156,11 @@
 		top: 510rpx;
 	}
 	
+	.video_list_headtext{
+		color: #382321; 
+		font-size: 32rpx;
+	}
+	
 	.video_list_click{
 		width: 654rpx;
 		height: 64rpx;
@@ -150,7 +184,6 @@
 		align-items: center;
 		color: #382321;
 		margin-top: 20rpx;
-		
 	}
 	
 	.video_list_content_img{
@@ -190,5 +223,11 @@
 		width: 312rpx;
 		height: 208rpx;
 		border-radius: 20rpx;
+	}
+	
+	.course_commend_text{
+		color: #382321; 
+		font-size: 28rpx; 
+		margin-top: 20rpx;
 	}
 </style>

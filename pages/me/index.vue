@@ -1,26 +1,26 @@
 <template>
 	<view class="container">
-		<view class="user">
-			<image src="../../static/images/iCons/touxiang.png" mode="aspectFill" style="width: 104rpx; height: 104rpx;"></image>
+		<view class="user" @click="set()">
+			<image :src="touxiang" mode="aspectFill" style="width: 104rpx; height: 104rpx;"></image>
 			<text class="user_name">{{username}}</text>
-			<image src="../../static/images/iCons/arrowRightLightbrown.png" mode="aspectFill" class="user_arrow"></image>
+			<image :src="arrow" mode="aspectFill" class="user_arrow"></image>
 		</view>
 		
 		<view class="content">
 			<view class="point">
 				<view class="point_score">{{point}}</view>
-				<text style="font-size: 28rpx;color: #73615D;">积分</text>
+				<text class="point_text">积分</text>
 			</view>
 			<view class="duration">
 				<view class="duration_score">{{hour}} H {{minute}} M </view>
-				<text style="font-size: 28rpx;color: #73615D;">学习总时长</text>
+				<text class="point_text">学习总时长</text>
 			</view>
 			<view class="times">
-				<text style="font-size: 28rpx;color: #73615D;margin-left: 30rpx;">观看视频总次数</text>
+				<text class="times_text">观看视频总次数</text>
 				<view class="times_time">{{times}}</view>
 			</view>
 			<view class="max">
-				<text style="font-size: 24rpx;color: #73615D;margin-left:30rpx;margin-top:24rpx">观看最多的视频</text>
+				<text class="max_text">观看最多的视频</text>
 				<view class="max_content">
 					<view class="max_video">{{maxVideo}}</view>
 					<view class="max_time">{{maxTimes}}</view>
@@ -28,28 +28,16 @@
 			</view>
 			
 			<view class="setting">
-				<view class="history">
-					<text style="font-size: 28rpx;color: #382321;">历史记录</text>
-					<image src="../../static/images/iCons/arrowRightLightbrown.png" mode="aspectFill" class="setting_arrow"></image>
-				</view>
-				<view class="language">
-					<text style="font-size: 28rpx;color: #382321;">语言</text>
-					<image src="../../static/images/iCons/arrowRightLightbrown.png" mode="aspectFill" class="setting_arrow"></image>
-				</view>
-				<view class="about">
-					<text style="font-size: 28rpx;color: #382321;">关于</text>
-					<image src="../../static/images/iCons/arrowRightLightbrown.png" mode="aspectFill" class="setting_arrow"></image>
+				<view class="setting_item" v-for="(item, index) in settingItems" :key="index" @click="go(item.url)">
+					<view class="text">{{item.name}}</view>
+					<image :src="arrow" mode="aspectFill" class="setting_arrow"></image>
 				</view>
 			</view>
 				
 			<view class="shopping">
-				<view class="location">
-					<text style="font-size: 28rpx;color: #382321;">我的地址</text>
-					<image src="../../static/images/iCons/arrowRightLightbrown.png" mode="aspectFill" class="setting_arrow"></image>
-				</view>
-				<view class="order">
-					<text style="font-size: 28rpx;color: #382321;">我的订单</text>
-					<image src="../../static/images/iCons/arrowRightLightbrown.png" mode="aspectFill" class="setting_arrow"></image>
+				<view class="shopping_item" v-for="(item, index) in shoppingItems" :key="index" @click="go(item.url)">
+					<view class="text">{{item.name}}</view>
+					<image :src="arrow" mode="aspectFill" class="setting_arrow"></image>
 				</view>
 			</view>
 			<button type="default" class="btn">退出登录</button>
@@ -62,6 +50,32 @@
 	export default {
 		data() {
 			return {
+				touxiang: '../../static/images/iCons/touxiang.png',
+				arrow: '../../static/images/iCons/arrowRightLightbrown.png',
+				settingItems: [
+					{
+						name: '历史记录',
+						url: 'history'
+					},
+					{
+						name: '语言',
+						url: 'language'
+					},
+					{
+						name: '关于',
+						url: 'about'
+					}
+				],
+				shoppingItems: [
+					{
+						name: '我的地址',
+						url: ''
+					},
+					{
+						name: '我的订单',
+						url: ''
+					}
+				],
 				username: '用户名',
 				point: 0,
 				hour: 0,
@@ -75,7 +89,23 @@
 
 		},
 		methods: {
-
+			set(){
+				console.log(1)
+				uni.navigateTo({
+					url: "./setting/index"
+				})
+			},
+			go(url) {
+				if (url === 'history' || url === 'language') {
+					uni.navigateTo({
+						url: './setting/' + url
+					})
+				} else if (url === 'about') {
+					uni.navigateTo({
+						url: './../about/index'
+					})
+				}
+			},
 		}
 	}
 </script>
@@ -87,6 +117,29 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
+	}
+	
+	.text{
+		font-size: 28rpx;
+		color: #382321;
+	}
+	
+	.times_text{
+		font-size: 28rpx;
+		color: #73615D;
+		margin-left: 30rpx;
+	}
+	
+	.max_text{
+		font-size: 24rpx;
+		color: #73615D;
+		margin-left:30rpx;
+		margin-top:24rpx;
+	}
+	
+	.point_text{
+		font-size: 28rpx;
+		color: #73615D;
 	}
 	
 	.user{
@@ -206,9 +259,9 @@
 		height: 28rpx;
 	}
 	
-	.history,.language,.about{
+	.setting_item{
 		width: 594rpx;
-		height: 79rpx;
+		height: 80rpx;
 		display: flex;
 		flex-direction: row;
 		align-items: center;
@@ -216,11 +269,6 @@
 		margin-left: 30rpx;
 		margin-top: 0rpx;
 		border-bottom: 2rpx solid #E5E5E5;
-	}
-	
-	.about{
-		height: 80rpx;
-		border: 0;
 	}
 	
 	.shopping{
@@ -234,9 +282,9 @@
 		background-color: #FFFFFF;
 	}
 	
-	.location,.order{
+	.shopping_item{
 		width: 594rpx;
-		height: 79rpx;
+		height: 80rpx;
 		display: flex;
 		flex-direction: row;
 		align-items: center;
@@ -244,11 +292,6 @@
 		margin-left: 30rpx;
 		margin-top: 0rpx;
 		border-bottom: 2rpx solid #E5E5E5;
-	}
-	
-	.order{
-		height: 80rpx;
-		border: 0;
 	}
 	
 	.btn{

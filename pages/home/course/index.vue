@@ -8,7 +8,7 @@
 		</view>
 		
 		<view class="content">
-			<view class="course_content" v-for="(item,index) in courseItem" :key="index">
+			<view class="course_content" v-for="(item,index) in courseItem" :key="index" @click="go()">
 				<image :src="item.img" mode="aspectFill" class="course_content_img"></image>
 				<text class="course_content_name">{{ item.name }}</text>
 				<text class="course_content_intro">{{item.intro}}</text>
@@ -64,6 +64,14 @@
 					}
 				]
 			}
+		},
+		methods:{
+			go(){
+				console.log(1)
+				uni.navigateTo({
+					url: "../course/detail"
+				})
+			},
 		}
 	}
 </script>

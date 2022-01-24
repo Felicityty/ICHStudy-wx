@@ -1,13 +1,8 @@
 <template>
 	<view class="container">
-		<view class="chinese">
-			<text style="font-size: 32rpx;color: #382321;">简体中文</text>
-			<image src="../../../static/images/iCons/check.png" mode="aspectFill" class="check"></image>
-		</view>
-		
-		<view class="english">
-			<text style="font-size: 32rpx;color: #382321;">English</text>
-			<image src="../../../static/images/iCons/check.png" mode="aspectFill" class="check"></image>
+		<view class="language" v-for="(item,index) in lanItem" :key="item" @click="lanselect(index)">
+			{{item}}
+			<image :src="lan(index)" mode="aspectFill" class="check"></image>
 		</view>
 	</view>
 </template>
@@ -16,14 +11,24 @@
 	export default {
 		data() {
 			return {
-				
+				lanItem: ['简体中文','English'],
+				checked: 0
 			}
 		},
 		onLoad() {
 	
 		},
 		methods: {
-	
+			lanselect(index){
+				this.checked = index
+			},
+			lan(index){
+				if(this.checked == index){　　　　　　　　　　　
+				    return '../../../static/images/iCons/check.png'
+				  }else{
+				    return ''
+				}
+			}
 		}
 	}
 </script>
@@ -42,18 +47,16 @@
 		height: 40rpx;
 	}
 	
-	.chinese,.english{
+	.language{
 		width: 654rpx;
-		height: 79rpx;
+		height: 80rpx;
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
 		align-items: center;
 		margin-top: 12rpx;
 		border-bottom: 2rpx solid #E5E5E5;
-	}
-	
-	.english{
-		margin-top: 0rpx;
+		font-size: 32rpx;
+		color: #382321;
 	}
 </style>

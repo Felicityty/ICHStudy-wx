@@ -1,48 +1,48 @@
 <template>
-	<view class="container">
+	<view class="container">	
 		<view class="photo">
-			<text style="font-size: 32rpx;color: #382321;">头像：</text>
-			<image src="../../../static/images/iCons/touxiang.png" mode="aspectFill" class="photo_img"></image>
-			<image src="../../../static/images/iCons/arrowRightLightbrown.png" mode="aspectFill" class="arrow"></image>
+			<text class="text">头像：</text>
+			<image :src="touxiang" mode="aspectFill" class="photo_img"></image>
+			<image :src="arrow" mode="aspectFill" class="arrow"></image>
 		</view>
 		
 		<view class="account">
-			<text style="font-size: 32rpx;color: #382321;">账号：</text>
+			<text class="text">账号：</text>
 			<view class="account_right">
 				<view class="account_content">{{account}}</view>
-				<image src="../../../static/images/iCons/arrowRightLightbrown.png" mode="aspectFill" class="arrow"></image>
+				<image :src="arrow" mode="aspectFill" class="arrow"></image>
 			</view>
 		</view>
 		
-		<view class="nickname">
-			<text style="font-size: 32rpx;color: #382321;">昵称：</text>
+		<view class="nickname" @click="nick()">
+			<text class="text">昵称：</text>
 			<view class="nickname_right">
 				<view class="nickname_content">{{nickname}}</view>
-				<image src="../../../static/images/iCons/arrowRightLightbrown.png" mode="aspectFill" class="arrow"></image>
+				<image :src="arrow" mode="aspectFill" class="arrow"></image>
 			</view>
 		</view>
 		
-		<view class="signature">
-			<text style="font-size: 32rpx;color: #382321;">个性签名：</text>
+		<view class="signature" @click="sign()">
+			<text class="text">个性签名：</text>
 			<view class="signature_right">
 				<view class="signature_content">{{signature}}</view>
-				<image src="../../../static/images/iCons/arrowRightLightbrown.png" mode="aspectFill" class="arrow"></image>
+				<image :src="arrow" mode="aspectFill" class="arrow"></image>
 			</view>
 		</view>
 		
 		<view class="email">
-			<text style="font-size: 32rpx;color: #382321;">邮箱：</text>
+			<text class="text">邮箱：</text>
 			<view class="email_right">
 				<view class="email_content">{{email}}</view>
-				<image src="../../../static/images/iCons/arrowRightLightbrown.png" mode="aspectFill" class="arrow"></image>
+				<image :src="arrow" mode="aspectFill" class="arrow"></image>
 			</view>
 		</view>
 		
 		<view class="password">
-			<text style="font-size: 32rpx;color: #382321;">密码：</text>
+			<text class="text">密码：</text>
 			<view class="password_right">
 				<view class="password_content">{{password}}</view>
-				<image src="../../../static/images/iCons/arrowRightLightbrown.png" mode="aspectFill" class="arrow"></image>
+				<image :src="arrow" mode="aspectFill" class="arrow"></image>
 			</view>
 		</view>
 	</view>
@@ -52,6 +52,8 @@
 	export default {
 		data() {
 			return {
+				touxiang: '../../../static/images/iCons/touxiang.png',
+				arrow: '../../../static/images/iCons/arrowRightLightbrown.png',
 				account: 'ASDFGHJK123',
 				nickname: '',
 				signature: '',
@@ -63,7 +65,18 @@
 	
 		},
 		methods: {
-	
+			nick(){
+				console.log(1)
+				uni.navigateTo({
+					url: "../setting/nickname"
+				})
+			},
+			sign(){
+				console.log(1)
+				uni.navigateTo({
+					url: "../setting/signature"
+				})
+			}
 		}
 	}
 </script>
@@ -75,6 +88,11 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
+	}
+	
+	.text{
+		font-size: 32rpx;
+		color: #382321;
 	}
 	
 	.arrow{

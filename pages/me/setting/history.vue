@@ -6,7 +6,7 @@
 			<view class="head_txt">学习时长</view>
 		</view>
 		
-		<view class="history" v-for="(item,index) in history">
+		<view class="history" v-for="(item,index) in history" :key="item">
 			<view class="history_content">
 				<view class="history_name">
 					<view>{{item.name}}</view>
@@ -119,7 +119,7 @@
 		justify-content: space-between;
 		align-items: center;
 		margin-top: 28rpx;
-		padding-bottom: 28rpx;
+		padding-bottom: 30rpx;
 	}
 	
 	.history_name{
