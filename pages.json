@@ -23,14 +23,14 @@
 			}
 		},
 		{
-			"path": "pages/VR/index",
+			"path": "pages/home/VR/index",
 			"style": {
 				"navigationBarTitleText": "VR/AR",
 				"enablePullDownRefresh": true
 			}
 		},
 		{
-			"path": "pages/VR/vrDetail",
+			"path": "pages/home/VR/vrDetail",
 			"style": {
 				"navigationBarTitleText": "VR详情",
 				"navigationStyle": "custom",

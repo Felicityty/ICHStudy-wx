@@ -2,12 +2,12 @@
 		<view class="content">
 			
 			<view class="searchBox">
-				<image src="../../static/images/iCons/search.png" class="searchIcon"></image>
+				<image src="../../../static/images/iCons/search.png" class="searchIcon"></image>
 				<view class="searchText">搜索VR/AR名称</view>
 			</view>
 			
 			<view class="listView">
-				<view class="listItem" v-for="(item, index) in vrItem" :key="index">
+				<view class="listItem" v-for="(item, index) in vrItem" :key="index" @click="goDetail(item.url)">
 					<image class="listViewPic" :src="item.img"></image>
 					<view class="listViewText">{{item.name}}</view>
 				</view>
@@ -24,27 +24,33 @@
 				vrItem: [
 					{
 						name: "沙村",
-						img: "../../static/images/vrPic/sc.png"
+						img: "../../../static/images/vrPic/sc.png",
+						url: ""
 					},
 					{
 						name: "十里红妆博物馆",
-						img: "../../static/images/vrPic/slhz.png"
+						img: "../../../static/images/vrPic/slhz.png",
+						url: "./vrDetail"
 					},
 					{
 						name: "舟山博物馆",
-						img: "../../static/images/vrPic/zs.png"
+						img: "../../../static/images/vrPic/zs.png",
+						url: ""
 					},
 					{
 						name: "定海古城",
-						img: "../../static/images/vrPic/dhgc.png"
+						img: "../../../static/images/vrPic/dhgc.png",
+						url: ""
 					},
 					{
 						name: "龙珠",
-						img: "../../static/images/vrPic/lz.png"
+						img: "../../../static/images/vrPic/lz.png",
+						url: ""
 					},
 					{
 						name: "金沙",
-						img: "../../static/images/vrPic/js.png"
+						img: "../../../static/images/vrPic/js.png",
+						url: ""
 					}
 				]
 			}
@@ -53,7 +59,11 @@
 
 		},
 		methods: {
-			
+			goDetail(e) {
+				uni.navigateTo({
+					url: e
+				})
+			},
 		}
 	}
 </script>

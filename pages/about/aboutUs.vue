@@ -1,7 +1,7 @@
 <template>
 		<view class="content">
 			
-			<view class="logoGroup">
+			<view class="logo-group">
 				<image class="logo" :src="logo"></image>
 				<view class="name">{{name}}</view>
 				<view class="platform">{{platform}}</view>
@@ -39,7 +39,7 @@
 		position: relative;
 	}
 	
-	.logoGroup{
+	.logo-group{
 		display: flex;
 		align-items: center;
 		flex-direction: column;

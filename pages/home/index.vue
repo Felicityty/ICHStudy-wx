@@ -11,7 +11,7 @@
 					
 					<view class="row">
 						<view class="title">课程</view>
-						<view class="allCourse">
+						<view class="allCourse" @click="goCourse()">
 							<view class="allText">全部</view>
 							<view class="allArrow">
 								<img class="arrowRight" src="../../static/images/iCons/arrowRightGrey.png">
@@ -31,7 +31,7 @@
 					
 					<view class="row">
 						<view class="title">VR</view>
-						<view class="allVR">
+						<view class="allVR" @click="goVR()">
 							<view class="allText">全部</view>
 							<view class="allArrow">
 								<img class="arrowRight" src="../../static/images/iCons/arrowRightGrey.png">
@@ -91,7 +91,18 @@
 
 		},
 		methods: {
-
+			
+			goCourse() {
+				uni.navigateTo({
+					url: "./course/index"
+				})
+			},
+			goVR() {
+				uni.navigateTo({
+					url: "./VR/index"
+				})
+			}
+			
 		}
 	}
 </script>

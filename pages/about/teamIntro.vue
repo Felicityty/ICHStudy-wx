@@ -1,10 +1,10 @@
 <template>
 		<view class="content">
 			
-			<view class="listView" v-for="(item, index) in teammates" :key="index">
-				<image class="teammatePic" :src="item.pic"></image>
-				<view class="teammateName">{{item.name}}</view>
-				<div class="teammateIntro" v-html="item.intro"></div>
+			<view class="list-view" v-for="(item, index) in teammates" :key="index">
+				<image class="teammate-pic" :src="item.pic"></image>
+				<view class="teammate-name">{{item.name}}</view>
+				<div class="teammate-intro" v-html="item.intro"></div>
 				<view class="divide"></view>
 			</view>
 			
@@ -61,27 +61,27 @@
 		position: relative;
 	}
 	
-	.listView{
+	.logo-group{
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 	}
 	
-	.teammatePic{
+	.teammate-pic{
 		height: 200rpx;
 		width: 200rpx;
 		border-radius: 20rpx;
 		margin: 48rpx 0 20rpx 0;
 	}
 	
-	.teammateName{
+	.teammate-name{
 		font-weight: 600;
 		font-size: 32rpx;
 		line-height: 46rpx;
 		color: #382321;
 	}
 	
-	.teammateIntro{
+	.teammate-intro{
 		font-size: 24rpx;
 		line-height: 30rpx;
 		color: #382321;

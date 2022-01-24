@@ -1,7 +1,7 @@
 <template>
 		<view class="content">
 			
-			<view class="logoGroup">
+			<view class="logo-group">
 				<image class="logo" :src="logo"></image>
 				<view class="name">{{name}}</view>
 				<view class="platform">{{platform}}</view>
@@ -9,12 +9,12 @@
 			
 			<view class="buttons">
 				
-				<view class="listItems" v-for="(item, index) in buttonItems" :key="index">
+				<view class="list-items" v-for="(item, index) in buttonItems" :key="index" @click="goDetail(item.url)">
 					<!-- v-for 里一定要把item放前面 -->
 					<view class="button">
-						<view class="textBtn">{{item.name}}</view>
-						<view class="arrowBtn">
-							<image class="arrowRight" :src="arrowRight"></image>
+						<view class="text-btn">{{item.name}}</view>
+						<view class="arrow-btn">
+							<image class="arrow-right" :src="arrowRight"></image>
 						</view>
 					</view>
 					<view class="divide"></view>
@@ -36,13 +36,16 @@
 				arrowRight: "../../static/images/iCons/arrowRightGrey.png",
 				buttonItems: [
 					{
-						name: "平台介绍"
+						name: "平台介绍",
+						url: "./platformIntro"
 					},
 					{
-						name: "关于我们"
+						name: "关于我们",
+						url: "./aboutUs"
 					},
 					{
-						name: "团队介绍"
+						name: "团队介绍",
+						url: "./teamIntro"
 					}
 				]
 			}
@@ -51,7 +54,11 @@
 
 		},
 		methods: {
-
+			goDetail(e) {
+				uni.navigateTo({
+					url: e
+				})
+			},
 		}
 	}
 </script>
@@ -63,7 +70,7 @@
 		position: relative;
 	}
 	
-	.logoGroup{
+	.logo-group{
 		display: flex;
 		align-items: center;
 		flex-direction: column;
@@ -103,17 +110,20 @@
 		height: 76rpx;
 	}
 	
-	.textBtn{
+	.text-btn{
 		margin-left: 20.42rpx;
 		font-size: 28rpx;
 		line-height: 40rpx;
 		color: #382321;
 	}
 	
-	.arrowRight{
+	.arrow-right{
 		width: 23rpx;
 		height: 25.7rpx;
-		margin-left: 480rpx;
+		/* margin-left: 480rpx; */
+		position: absolute;
+		right: 10%;
+		transform: translateY(-40%);
 	}
 	
 	.divide{

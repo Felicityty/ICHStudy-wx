@@ -1,8 +1,14 @@
 <template>
 		<view class="content">
+			
 			<view class="bg">
-				<image class="picbg" src="../../static/images/vrPic/slhz.png"></image>
+				<image class="picbg" src="../../../static/images/vrPic/slhz.png"></image>
 			</view>
+			
+			<view class="back" @click="goOff()">
+				<image class="arrow-left" src="../../../static/images/iCons/arrowLeftBrown.png"></image>
+			</view>
+			
 			<view class="container">
 				
 				<view class="intro">
@@ -14,7 +20,7 @@
 				<view class="zhankai">
 					<view class="fold">展开更多</view>
 					<view class="arrow">
-						<image class="arrowDown" src="../../static/images/iCons/arrowDownGrey.png"></image>
+						<image class="arrowDown" src="../../../static/images/iCons/arrowDownGrey.png"></image>
 					</view>
 				</view>
 				
@@ -51,19 +57,20 @@
 				recItem: [
 					{
 						name: "沙村",
-						img: "../../static/images/vrPic/sc.png"
+						img: "../../../static/images/vrPic/sc.png"
 					},
 					{
 						name: "舟山博物馆",
-						img: "../../static/images/vrPic/zs.png"
+						img: "../../../static/images/vrPic/zs.png"
 					},
 					{
 						name: "定海古城",
-						img: "../../static/images/vrPic/dhgc.png"
+						img: "../../../static/images/vrPic/dhgc.png"
 					},
 				],
 				vr360:{
-					img: "../../static/images/vrPic/vr360.png"
+					img: "../../../static/images/vrPic/vr360.png",
+					url: "http://47.114.116.87:3001/"
 				}
 			}
 		},
@@ -71,6 +78,10 @@
 
 		},
 		methods: {
+			goOff() {
+				uni.navigateBack({
+				});
+			},
 			
 		}
 	}
@@ -81,6 +92,23 @@
 		width: 750rpx;
 		height: 100%;
 		position: relative;
+	}
+	
+	.back{
+		height: 58rpx;
+		width: 58rpx;
+		background-color: #FFFFFF;
+		border-radius: 100rpx;
+		position: absolute;
+		top: 90rpx;
+		left: 48rpx;
+
+	}
+	
+	.arrow-left{
+		margin-top: 7rpx;
+		height: 43rpx;
+		width: 57rpx;
 	}
 	
 	.bg{
