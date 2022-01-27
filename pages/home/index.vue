@@ -20,7 +20,8 @@
 					</view>
 					
 					<view class="listView">
-						<view class="cou" v-for="(item, index) in courseItem" :key="index">
+					<!-- <view class="listView" bindtouchstart='touchStart' bindtouchmove='touchMove' bindtouchend='touchEnd' :style="'margin-left:' + left + 'rpx'"> -->
+						<view class="listView-tile" v-for="(item, index) in courseItem" :key="index">
 							<image class="couPic" :src="item.img"></image>
 							<view class="couName">{{item.name}}</view>
 						</view>
@@ -40,7 +41,7 @@
 					</view>
 					
 					<view class="listView">
-						<view class="cou" v-for="(item, index) in vrItem" :key="key">
+						<view class="listView-tile" v-for="(item, index) in vrItem" :key="index" @click="goDetail(item.url)">
 							<image class="couPic" :src="item.img"></image>
 							<view class="couName">{{item.name}}</view>
 						</view>
@@ -60,31 +61,38 @@
 				courseItem: [
 					{
 						name: "扯白糖",
-						img: "../../static/images/coursePic/course1.png"
+						img: "../../static/images/coursePic/course1.png",
+						url: ""
 					},
 					{
 						name: "圆木制作",
-						img: "../../static/images/coursePic/course3.png"
+						img: "../../static/images/coursePic/course3.png",
+						url: ""
 					},
 					{
 						name: "十里红妆博物馆",
-						img: "../../static/images/coursePic/course4.png"
+						img: "../../static/images/coursePic/course4.png",
+						url: ""
 					},
 				],
 				vrItem: [
 					{
 						name: "十里红妆博物馆",
-						img: "../../static/images/vrPic/slhz.png"
+						img: "../../static/images/vrPic/slhz.png",
+						url: "./VR/vrDetail"
 					},
 					{
 						name: "舟山博物馆",
-						img: "../../static/images/vrPic/zs.png"
+						img: "../../static/images/vrPic/zs.png",
+						url: ""
 					},
 					{
 						name: "定海古城",
-						img: "../../static/images/vrPic/dhgc.png"
+						img: "../../static/images/vrPic/dhgc.png",
+						url: ""
 					},
 				],
+				
 			}
 		},
 		onLoad() {
@@ -101,8 +109,38 @@
 				uni.navigateTo({
 					url: "./VR/index"
 				})
-			}
+			},
+			goDetail(e) {
+				uni.navigateTo({
+					url: e
+				})
+			},
 			
+			// touchStart: function(e){
+			//     // console.log(e.touches[0].pageX)
+			//     let sx = e.touches[0].pageX
+			//     let sy = e.touches[0].pageY
+			//     this.data.touchS = [sx,sy]
+			//   },
+			//   touchMove: function(e){
+			//     let sx = e.touches[0].pageX;
+			//     let sy = e.touches[0].pageY;
+			//     this.data.touchE = [sx, sy]
+			//   },
+			//   touchEnd: function(e){
+			//     let start = this.data.touchS
+			//     let end = this.data.touchE
+			//     console.log(start)
+			//     console.log(end)
+			//     if(start[0] < end[0] - 50){
+			//       this.left = -30
+			//     }else if(start[0] > end[0] + 50){
+			//       console.log('左滑')
+			//     }else{
+			//       console.log('静止')
+			//     }
+			//   },
+	
 		}
 	}
 </script>
@@ -144,18 +182,19 @@
 	}
 	
 	.course, .VR{
-		margin-left: 48rpx;
+		/* margin-left: 48rpx; */
 		margin-top: 48rpx;
 	}
 	
 	.row{
+		width: 654rpx;
 		display: flex;
-		flex-direction: row;
 		align-items: center;
+		justify-content: space-between;
+		margin-left: 48rpx;
 	}
 	
 	.allCourse{
-		margin-left: 516rpx;
 		display: flex;
 		flex-direction: row;
 		justify-content: center;
@@ -163,7 +202,6 @@
 	}
 	
 	.allVR{
-		margin-left: 534rpx;
 		display: flex;
 		flex-direction: row;
 		justify-content: center;
@@ -186,10 +224,19 @@
 		display: flex;
 		flex-direction: row;
 		justify-content: flex-start;
+		white-space: nowrap;
+		overflow-x: auto;
+		padding-left: 48rpx;
 	}
 	
-	.cou{
-		margin-right: 30rpx;
+	/* 隐藏滑动条 */
+	::-webkit-scrollbar {
+	display: none;
+	}
+	
+	.listView-tile{
+		padding-right: 30rpx;
+		/* display: inline-block; */
 	}
 	
 	.couPic{

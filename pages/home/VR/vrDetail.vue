@@ -13,19 +13,19 @@
 				
 				<view class="intro">
 					<view class="title">{{intro.title}}</view>
-					<div class="introduction" v-html="intro.text"></div>
+					<div class="introduction" v-html="showLen"></div>
 					<!-- 要换行只能用div和v-html诶  -->
 				</view>
 				
-				<view class="zhankai">
-					<view class="fold">展开更多</view>
+				<view class="zhankai" @click="showing = ! showing">
+					<view class="fold">{{showing? '展开更多': '收起更多'}}</view>
 					<view class="arrow">
-						<image class="arrowDown" src="../../../static/images/iCons/arrowDownGrey.png"></image>
+						<image class="arrowDown" :src="folded()"></image>
 					</view>
 				</view>
 				
 				<view class="recommend">
-					<view class="title">推荐</view>
+					<view class="name">推荐</view>
 					
 					<view class="listView">
 						<view class="rec" v-for="(item, index) in recItem" :key="index">
@@ -37,7 +37,7 @@
 				</view>
 				
 				<view class="quanjing">
-					<view class="title">VR全景</view>
+					<view class="name">VR全景</view>
 					<image class="vr360" :src="vr360.img"></image>
 				</view>
 				
@@ -54,6 +54,7 @@
 					title: "十里红妆博物馆",
 					text: "十里红妆博物馆：宁海“十里红妆”博物馆创建于2003年9月，2004年5月正式对外开放，它是一家展示古代女子生活的专题博物馆，也是省内规模最大的民间民俗博物馆。<br/>博物馆采用场景布展和藏品归类布展相结合，有嫁妆场景，有木桶房、绣房、闺房、书房、婚房、妾房和百床风情等展厅。"
 				},
+				showing: true,
 				recItem: [
 					{
 						name: "沙村",
@@ -82,6 +83,25 @@
 				uni.navigateBack({
 				});
 			},
+			folded(){
+				if(this.showing == false){
+				  return '../../../static/images/iCons/arrowUpBrown.png'    // false
+				}else{
+				  return '../../../static/images/iCons/arrowDownBrown.png'  // true
+				} 
+			},
+			
+		},
+		computed: {
+			showLen: function() {
+				if (this.showing == true){
+					var showLen = this.intro.text.substring(0,56);   // 截取前两行
+					return showLen;
+				}
+				else {
+					return this.intro.text;
+				}
+			}
 			
 		}
 	}
@@ -143,10 +163,20 @@
 		margin-bottom: 20rpx;
 	}
 	
+	.name{
+		font-size: 32rpx;
+		line-height: 46rpx;
+		color: #382321;
+		font-weight: 600;
+		margin-bottom: 20rpx;
+		margin-left: 48rpx;
+	}
+	
 	.introduction{
 		font-size: 24rpx;
 		letter-spacing: 0.02em;
 		color: #73615D;
+		line-height: 30rpx;
 	}
 	
 	.zhankai{
@@ -168,7 +198,7 @@
 	}
 	
 	.recommend{
-		margin-left: 48rpx;
+		/* margin-left: 48rpx; */
 		margin-top: 48rpx;
 	}
 	
@@ -176,10 +206,18 @@
 		display: flex;
 		flex-direction: row;
 		justify-content: flex-start;
+		white-space: nowrap;
+		overflow-x: auto;
+		padding-left: 48rpx;
+	}
+	
+	/* 隐藏滑动条 */
+	::-webkit-scrollbar {
+	display: none;
 	}
 	
 	.rec{
-		margin-right: 30rpx;
+		padding-right: 30rpx;
 	}
 	
 	.recPic{
