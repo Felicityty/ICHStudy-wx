@@ -54,27 +54,13 @@
 </template>
 
 <script>
+	import { getCourseList } from '../../api/course/index.js'
+	import { getFileUrl } from '../../common/index.js'
 	export default {
 		data() {
 			return {
 				title: '首页',
-				courseItem: [
-					{
-						name: "扯白糖",
-						img: "../../static/images/coursePic/course1.png",
-						url: ""
-					},
-					{
-						name: "圆木制作",
-						img: "../../static/images/coursePic/course3.png",
-						url: ""
-					},
-					{
-						name: "十里红妆博物馆",
-						img: "../../static/images/coursePic/course4.png",
-						url: ""
-					},
-				],
+				courseItem: [],
 				vrItem: [
 					{
 						name: "十里红妆博物馆",
@@ -96,10 +82,16 @@
 			}
 		},
 		onLoad() {
-
+			const token = wx.getStorageSync('token')
+			if(!token) {
+				uni.reLaunch({
+					url: '../index/index'
+				})
+			} else {
+				this.getCourseList()
+			}
 		},
 		methods: {
-			
 			goCourse() {
 				uni.navigateTo({
 					url: "./course/index"
@@ -115,32 +107,24 @@
 					url: e
 				})
 			},
-			
-			// touchStart: function(e){
-			//     // console.log(e.touches[0].pageX)
-			//     let sx = e.touches[0].pageX
-			//     let sy = e.touches[0].pageY
-			//     this.data.touchS = [sx,sy]
-			//   },
-			//   touchMove: function(e){
-			//     let sx = e.touches[0].pageX;
-			//     let sy = e.touches[0].pageY;
-			//     this.data.touchE = [sx, sy]
-			//   },
-			//   touchEnd: function(e){
-			//     let start = this.data.touchS
-			//     let end = this.data.touchE
-			//     console.log(start)
-			//     console.log(end)
-			//     if(start[0] < end[0] - 50){
-			//       this.left = -30
-			//     }else if(start[0] > end[0] + 50){
-			//       console.log('左滑')
-			//     }else{
-			//       console.log('静止')
-			//     }
-			//   },
-	
+			getCourseList() {
+				getCourseList()
+					.then(res => {
+						const data = JSON.parse(res.data).endata.data
+						console.log(data)
+						const courses = []
+						data.forEach(item => {
+							courses.push({
+								id: item.cindex,
+								name: item.cnname,
+								img: getFileUrl('img', item.imgpath)
+							})
+						})
+						this.courseItem = courses
+						console.log(this.courseItem)
+					})
+					.catch(err => console.log(err))
+			}
 		}
 	}
 </script>

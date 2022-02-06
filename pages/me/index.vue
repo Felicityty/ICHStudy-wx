@@ -1,8 +1,8 @@
 <template>
 	<view class="container">
 		<view class="user" @click="set()">
-			<image :src="touxiang" mode="aspectFill" style="width: 104rpx; height: 104rpx;"></image>
-			<text class="user_name">{{username}}</text>
+			<image class="user_avatar" :src="userInfo.avatarUrl" mode="aspectFill"></image>
+			<text class="user_name">{{ userInfo.nickName ? userInfo.nickName : userInfo.username }}</text>
 			<image :src="arrow" mode="aspectFill" class="user_arrow"></image>
 		</view>
 		
@@ -40,7 +40,7 @@
 					<image :src="arrow" mode="aspectFill" class="setting_arrow"></image>
 				</view>
 			</view>
-			<button type="default" class="btn">退出登录</button>
+			<button type="default" class="btn" @click="logout()">退出登录</button>
 		</view>
 		
 	</view>
@@ -82,15 +82,19 @@
 				minute: 0,
 				times: 0,
 				maxVideo: '扯白糖纪录片',
-				maxTimes: 2
+				maxTimes: 2,
+				userInfo: {
+					username: '',
+					nickName: '请点击登录',
+					avatarUrl: '../../static/images/iCons/touxiang.png',
+					lang: '',
+					openid: ''
+				}
 			}
-		},
-		onLoad() {
-
 		},
 		methods: {
 			set(){
-				console.log(1)
+				// this.wxGetUserProfile()
 				uni.navigateTo({
 					url: "./setting/index"
 				})
@@ -106,6 +110,70 @@
 					})
 				}
 			},
+			logout() {
+				wx.removeStorageSync('openid')
+				wx.removeStorageSync('token')
+				wx.removeStorageSync('userInfo')
+				uni.reLaunch({
+					url: '../index/index'
+				})
+			},
+			wxGetUserProfile() {
+				const that = this
+				wx.getUserProfile({
+					desc: '登录账号，完善用户信息',
+					success(res) {
+						console.log('getUserProfile', res)
+					 	let user = res.userInfo
+					 	that.userInfo.nickName = user.nickName
+					 	that.userInfo.avatarUrl = user.avatarUrl
+						that.wxLogin()
+					}
+				})
+			},
+			wxLogin() {
+				const that = this
+				wx.login({
+					success(res) {
+						console.log('login', res)
+						if(res.code) {
+							const appid = 'wx1c12e54d3dc406d2'
+							const secret = 'ba3120c84339931678d81bdee21557f0'
+							const url = 'https://api.weixin.qq.com/sns/jscode2session?appid=' + appid + '&secret=' + secret + '&js_code=' + res.code + '&grant_type=authorization_code'
+							wx.request({
+								url: url,
+								data:{},
+								header: {'content-type': 'json'},
+								success: function (res) {
+									console.log('login request', res)
+									uni.setStorage({
+										key: 'openid',
+										data: res.data.openid,
+										success() {
+											that.userInfo.openid = res.data.openid
+										}
+									})
+								}
+							})
+						}
+					}
+				})
+			}
+		},
+		onLoad() {
+			const that = this
+			const token = wx.getStorageSync('token')
+			const userInfo = wx.getStorageSync('userInfo')
+			if(token) {
+				that.userInfo.username = userInfo[0]
+				that.userInfo.nickName = userInfo[2]
+			}
+			// const openid = wx.getStorageSync('openid')
+			// if(openid) {
+			// 	that.userInfo.openid = openid
+			// 	that.wxLogin()
+			// }
+			// console.log(that.userInfo.openid)
 		}
 	}
 </script>
@@ -152,14 +220,20 @@
 		top: 30rpx;
 	}
 	
+	.user_avatar {
+		width: 104rpx;
+		height: 104rpx;
+		border-radius: 50%;
+	}
+	
 	.user_name{
+		width: calc(100% - 104rpx - 14rpx - 30rpx);
 		margin-left: 30rpx;
 	}
 	
 	.user_arrow{
 		width: 14rpx;
 		height: 28rpx;
-		margin-left: 408rpx;
 	}
 	
 	.content{
