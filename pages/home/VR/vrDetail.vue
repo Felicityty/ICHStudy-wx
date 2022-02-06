@@ -177,6 +177,12 @@
 		letter-spacing: 0.02em;
 		color: #73615D;
 		line-height: 30rpx;
+		/*
+		留下一行文字最后变成省略号：
+		text-overflow:ellipsis;      // 显示省略符号来代表被修剪的文本 
+		overflow: hidden;      // 外层还要再写一遍
+		white-space: nowrap; 
+		*/
 	}
 	
 	.zhankai{

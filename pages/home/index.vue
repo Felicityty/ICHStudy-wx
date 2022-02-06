@@ -22,7 +22,7 @@
 					<view class="listView">
 					<!-- <view class="listView" bindtouchstart='touchStart' bindtouchmove='touchMove' bindtouchend='touchEnd' :style="'margin-left:' + left + 'rpx'"> -->
 						<view class="listView-tile" v-for="(item, index) in courseItem" :key="index">
-							<image class="couPic" :src="item.img"></image>
+							<image class="couPic" :src="item.img" mode="aspectFill"></image>
 							<view class="couName">{{item.name}}</view>
 						</view>
 					</view>
@@ -42,7 +42,7 @@
 					
 					<view class="listView">
 						<view class="listView-tile" v-for="(item, index) in vrItem" :key="index" @click="goDetail(item.url)">
-							<image class="couPic" :src="item.img"></image>
+							<image class="couPic" :src="item.img" mode="aspectFill"></image>
 							<view class="couName">{{item.name}}</view>
 						</view>
 					</view>
@@ -74,6 +74,11 @@
 						img: "../../static/images/coursePic/course4.png",
 						url: ""
 					},
+					{
+						name: "富阳剪纸",
+						img: "../../static/images/coursePic/course11.png",
+						url: ""
+					}
 				],
 				vrItem: [
 					{
@@ -91,6 +96,11 @@
 						img: "../../static/images/vrPic/dhgc.png",
 						url: ""
 					},
+					{
+						name: "沙村",
+						img: "../../static/images/vrPic/sc.png",
+						url: ""
+					}
 				],
 				
 			}

@@ -127,11 +127,12 @@
 		"backgroundColor": "#F9F3EB"
 	},
 	"tabBar":{
-		"color": "#7A5A32",
-		"selectedColor": "#7A5A32",
+		"color": "#9e7d5d",
+		"selectedColor": "#604526",
 		"backgroundColor": "#E6DECC",
 		"position": "bottom",
 		"borderStyle": "black",
+		"selectedfontSize": 800,
 		"list":[
 			{
 				"pagePath": "pages/home/index",

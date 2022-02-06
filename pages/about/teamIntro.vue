@@ -5,6 +5,7 @@
 				<image class="teammate-pic" :src="item.pic"></image>
 				<view class="teammate-name">{{item.name}}</view>
 				<div class="teammate-intro" v-html="item.intro"></div>
+				<!-- emmm 其实好像只要在view标签里加一个text标签就可以用\n换行了 -->
 				<view class="divide"></view>
 			</view>
 			
