@@ -15,6 +15,7 @@
 <style>
 	
 	@import url("static/fonts/fonts.css");
+	@import url("static/styles/index.css");
 	
 	/*每个页面公共css */
 	page {
