@@ -9,17 +9,16 @@
 }
 
 .input-box {
-	width: 400rpx;
-	height: 100rpx;
-	border-radius: 50rpx;
-	margin: 20rpx 0rpx;
-	background-color: #FFFFFF44;
-	border: #FFFFFF88 solid 8rpx;
+	width: 654rpx;
+	height: 79rpx;
 	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
 	align-items: center;
-	justify-content: flex-start;
+	margin-top: 54rpx;
+	border-bottom: 2rpx solid #D6CEBD;
 }
 
 .input-box input {
-	margin-left: 50rpx;
+	margin-left: 10rpx;
 }

@@ -1,12 +1,16 @@
 <template>
 	<view class="content">
-		<view class="input-box">
-			<input type="text" placeholder="请输入用户名" v-model="username">
+		<view class="back" @click="goOff()">
+			<image class="arrow-left" src="../../static/images/iCons/arrowLeftBrown.png"></image>
 		</view>
 		<view class="input-box">
-			<input type="password" placeholder="请输入密码" v-model="password">
+			<input type="text" placeholder="请输入账号" v-model="username" placeholder-class="phcolor">
+		</view>
+		<view class="input-box">
+			<input type="password" placeholder="请输入密码" v-model="password" placeholder-class="phcolor">
 		</view>
 		<view class="index-btn" @click="login()">登录</view>
+		<image class="bg" src="../../static/images/banner.png"></image>
 	</view>
 </template>
 
@@ -20,6 +24,10 @@
 			}
 		},
 		methods: {
+			goOff() {
+				uni.navigateBack({
+				});
+			},
 			login() {
 				if (!this.username) {
 					uni.showToast({
@@ -68,11 +76,53 @@
 </script>
 
 <style>
+	.back{
+		height: 58rpx;
+		width: 58rpx;
+		background-color: #FFFFFF;
+		border-radius: 100rpx;
+		position: absolute;
+		top: 90rpx;
+		left: 48rpx;
+	
+	}
+	
+	.arrow-left{
+		margin-top: 7rpx;
+		height: 43rpx;
+		width: 57rpx;
+	}
+	
+	.bg {
+	  width: 100%;
+		height: 100%;
+	  position: fixed;
+	  top: 0;
+	  left:0;
+	  z-index: -99;
+	}
+	
 	.content {
-		padding-top: 15vh;
+		padding-top: 25vh;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
+	}
+	
+	.phcolor{
+		color: #73615D;
+		font-size: 32rpx;
+	}
+	
+	.index-btn{
+		width: 654rpx;
+		height: 84rpx;
+		margin-top: 114rpx;
+		background-color: #987744;
+		border-radius: 20rpx;
+		color: #FFFFFF;
+		font-size: 36rpx;
+	line-height: 84rpx;
 	}
 </style>
