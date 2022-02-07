@@ -60,28 +60,7 @@
 		data() {
 			return {
 				title: '首页',
-				courseItem: [
-					{
-						name: "扯白糖",
-						img: "../../static/images/coursePic/course1.png",
-						url: ""
-					},
-					{
-						name: "圆木制作",
-						img: "../../static/images/coursePic/course3.png",
-						url: ""
-					},
-					{
-						name: "十里红妆博物馆",
-						img: "../../static/images/coursePic/course4.png",
-						url: ""
-					},
-					{
-						name: "富阳剪纸",
-						img: "../../static/images/coursePic/course11.png",
-						url: ""
-					}
-				],
+				courseItem: [],
 				vrItem: [
 					{
 						name: "十里红妆博物馆",
