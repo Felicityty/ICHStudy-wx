@@ -20,6 +20,7 @@
 			"path": "pages/index/login",
 			"style": {
 				"navigationBarTitleText": "登录",
+				"navigationStyle": "custom",
 				"enablePullDownRefresh": true
 			}
 		},
@@ -27,6 +28,7 @@
 			"path": "pages/index/register",
 			"style": {
 				"navigationBarTitleText": "注册",
+				"navigationStyle": "custom",
 				"enablePullDownRefresh": true
 			}
 		},
