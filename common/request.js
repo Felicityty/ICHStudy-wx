@@ -17,12 +17,20 @@ function service(options = {}) {
 	return new Promise((resolved, rejected) => {
 		//成功
 		options.success = (res) => {
-			resolved(res);
+			const msg = JSON.parse(res.data).endata.msg
+			if(msg === 'token已失效') {
+				uni.reLaunch({
+					url: '../index/index'
+				})
+				rejected(res)
+			} else {
+				resolved(res);
+			}
 		}
 
 		//错误
 		options.fail = (err) => {
-			rejected(err); //错误
+			rejected(err);
 		}
 
 		uni.request(options);
