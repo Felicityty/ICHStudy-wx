@@ -10,7 +10,7 @@
 			<input type="password" placeholder="请输入密码" v-model="password" placeholder-class="phcolor">
 		</view>
 		<view class="index-btn" @click="login()">登录</view>
-		<image class="bg" src="../../static/images/banner.png"></image>
+		<image class="bg" src="../../static/images/indexBG.png"></image>
 	</view>
 </template>
 
@@ -103,7 +103,7 @@
 	}
 	
 	.content {
-		padding-top: 25vh;
+		padding-top: 31vh;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -123,6 +123,6 @@
 		border-radius: 20rpx;
 		color: #FFFFFF;
 		font-size: 36rpx;
-	line-height: 84rpx;
+		line-height: 84rpx;
 	}
 </style>

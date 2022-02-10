@@ -55,15 +55,15 @@
 				settingItems: [
 					{
 						name: '历史记录',
-						url: 'history'
+						url: './setting/history'
 					},
 					{
 						name: '语言',
-						url: 'language'
+						url: './setting/language'
 					},
 					{
 						name: '关于',
-						url: 'about'
+						url: './../about/index'
 					}
 				],
 				shoppingItems: [
@@ -94,21 +94,21 @@
 		},
 		methods: {
 			set(){
-				// this.wxGetUserProfile()
-				uni.navigateTo({
-					url: "./setting/index"
-				})
-			},
-			go(url) {
-				if (url === 'history' || url === 'language') {
+				if (!this.userInfo.username) {
+					// this.wxGetUserProfile()
 					uni.navigateTo({
-						url: './setting/' + url
+						url: "../index/index",
 					})
-				} else if (url === 'about') {
+				}else {
 					uni.navigateTo({
-						url: './../about/index'
+						url: "./setting/index",
 					})
 				}
+			},
+			go(url) {
+				uni.navigateTo({
+					url
+				})
 			},
 			logout() {
 				wx.removeStorageSync('openid')

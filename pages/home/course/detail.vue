@@ -14,7 +14,7 @@
 				<text class="video_list_headtext">视频列表</text>
 				<image :src="unfold()" mode="aspectFit" class="video_list_img"></image>
 			</view>
-			<view v-for="(item, index) in showList" :key="item" class="video_list_content" @click="select(index)">
+			<view v-for="(item, index) in showList" :key="item" class="video_list_content" @click="select(index)" :class="{active:play===index}">
 			{{item.name}}
 			<image :src="video(index)" mode="aspectFit" class="video_list_content_img"></image>
 			</view>
@@ -184,6 +184,10 @@
 		align-items: center;
 		color: #382321;
 		margin-top: 20rpx;
+	}
+	
+	.active{
+		color: #FB8539;
 	}
 	
 	.video_list_content_img{

@@ -33,6 +33,14 @@
 			}
 		},
 		{
+			"path": "pages/index/email",
+			"style": {
+				"navigationBarTitleText": "邮箱",
+				"navigationStyle": "custom",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
 			"path": "pages/home/course/index",
 			"style": {
 				"navigationBarTitleText": "研学课程",
