@@ -31,7 +31,7 @@
 			login() {
 				if (!this.username) {
 					uni.showToast({
-						title: '请填写用户名',
+						title: '请填写账号',
 						icon: 'none'
 					})
 					return

@@ -26,3 +26,46 @@ export function refreshToken() {
 		}
 	})
 }
+
+// 注册
+export function register (name, pwd, email) {
+  return request({
+    url: '/register/',
+    method: 'POST',
+    data: {
+      endata: {
+        username: name,
+        password: pwd,
+        email: email
+      }
+    }
+  })
+}
+
+// 发送邮箱验证码
+export function sendVer (url, email) {
+  return request({
+    url: url,
+    // url: 'vregsend/',
+    method: 'POST',
+    data: {
+      endata: {
+        email: email
+      }
+    }
+  })
+}
+
+// 确认验证码
+export function checkVer (code, email) {
+  return request({
+    url: '/regactive/',
+    method: 'POST',
+    data: {
+      endata: {
+        email: email,
+        code: code
+      }
+    }
+  })
+}
