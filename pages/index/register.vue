@@ -4,24 +4,34 @@
 			<image class="arrow-left" src="../../static/images/iCons/arrowLeftBrown.png"></image>
 		</view>
 		<view class="input-box">
-			<input type="text" placeholder="请输入账号" v-model="username" placeholder-class="phcolor" @blur="checkName()">
+			<input type="text" placeholder="请输入账号" v-model="username" 
+				placeholder-class="phcolor" @blur="checkName()">
 		</view>
+		<view class="tips">{{tipName}}</view>
 		<view class="input-box">
-			<input type="password" placeholder="请输入密码" v-model="password" placeholder-class="phcolor">
+			<input type="password" placeholder="请输入密码" v-model="password" 
+				placeholder-class="phcolor">
 		</view>
+		<view class="tips"></view>
 		<view class="input-box">
-			<input type="password" placeholder="请确认密码" v-model="checkword" placeholder-class="phcolor" @blur="checkPwd()">
+			<input type="password" placeholder="请再次确认密码" v-model="checkword" 
+				placeholder-class="phcolor" @blur="checkPwd()">
 		</view>
+		<view class="tips">{{tipCheck}}</view>
 		<view class="input-box">
-			<input type="text" placeholder="请输入邮箱" v-model="email" placeholder-class="phcolor">
+			<input type="text" placeholder="请输入邮箱" v-model="email" 
+				placeholder-class="phcolor">
 		</view>
+		<view class="tips">{{tipEmail}}</view>
 		<view class="identify-code">
 			<view class="identify-box">
-				<input type="password" placeholder="请输入验证码" v-model="ver" placeholder-class="phcolor">
+				<input type="password" placeholder="请输入验证码" v-model="ver" 
+					placeholder-class="phcolor" @blur="checkVerification()">
 			</view>
 			<view class="identify-btn" @click="sendVer(email)">发送验证码</view>
 		</view>
-		<view class="index-btn" @click="checkVer(ver, email)">确认</view>
+		<view class="tips">{{tipVer}}</view>
+		<view class="index-btn" @click="checkVerification();checkVer(ver, email)">注册</view>
 		<image class="bg" src="../../static/images/indexBG.png"></image>
 	</view>
 </template>
@@ -36,7 +46,11 @@
 				password: '',
 				checkword: '',
 				email: '',
-				ver: ''
+				ver: '',
+				tipEmail: '',
+				tipName: '',
+				tipCheck: '',
+				tipVer: ''
 			}
 		},
 		methods: {
@@ -47,31 +61,36 @@
 			checkName(){
 				const reg = /^[0-9a-zA-Z]*$/
 				const username = this.username
-				if (username.length < 8 || username.length > 20){
-					uni.showToast({
-						title: '账号长度需为8-20位',
-						icon: 'none'
-					})
-					return
-				}else if(!reg.test(username)){
-					uni.showToast({
-						title: '账号需为字母和数字',
-						icon: 'none'
-					})
-					return
-				}else {return true}
+				if (!username) {
+					this.tipName = "请输入账号"
+				} else if (username.length < 8 || username.length > 20) {
+					this.tipName = "账号长度需为8-20位"
+				}else if(!reg.test(username)) {
+					this.tipName = "用户名需为字母和数字"
+				}else {
+					this.tipName = "";
+					return true 
+				}
 			},
 			checkPwd(){
-				if (this.password != this.checkword){
-					uni.showToast({
-						title: '两次输入密码不一致',
-						icon: 'none'
-					})
-					return
-				}else {return true}
+				if (this.checkword == '') {
+					this.tipCheck = "请再次输入密码"
+				}else if (this.password != this.checkword) {
+					this.tipCheck = "两次输入密码不一致!"
+				}else {
+					this.tipCheck = "";
+					return true 
+				}
+			},
+			checkVerification(){
+				if (this.ver == '') {
+					this.tipVer = "请输入验证码"
+				}else {
+					this.tipVer = "";
+					return true 
+				}
 			},
 			check(){
-				if (this.checkName() && this.checkPwd()){
 					register(this.username, this.password, this.email)
 						.then(res => {
 						const data = JSON.parse(res.data).endata
@@ -85,44 +104,58 @@
 							return
 						} 
 						})
-						.catch(err => console.log(err))				
-				}
+						.catch(err => console.log(err))
 			},
 			sendVer (email) {
-				this.check()
-			  sendVer('/vregsend/', email)
-			    .then(res => {
-			      const data = JSON.parse(res.data).endata
-			      // console.log(data)
-						// 邮箱不存在/已发送验证码给..
-			      // uni.showToast({
-			      // 	title: data.msg,
-			      // 	icon: 'none'
-			      // })
-			      // if(data.su === 0) {
-			      // 	return
-			      // }
-			    })
-			    .catch(err => console.log(err))
+				if(this.checkName() && this.checkPwd()){
+					this.check()
+					sendVer('/vregsend/', email)
+					  .then(res => {
+					    const data = JSON.parse(res.data).endata
+					    // console.log(data)
+							// 邮箱不存在/已发送验证码给..
+					    // uni.showToast({
+					    // 	title: data.msg,
+					    // 	icon: 'none'
+					    // })
+					    // if(data.su === 0) {
+					    // 	return
+					    // }
+					  })
+					  .catch(err => console.log(err))
+				}else{
+					uni.showToast({
+						title: '请确保信息填写正确且完整',
+						icon: 'none'
+					})
+				}
 			},
 			checkVer(ver, email) {
-			  checkVer(ver, email)
-			    .then(res => {
-			      const data = JSON.parse(res.data).endata
-						uni.reLaunch({
-							url: '../index/index',
-						})
-			      // console.log(data)
-						// 激活成功
-			      uni.showToast({
-			      	title: '注册成功',
-			      	icon: 'none'
-			      })
-			      if(data.su === 0) {
-			      	return
-			      }
-			    })
-			    .catch(err => console.log(err))
+				if(this.checkName() && this.checkPwd() && this.checkVerification()){
+					checkVer(ver, email)
+					  .then(res => {
+					    const data = JSON.parse(res.data).endata
+							uni.reLaunch({
+								url: '../index/index',
+							})
+					    // console.log(data)
+							// 激活成功
+					    uni.showToast({
+					    	title: '注册成功',
+					    	icon: 'none'
+					    })
+					    if(data.su === 0) {
+					    	return
+					    }
+					  })
+					  .catch(err => console.log(err))
+				}else{
+					uni.showToast({
+						title: '请确保信息填写正确且完整',
+						icon: 'none'
+					})
+				}
+			  
 			},
 		}
 	}
@@ -159,7 +192,8 @@
 		padding-top: 24vh;
 		display: flex;
 		flex-direction: column;
-		align-items: center;
+		/* align-items: center; */
+		margin-left: 48rpx;
 		justify-content: center;
 	}
 	
@@ -168,50 +202,55 @@
 		font-size: 32rpx;
 	}
 	
-	.index-btn{
-		width: 654rpx;
-		height: 84rpx;
-		margin-top: 114rpx;
-		background-color: #987744;
-		border-radius: 20rpx;
-		color: #FFFFFF;
-		font-size: 36rpx;
-		line-height: 84rpx;
-	}
-	
 	.identify-code{
-		width: 654rpx;
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		justify-content: space-between;
-		margin-top: 54rpx;
-	}
-	
-	.identify-box{
-		width: 400rpx;
-		height: 79rpx;
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		align-items: center;
-		border-bottom: 2rpx solid #D6CEBD;
-	}
-	
-	.identify-box input{
-		width: 400rpx;
-		margin-left: 10rpx;
-	}
-	
-	.identify-btn{
-		width: 210rpx;
-		height: 68rpx;
-		color: #FFFFFF;
-		background-color: #987744;
-		text-align: center;
-		font-size: 28rpx;
-		line-height: 68rpx;
-		border-radius: 20rpx;
-	}
+			width: 654rpx;
+			height: 100rpx;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: space-between;
+		}
+		
+		.identify-box{
+			width: 400rpx;
+			border-bottom: 2rpx solid #D6CEBD;
+		}
+		
+		.identify-box input{
+			width: 400rpx;
+		}
+		
+		.identify-btn{
+			width: 210rpx;
+			height: 68rpx;
+			color: #FFFFFF;
+			background-color: #987744;
+			text-align: center;
+			font-size: 28rpx;
+			line-height: 68rpx;
+			border-radius: 20rpx;
+		}
+		
+		.tips{
+			color: #FB8539;
+			height: 54rpx;
+			font-size: 26rpx;
+			margin-left: 6rpx;
+		}
+		
+		.index-btn{
+			width: 654rpx;
+			height: 84rpx;
+			margin-top: 114rpx;
+			background-color: #987744;
+			border-radius: 20rpx;
+			color: #FFFFFF;
+			font-size: 36rpx;
+			line-height: 84rpx;
+		}
+		
+		.input-box{
+			margin-top: 0;
+		}
 	
 </style>
