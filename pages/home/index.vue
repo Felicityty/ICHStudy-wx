@@ -21,7 +21,7 @@
 					
 					<view class="listView">
 					<!-- <view class="listView" bindtouchstart='touchStart' bindtouchmove='touchMove' bindtouchend='touchEnd' :style="'margin-left:' + left + 'rpx'"> -->
-						<view class="listView-tile" v-for="(item, index) in courseItem" :key="index">
+						<view class="listView-tile" v-for="(item, index) in courseItem" :key="index" @click="goCourseDetail(item.id)">
 							<image class="couPic" :src="item.img" mode="aspectFill"></image>
 							<view class="couName">{{item.name}}</view>
 						</view>
@@ -105,6 +105,11 @@
 			goVR() {
 				uni.navigateTo({
 					url: "./VR/index"
+				})
+			},
+			goCourseDetail(id){
+				uni.navigateTo({
+					url: './course/detail?id=' + id
 				})
 			},
 			goDetail(e) {

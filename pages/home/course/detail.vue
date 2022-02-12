@@ -75,8 +75,9 @@
 				})
 			} else {
 				this.index = options.id
-				that.userInfo.username = userInfo[0]
 				// console.log(options.id)
+				that.userInfo.username = userInfo[0]
+				// console.log(this.userInfo.username)
 				this.getCourseInfo()
 				this.getSections()
 				this.getCourseCommend()
