@@ -1,12 +1,19 @@
 <template>
 	<view class="container">
 		<view class="video_play">
-			<video src="" controls style="width: 100%; height: 100%;"></video>
+			<video controls :src="toLearnList[play].url" 
+			type="video/mp4" 
+			@play="startPlay"
+			@ended="endPlay"
+			style="width: 750rpx height: 100%;">
+				<!-- <source :src="toLearnList[play].url" type="video/mp4" style="width: 750rpx height: 100%;"> -->
+				<track :src="toLearnList[play].subpath" kind="subtitles" default>
+			</video>
 		</view>
 		
 		<view class="course_details">
-			<view class="course_details_name">{{name}}</view>
-			<view class="course_details_detail">{{details}}</view>
+			<view class="course_details_name">{{courseinfo[0].name}}</view>
+			<view class="course_details_detail">{{courseinfo[0].intro}}</view>
 		</view>
 		
 		<view class="video_list">
@@ -14,77 +21,71 @@
 				<text class="video_list_headtext">视频列表</text>
 				<image :src="unfold()" mode="aspectFit" class="video_list_img"></image>
 			</view>
-			<view v-for="(item, index) in showList" :key="item" class="video_list_content" @click="select(index)" :class="{active:play===index}">
-			{{item.name}}
-			<image :src="video(index)" mode="aspectFit" class="video_list_content_img"></image>
+			<view v-for="(item, index) in showList" :key="index" class="video_list_content" @click="changevideo(index)" :class="{active:play===index}">
+				{{item.cnname}}
+				<image :src="video(index)" mode="aspectFit" class="video_list_content_img"></image>
 			</view>
 		</view>
 		
 		<view class="commend">推荐</view>
 		<view class="course_commend">
-			<view class="course_commend_content" v-for="(item,index) in courseItem" :key="item" @click="go()">
-				<image :src="item.img" mode="aspectFill" class="course_commend_img"></image>
-				<text class="course_commend_text">{{ item.name }}</text>
+			<view v-for="(item,index) in courseItem" :key="index">
+				<CourseCommend :info="item"></CourseCommend>
+				<!-- <image :src="item.img" mode="aspectFill" class="course_commend_img"></image>
+				<text class="course_commend_text">{{ item.name }}</text> -->		
 			</view>
 		</view>
 	</view>
 </template>
 
 <script>
+	import CourseCommend from '../../../components/course/CourseCommend.vue'
+	import { getCourseList, getSection, uploadMy } from '../../../api/course/index.js'
+	import { getFileUrl } from '../../../common/index.js'
+	
 	export default {
 		data(){
 			return{
-				name: '皮影之光',
-				details: '皮影戏，旧称“影子戏”或“灯影戏”，是一种用蜡烛或燃烧的酒精等光源照射兽皮或纸板做成的人物剪影以表演故事的民间戏剧。',
-			  toLearnList:[
-					{
-						name: '皮影操纵学习'
-					},
-					{
-						name: '皮影欣赏'
-					},
-					{
-						name: 'aaa'
-					}
-				],   //进行显示的数据
-			  showAll: false,
+				index: '',
+				courseinfo: [],
+				stime: 0,
+				etime: 0,
+				deltaTime: 0,
+				toLearnList:[],
 				play: 0,
+			  showAll: false,
 				bofang: '../../../static/images/iCons/zhengzaibofang.png',
-				courseItem: [
-					{
-						name: '富阳剪纸',
-						img: '../../../static/images/coursePic/course11.png'
-					},
-					{
-						name: '十里红妆',
-						img: '../../../static/images/coursePic/course4.png'
-					},
-					{
-						name: '圆木制作',
-						img: '../../../static/images/coursePic/course10.png'
-					},
-					{
-						name: '扯白糖',
-						img: '../../../static/images/coursePic/course9.png'
-					}
-				]
+				courseItem: []
 			}
 		},
-		methods:{
-			go(){
-				console.log(1)
-				uni.navigateTo({
-					url: "../course/detail"
+		components: {
+			CourseCommend
+		},
+		onLoad(options) {
+			const token = wx.getStorageSync('token')
+			if(!token) {
+				uni.reLaunch({
+					url: '../../index/index'
 				})
-			},
-			unfold(){
-				if(this.showAll == false){　　　　　　　　　　　//对箭头进行处理
+			} else {
+				this.index = options.id
+				// console.log(options.id)
+				this.getCourseInfo()
+				this.getSections()
+				this.getCourseCommend()
+			}
+
+		},
+		methods:{
+			unfold(){　//对箭头进行处理
+				if(this.showAll == false){
 				    return '../../../static/images/iCons/arrowDownBrown.png'
 				  }else{
 				    return '../../../static/images/iCons/arrowUpBrown.png'
 				} 
 			},
-			select(index){
+			changevideo(index){
+				this.upload()
 				this.play = index
 			},
 			video(index){
@@ -93,25 +94,116 @@
 				  }else{
 				    return ''
 				}
-			}
+			},
+			getCourseInfo () {
+			  getCourseList()
+			    .then(res => {
+			      const data = JSON.parse(res.data).endata.data
+			      // console.log(data)
+			      for (let i = 0; i < data.length; i++) {
+							if( data[i].cindex === this.index){
+								this.courseinfo.push({
+									id: data[i].cindex,
+									name: data[i].cnname,
+									intro: data[i].cninfo
+								})
+							}
+			      }
+			    })
+			    .catch(err => console.log(err))	
+			},
+			getSections() {
+			  getSection(this.index)
+			    .then(res => {
+			      const data = JSON.parse(res.data).endata.data
+			      // console.log(res.data)
+			      data.forEach(item => {
+			        this.toLearnList.push({
+			          cnname: item.cnname,
+			          enname: item.enname,
+			          url: getFileUrl('video', item.videopath),
+			          sectionId: item.sindex,
+			          subpath: getFileUrl('vtt', item.subtitlespath)
+							})
+			      })
+			    })
+			    .catch(err => console.log(err))
+			},
+			getCourseCommend() {
+				getCourseList()
+					.then(res => {
+						const data = JSON.parse(res.data).endata.data
+						// console.log(data)
+						let courses = []
+						data.forEach(item => {
+							courses.push({
+								id: item.cindex,
+								name: item.cnname,
+								intro: item.cninfo,
+								img: getFileUrl('img', item.imgpath)
+							})
+						})
+						courses = this.getRandomArrayElements(courses, 4)
+						this.courseItem = courses
+						// console.log(this.courseItem)
+					})
+					.catch(err => console.log(err))
+			},
+			// 随机获取指定数目的数据
+			getRandomArrayElements(arrList,num){
+			  let tempArr=arrList.slice(0);
+			  let newArrList=[];    
+			  for(let i=0;i<num;i++){
+			    let random=Math.floor(Math.random()*(tempArr.length-1));
+			    let arr=tempArr[random];
+			    tempArr.splice(random, 1);
+			    newArrList.push(arr);    
+				}
+			  return newArrList;
+			},
+			upload () {
+			  if (!this.stime) {
+			    return
+			  }
+			  if (!this.etime) {
+			    this.etime = new Date()
+			  }
+			  this.deltaTime = Math.ceil((this.etime - this.stime) / 60000)
+			  console.log(this.deltaTime)
+			
+			  // uploadMy(this.$store.state.user.id, this.index, this.toLearnList[this.play].sectionId, this.deltaTime)
+			  //   .then(res => {
+			  //     console.log(res)
+			  //   })
+			  //   .catch(err => console.log(err))
+			
+			  this.stime = this.etime = this.deltaTime = 0
+			},
+			startPlay () {
+			  if (!this.stime) {
+			    this.stime = new Date()
+			  }
+			  // console.log(this.stime)
+			},
+			endPlay () {
+			  if (!this.etime) {
+			    this.etime = new Date()
+			    // this.deltaTime = this.etime - this.stime
+			  }
+			  // console.log(this.etime)
+			  this.upload()
+			},
 		},
 		computed:{
-		   showList:function(){
-		     if(this.showAll == false){                    //当数据不需要完全显示的时候
-		      let showList = [];　　　　　　　　　　　　　　//定义一个空数组
-		      if(this.toLearnList.length > 0){　　　　　　//先不显示
-		        for(var i=0;i<0;i++){
-		          showList.push(this.toLearnList[i])
-		        }
-		      }else{
-		        showList = this.toLearnList
-		      }
-		      return showList;　　　　　　　　　　　　　　　　 //返回当前数组
-		    }else{
-		      return this.toLearnList;
-		    }
-		   }
-		 }
+			showList(){
+				if(this.showAll === false){  //当数据不需要完全显示的时候
+				  let showList = [];　　　　　　　　　　　　　
+				  return showList;　　　　　　　　　　　　　　　　 
+				}else{
+				  return this.toLearnList;
+				}
+			}
+		}
 	}
 </script>
 
@@ -127,16 +219,20 @@
 	.video_play{
 		width: 750rpx;
 		height: 422rpx;
+		background-color: #000000;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
 		position: fixed;
 		top: 0rpx;
 		left: 0rpx;
+		z-index: 99;
 	}
 	
 	.course_details{
 		width: 654rpx;
-		height: 160rpx;
-		position: relative;
-		top: 462rpx;
+		margin-top: 462rpx;
 	}
 	
 	.course_details_name{
@@ -152,8 +248,7 @@
 	
 	.video_list{
 		width: 654rpx;
-		position: relative;
-		top: 510rpx;
+		margin-top: 48rpx;
 	}
 	
 	.video_list_headtext{
@@ -198,14 +293,12 @@
 	.commend{
 		width: 654rpx;
 		height: 46rpx;
-		position: relative;
-		top: 582rpx;
+		margin-top: 72rpx;
 	}
 	
 	.course_commend{
 		width: 654rpx;
-		position: relative;
-		top: 602rpx;
+		margin-top: 20rpx;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
@@ -213,25 +306,4 @@
 		flex-wrap: wrap;
 	}
 	
-	.course_commend_content{
-		width: 312rpx;
-		height: 268rpx;
-		margin-bottom: 30rpx;
-		display: flex;
-		justify-content: center;
-		align-items: flex-start;
-		flex-direction: column;
-	}
-	
-	.course_commend_img{
-		width: 312rpx;
-		height: 208rpx;
-		border-radius: 20rpx;
-	}
-	
-	.course_commend_text{
-		color: #382321; 
-		font-size: 28rpx; 
-		margin-top: 20rpx;
-	}
 </style>

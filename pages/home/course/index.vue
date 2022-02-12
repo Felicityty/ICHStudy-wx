@@ -8,70 +8,60 @@
 		</view>
 		
 		<view class="content">
-			<view class="course_content" v-for="(item,index) in courseItem" :key="index" @click="go()">
-				<image :src="item.img" mode="aspectFill" class="course_content_img"></image>
+			<view v-for="(item,index) in courseItem" :key="index">
+				<CourseItem :info="item"></CourseItem>
+				<!-- <image :src="item.img" mode="aspectFill" class="course_content_img"></image>
 				<text class="course_content_name">{{ item.name }}</text>
-				<text class="course_content_intro">{{item.intro}}</text>
+				<text class="course_content_intro">{{item.intro}}</text> -->
 			</view>
 		</view>
 	</view>
 </template>
 
 <script>
+	import CourseItem from '../../../components/course/CourseItem.vue'
+	import { getCourseList } from '../../../api/course/index.js'
+	import { getFileUrl } from '../../../common/index.js'
+	
 	export default {
 		data(){
 			return{
-				courseItem: [
-					{
-						name: '扯白糖',
-						img: '../../../static/images/coursePic/course1.png',
-						intro: '浙江绍兴传统的地方小吃'
-					},
-					{
-						name: '富阳剪纸',
-						img: '../../../static/images/coursePic/course2.png',
-						intro: '古老的传统民间艺术'
-					},
-					{
-						name: '圆木制作',
-						img: '../../../static/images/coursePic/course3.png',
-						intro: '专做家用木桶的手工技艺'
-					},
-					{
-						name: '十里红妆',
-						img: '../../../static/images/coursePic/course4.png',
-						intro: '江南传统婚俗文化'
-					},
-					{
-						name: '皮影之光',
-						img: '../../../static/images/coursePic/course5.png',
-						intro: '我国出现最早的戏曲剧种之一'
-					},
-					{
-						name: '皤滩文化古镇',
-						img: '../../../static/images/coursePic/course6.png',
-						intro: '古代江南山区农村古镇文化'
-					},
-					{
-						name: '建德茶叶',
-						img: '../../../static/images/coursePic/course7.png',
-						intro: '兰花型细嫩半烘炒绿茶'
-					},
-					{
-						name: '龙门古镇',
-						img: '../../../static/images/coursePic/course8.png',
-						intro: '以独特的明清古建筑群而闻名'
-					}
-				]
+				courseItem: []
+			}
+		},
+		components: {
+			CourseItem
+		},
+		onLoad() {
+			const token = wx.getStorageSync('token')
+			if(!token) {
+				uni.reLaunch({
+					url: '../../index/index'
+				})
+			} else {
+				this.getCourseList()
 			}
 		},
 		methods:{
-			go(){
-				console.log(1)
-				uni.navigateTo({
-					url: "../course/detail"
-				})
-			},
+			getCourseList() {
+				getCourseList()
+					.then(res => {
+						const data = JSON.parse(res.data).endata.data
+						// console.log(data)
+						const courses = []
+						data.forEach(item => {
+							courses.push({
+								id: item.cindex,
+								name: item.cnname,
+								intro: item.cninfo,
+								img: getFileUrl('img', item.imgpath)
+							})
+						})
+						this.courseItem = courses
+						// console.log(this.courseItem)
+					})
+					.catch(err => console.log(err))
+			}
 		}
 	}
 </script>
@@ -139,31 +129,4 @@
 		flex-wrap: wrap;
 	}
 	
-	.course_content{
-		width: 312rpx;
-		height: 408rpx;
-		margin-bottom: 30rpx;
-		display: flex;
-		justify-content: center;
-		align-items: flex-start;
-		flex-direction: column;
-	}
-	
-	.course_content_img{
-		width: 312rpx;
-		height: 312rpx;
-		border-radius: 20rpx;
-	}
-	
-	.course_content_name{
-		color: #382321; 
-		font-size: 28rpx; 
-		margin-top: 20rpx;
-	}
-	
-	.course_content_intro{
-		color: #73615D; 
-		font-size: 22rpx; 
-		margin-top: 12rpx;
-	}
 </style>
