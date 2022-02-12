@@ -115,7 +115,7 @@
 			      // console.log(data)
 						// 激活成功
 			      uni.showToast({
-			      	title: '注册成功',
+			      	title: data.msg,
 			      	icon: 'none'
 			      })
 			      if(data.su === 0) {

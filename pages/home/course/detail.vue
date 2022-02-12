@@ -55,7 +55,11 @@
 				play: 0,
 			  showAll: false,
 				bofang: '../../../static/images/iCons/zhengzaibofang.png',
-				courseItem: []
+				courseItem: [],
+				userInfo: {
+					username: '',
+					nickName: '',
+				}
 			}
 		},
 		components: {
@@ -63,12 +67,15 @@
 		},
 		onLoad(options) {
 			const token = wx.getStorageSync('token')
+			const that = this
+			const userInfo = wx.getStorageSync('userInfo')
 			if(!token) {
 				uni.reLaunch({
 					url: '../../index/index'
 				})
 			} else {
 				this.index = options.id
+				that.userInfo.username = userInfo[0]
 				// console.log(options.id)
 				this.getCourseInfo()
 				this.getSections()
@@ -171,11 +178,11 @@
 			  this.deltaTime = Math.ceil((this.etime - this.stime) / 60000)
 			  console.log(this.deltaTime)
 			
-			  // uploadMy(this.$store.state.user.id, this.index, this.toLearnList[this.play].sectionId, this.deltaTime)
-			  //   .then(res => {
-			  //     console.log(res)
-			  //   })
-			  //   .catch(err => console.log(err))
+			  uploadMy(this.userInfo.username, this.index, this.toLearnList[this.play].sectionId, this.deltaTime)
+			    .then(res => {
+			      console.log(res)
+			    })
+			    .catch(err => console.log(err))
 			
 			  this.stime = this.etime = this.deltaTime = 0
 			},
