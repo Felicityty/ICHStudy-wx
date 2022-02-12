@@ -9,13 +9,13 @@
 		<view class="history" v-for="(item,index) in history" :key="item">
 			<view class="history_content">
 				<view class="history_name">
-					<view>{{item.name}}</view>
+					<view>{{item.cscn}}</view>
 				</view>
 				<view class="history_section">
-					<view>{{item.section}}</view>
+					<view>{{item.sccn}}</view>
 				</view>
 				<view class="history_time">
-					<view>{{item.time}}分</view>
+					<view>{{item.ctime}}分</view>
 				</view>
 			</view>
 			<view class="line"></view>
@@ -25,28 +25,50 @@
 </template>
 
 <script>
+	import { getPlayData } from '../../../api/user/index.js'
+	
 	export default {
 		data() {
 			return {
-				history:[
-					{
-						name: '扯白糖',
-						section: '扯白糖纪录片',
-						time: 14
-					},
-					{
-						name: 'Fuyang PaperCutting',
-						section: 'Lesson One - Fuchun Paper Cutting',
-						time: 14
-					}
-				]
+				history: [],
+				userInfo: {
+					username: '',
+					nickName: '',
+				}
 			}
 		},
 		onLoad() {
-	
+			const token = wx.getStorageSync('token')
+			const that = this
+			const userInfo = wx.getStorageSync('userInfo')
+			if(!token) {
+				uni.reLaunch({
+					url: '../../index/index'
+				})
+			} else {
+				that.userInfo.username = userInfo[0]
+				// console.log(this.userInfo.username)
+				this.getCourse()
+			}
 		},
 		methods: {
-	
+			getCourse() {
+			  getPlayData(this.userInfo.username)
+			    .then(res => {
+			      const data = JSON.parse(res.data).endata.data
+			      console.log(data)
+			      data.forEach(item => {
+			        this.history.push({
+			          cscn: item.cscn,
+			          csen: item.csen,
+			          ctime: item.ctime,
+								sccn: item.sccn,
+			          scen: item.scen,
+			      	})
+			      })
+			    })
+			    .catch(err => console.log(err))
+			}
 		}
 	}
 </script>

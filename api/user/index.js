@@ -69,3 +69,14 @@ export function checkVer (code, email) {
     }
   })
 }
+
+//获取播放数据
+export function getPlayData (username) {
+  return request({
+    url: '/getplaydata/',
+    method: 'POST',
+    data: {
+      username: username
+    }
+  })
+}

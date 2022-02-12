@@ -12,18 +12,20 @@
 				<text class="point_text">积分</text>
 			</view>
 			<view class="duration">
-				<view class="duration_score">{{hour}} H {{minute}} M </view>
+				<view class="duration_score">{{time_text}}</view>
 				<text class="point_text">学习总时长</text>
 			</view>
 			<view class="times">
-				<text class="times_text">观看视频总次数</text>
-				<view class="times_time">{{times}}</view>
+				<view class="times_content">
+					<text class="times_text">观看视频总次数</text>
+					<view class="times_time">{{total_num}}</view>
+				</view>
 			</view>
 			<view class="max">
 				<text class="max_text">观看最多的视频</text>
 				<view class="max_content">
-					<view class="max_video">{{maxVideo}}</view>
-					<view class="max_time">{{maxTimes}}</view>
+					<view class="max_video">{{v_cntitle}}</view>
+					<view class="max_time">{{v_num}}</view>
 				</view>
 			</view>
 			
@@ -47,6 +49,8 @@
 </template>
 
 <script>
+	import { getPlayData } from '../../api/user/index.js'
+	
 	export default {
 		data() {
 			return {
@@ -76,13 +80,11 @@
 						url: ''
 					}
 				],
-				username: '用户名',
-				point: 0,
-				hour: 0,
-				minute: 0,
-				times: 0,
-				maxVideo: '扯白糖纪录片',
-				maxTimes: 2,
+				total_time: 0,
+				total_num: 0,
+				v_cntitle: '',
+				v_entitle: '',
+				v_num: 0,
 				userInfo: {
 					username: '',
 					nickName: '请点击登录',
@@ -91,6 +93,16 @@
 					openid: ''
 				}
 			}
+		},
+		computed:{
+			point () {
+			  return Math.floor(this.total_time / 10)
+			},
+			time_text () {
+			  const hour = Math.floor(this.total_time / 60)
+			  const min = Math.floor(this.total_time - hour * 60)
+			  return `${hour} 时 ${min} 分`
+			},
 		},
 		methods: {
 			set(){
@@ -118,6 +130,27 @@
 					url: '../index/index'
 				})
 			},
+			getCourse() {
+			  getPlayData(this.userInfo.username)
+			    .then(res => {
+			      const data = JSON.parse(res.data).endata.data
+			      console.log(data)
+			      this.total_num = 0
+			      this.v_num = -1
+			      data.forEach(item => {
+			        this.total_num += item.playcounts
+			        this.total_time += parseInt(item.ctime)
+			        if (item.playcounts > this.v_num) {
+			          this.v_num = item.playcounts
+			          this.v_cntitle = item.sccn
+			          this.v_entitle = item.scen
+			        }
+			      })
+			    })
+			    .catch(err => console.log(err))
+			},
+			
+			
 			wxGetUserProfile() {
 				const that = this
 				wx.getUserProfile({
@@ -167,6 +200,7 @@
 			if(token) {
 				that.userInfo.username = userInfo[0]
 				that.userInfo.nickName = userInfo[2]
+				this.getCourse()
 			}
 			// const openid = wx.getStorageSync('openid')
 			// if(openid) {
@@ -195,7 +229,6 @@
 	.times_text{
 		font-size: 28rpx;
 		color: #73615D;
-		margin-left: 30rpx;
 	}
 	
 	.max_text{
@@ -259,6 +292,7 @@
 	
 	.point_score,.duration_score{
 		font-size: 36rpx;
+		font-weight: 600;
 		color: #382321;
 		margin-bottom: 10rpx;
 	}
@@ -279,11 +313,19 @@
 		background-color: #ffffff;
 	}
 	
+	.times_content{
+		width: 594rpx;
+		margin-left: 30rpx;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+	}
+	
 	.times_time{
+		font-weight: 600;
 		font-size: 36rpx;
 		color: #382321;
-		margin-top: 4rpx;
-		margin-left: 374rpx;
 	}
 	
 	.max{
@@ -308,12 +350,14 @@
 	}
 	
 	.max_video{
+		font-weight: 600;
 		font-size: 28rpx;
 		color: #382321;
 	}
 	
 	.max_time{
 		font-size: 36rpx;
+		font-weight: 600;
 		color: #382321;
 	}
 	

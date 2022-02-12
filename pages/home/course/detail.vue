@@ -1,13 +1,17 @@
 <template>
 	<view class="container">
 		<view class="video_play">
-			<video controls :src="toLearnList[play].url" 
-			type="video/mp4" 
+			<video 
+			autoplay="true"
+      controls="controls"
+      preload="auto"
+      crossorigin="use-credentials"
+      ref="av"
 			@play="startPlay"
 			@ended="endPlay"
-			style="width: 750rpx height: 100%;">
-				<!-- <source :src="toLearnList[play].url" type="video/mp4" style="width: 750rpx height: 100%;"> -->
-				<track :src="toLearnList[play].subpath" kind="subtitles" default>
+			v-for="(item, index) in toLearnList" :key="index" v-show="index === play">
+				<source :src="item.url" type="video/mp4">
+				<track :src="item.subpath" kind="subtitles" default>
 			</video>
 		</view>
 		
@@ -44,6 +48,7 @@
 	import { getFileUrl } from '../../../common/index.js'
 	
 	export default {
+		name: 'av',
 		data(){
 			return{
 				index: '',
@@ -94,6 +99,7 @@
 			},
 			changevideo(index){
 				this.upload()
+				// this.$refs.av[this.play].pause()
 				this.play = index
 			},
 			video(index){
@@ -134,6 +140,7 @@
 			          subpath: getFileUrl('vtt', item.subtitlespath)
 							})
 			      })
+						// console.log(this.toLearnList[1].url)
 			    })
 			    .catch(err => console.log(err))
 			},
@@ -196,7 +203,7 @@
 			endPlay () {
 			  if (!this.etime) {
 			    this.etime = new Date()
-			    // this.deltaTime = this.etime - this.stime
+			    this.deltaTime = this.etime - this.stime
 			  }
 			  // console.log(this.etime)
 			  this.upload()
