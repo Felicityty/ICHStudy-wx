@@ -7,7 +7,7 @@
 			</view>
 			
 			<view class="listView">
-				<view class="listItem" v-for="(item, index) in vrItem" :key="index" @click="goDetail(item.url)">
+				<view class="listItem" v-for="(item, index) in vrItem" :key="index" @click="goDetail(item.id)">
 					<image class="listViewPic" :src="item.img"></image>
 					<view class="listViewText">{{item.name}}</view>
 				</view>
@@ -17,53 +17,41 @@
 </template>
 
 <script>
+	import { getVrList } from '../../../api/vr/index.js'
+	import { getFileUrl } from '../../../common/index.js'
 	export default {
 		data() {
 			return {
-				title: 'VR',
-				vrItem: [
-					{
-						name: "沙村",
-						img: "../../../static/images/vrPic/sc.png",
-						url: ""
-					},
-					{
-						name: "十里红妆博物馆",
-						img: "../../../static/images/vrPic/slhz.png",
-						url: "./vrDetail"
-					},
-					{
-						name: "舟山博物馆",
-						img: "../../../static/images/vrPic/zs.png",
-						url: ""
-					},
-					{
-						name: "定海古城",
-						img: "../../../static/images/vrPic/dhgc.png",
-						url: ""
-					},
-					{
-						name: "龙珠",
-						img: "../../../static/images/vrPic/lz.png",
-						url: ""
-					},
-					{
-						name: "金沙",
-						img: "../../../static/images/vrPic/js.png",
-						url: ""
-					}
-				]
+				vrItem: []
 			}
 		},
 		onLoad() {
-
+			this.getVrList()
 		},
 		methods: {
-			goDetail(e) {
+			goDetail(id) {
 				uni.navigateTo({
-					url: e
+					url: './vrDetail?id=' + id
 				})
 			},
+			getVrList() {
+				getVrList()
+					.then(res => {
+						const data = JSON.parse(res.data).endata.data
+						console.log(data)
+						const vrs =[]
+						data.forEach(item => {
+							vrs.push({
+								id: item.id,
+								name: item.vrcnname,
+								img: getFileUrl('img', item.cover)
+							})
+						})
+						this.vrItem = vrs
+						// console.log(this.vrItem)
+					})
+					.catch(err => console.log(err)) 
+			}
 		}
 	}
 </script>

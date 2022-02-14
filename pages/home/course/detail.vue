@@ -113,7 +113,7 @@
 			  getCourseList()
 			    .then(res => {
 			      const data = JSON.parse(res.data).endata.data
-			      // console.log(data)
+			      console.log(data)
 			      for (let i = 0; i < data.length; i++) {
 							if( data[i].cindex === this.index){
 								this.courseinfo.push({

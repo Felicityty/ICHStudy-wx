@@ -20,8 +20,9 @@
 					</view>
 					
 					<view class="listView">
-					<!-- <view class="listView" bindtouchstart='touchStart' bindtouchmove='touchMove' bindtouchend='touchEnd' :style="'margin-left:' + left + 'rpx'"> -->
-						<view class="listView-tile" v-for="(item, index) in courseItem" :key="index" @click="goCourseDetail(item.id)">
+						<view class="listView-tile" v-for="(item, index) in courseItem" :key="index" 
+							 v-if="index == 0 || index == 7 || index == 6 || index == 9" @click="goCourseDetail(item.id)">
+							 
 							<image class="couPic" :src="item.img" mode="aspectFill"></image>
 							<view class="couName">{{item.name}}</view>
 						</view>
@@ -41,7 +42,8 @@
 					</view>
 					
 					<view class="listView">
-						<view class="listView-tile" v-for="(item, index) in vrItem" :key="index" @click="goDetail(item.url)">
+						<view class="listView-tile" v-for="(item, index) in vrItem" :key="index" 
+							v-if="index == 0 || index == 4 || index == 1" @click="goVrDetail(item.id)">
 							<image class="couPic" :src="item.img" mode="aspectFill"></image>
 							<view class="couName">{{item.name}}</view>
 						</view>
@@ -56,33 +58,13 @@
 <script>
 	import { getCourseList } from '../../api/course/index.js'
 	import { getFileUrl } from '../../common/index.js'
+	import { getVrList } from '../../api/vr/index.js'
 	export default {
 		data() {
 			return {
 				title: '首页',
 				courseItem: [],
-				vrItem: [
-					{
-						name: "十里红妆博物馆",
-						img: "../../static/images/vrPic/slhz.png",
-						url: "./VR/vrDetail"
-					},
-					{
-						name: "舟山博物馆",
-						img: "../../static/images/vrPic/zs.png",
-						url: ""
-					},
-					{
-						name: "定海古城",
-						img: "../../static/images/vrPic/dhgc.png",
-						url: ""
-					},
-					{
-						name: "沙村",
-						img: "../../static/images/vrPic/sc.png",
-						url: ""
-					}
-				],
+				vrItem: [],
 				
 			}
 		},
@@ -94,6 +76,7 @@
 				})
 			} else {
 				this.getCourseList()
+				this.getVrList()
 			}
 		},
 		methods: {
@@ -107,14 +90,14 @@
 					url: "./VR/index"
 				})
 			},
-			goCourseDetail(id){
+			goVrDetail(id) {
 				uni.navigateTo({
-					url: './course/detail?id=' + id
+					url: './VR/vrDetail?id=' + id
 				})
 			},
-			goDetail(e) {
-				uni.navigateTo({
-					url: e
+			goCourseDetail(id){
+				uni.navigateTo({ 
+					url: './course/detail?id=' + id
 				})
 			},
 			getCourseList() {
@@ -131,9 +114,27 @@
 							})
 						})
 						this.courseItem = courses
-						console.log(this.courseItem)
+						// console.log(this.courseItem)
 					})
 					.catch(err => console.log(err))
+			},
+			getVrList() {
+				getVrList()
+					.then(res => {
+						const data = JSON.parse(res.data).endata.data
+						console.log(data)
+						const vrs =[]
+						data.forEach(item => {
+							vrs.push({
+								id: item.id,
+								name: item.vrcnname,
+								img: getFileUrl('img', item.cover)
+							})
+						})
+						this.vrItem = vrs
+						// console.log(this.vrItem)
+					})
+					.catch(err => console.log(err)) 
 			}
 		}
 	}

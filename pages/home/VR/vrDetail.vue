@@ -2,7 +2,7 @@
 		<view class="content">
 			
 			<view class="bg">
-				<image class="picbg" src="../../../static/images/vrPic/slhz.png"></image>
+				<image class="picbg" :src="intro[0].img"></image>
 			</view>
 			
 			<view class="back" @click="goOff()">
@@ -10,10 +10,11 @@
 			</view>
 			
 			<view class="container">
-				
+				<!-- 介绍 -->
 				<view class="intro">
-					<view class="title">{{intro.title}}</view>
-					<div class="introduction" v-html="showLen"></div>
+					<view class="title">{{intro[0].title}}</view>
+					<view :class="!showing?'introduction-ellipsis':'introduction-complete'">{{intro[0].text}}</view>
+					<!-- <div class="introduction" v-html="showLen"></div> -->
 					<!-- 要换行只能用div和v-html诶  -->
 				</view>
 				
@@ -24,11 +25,13 @@
 					</view>
 				</view>
 				
+				<!-- 推荐 -->
 				<view class="recommend">
 					<view class="name">推荐</view>
 					
 					<view class="listView">
-						<view class="rec" v-for="(item, index) in recItem" :key="index">
+						<view class="rec" v-for="(item, index) in recItem" :key="index" 
+							@click="goDetail(item.id)">
 							<image class="recPic" :src="item.img"></image>
 							<view class="recName">{{item.name}}</view>
 						</view>
@@ -36,9 +39,10 @@
 					
 				</view>
 				
+				<!-- 全景 -->
 				<view class="quanjing">
 					<view class="name">VR全景</view>
-					<image class="vr360" :src="vr360.img"></image>
+					<image class="vr360" :src="intro[0].img360" @click="goUrl(intro[0].vrUrl)"></image>
 				</view>
 				
 			</view>
@@ -46,42 +50,32 @@
 </template>
 
 <script>
+	import { getVrList } from '../../../api/vr/index.js'
+	import { getFileUrl } from '../../../common/index.js'
 	export default {
 		data() {
 			return {
-				title: 'VR详情',
-				intro: {
-					title: "十里红妆博物馆",
-					text: "十里红妆博物馆：宁海“十里红妆”博物馆创建于2003年9月，2004年5月正式对外开放，它是一家展示古代女子生活的专题博物馆，也是省内规模最大的民间民俗博物馆。<br/>博物馆采用场景布展和藏品归类布展相结合，有嫁妆场景，有木桶房、绣房、闺房、书房、婚房、妾房和百床风情等展厅。"
-				},
+				index: '',
+				intro: [],
 				showing: true,
-				recItem: [
-					{
-						name: "沙村",
-						img: "../../../static/images/vrPic/sc.png"
-					},
-					{
-						name: "舟山博物馆",
-						img: "../../../static/images/vrPic/zs.png"
-					},
-					{
-						name: "定海古城",
-						img: "../../../static/images/vrPic/dhgc.png"
-					},
-				],
-				vr360:{
-					img: "../../../static/images/vrPic/vr360.png",
-					url: "http://47.114.116.87:3001/"
-				}
+				recItem: [],
 			}
 		},
-		onLoad() {
-
+		onLoad(options) {
+			this.getVrList()
+			this.index = options.id
+			// console.log(this.index)
+			this.getVrRec()
 		},
 		methods: {
 			goOff() {
 				uni.navigateBack({
 				});
+			},
+			goDetail(id) {
+				uni.navigateTo({
+					url: './vrDetail?id=' + id
+				})
 			},
 			folded(){
 				if(this.showing == false){
@@ -90,18 +84,71 @@
 				  return '../../../static/images/iCons/arrowDownBrown.png'  // true
 				} 
 			},
-			
+			getVrList() {
+				getVrList()
+					.then(res => {
+						const data = JSON.parse(res.data).endata.data
+						console.log(data)
+						for (let i=0; i<data.length; i++) {
+							if(data[i].id == this.index) {
+								this.intro.push({
+								title: data[i].vrcnname,
+								img: getFileUrl('img', data[i].cover),
+								img360: getFileUrl('img', data[i].vr_panoramic_cover),
+								text: data[i].vrcninfo,
+								vrUrl: data[i].vrpath
+								})
+							}
+						}
+					})
+					.catch(err => console.log(err)) 
+			},
+			goUrl(url) {
+				// 不大行
+				console.log(url)
+			},
+			getVrRec() {
+				getVrList()
+					.then(res => {
+						const data = JSON.parse(res.data).endata.data
+						// console.log(data)
+						let vrRec = []
+						data.forEach(item => {
+							vrRec.push({
+								id: item.id,
+								name: item.vrcnname,
+								img: getFileUrl('img', item.cover)
+							})
+						})
+						vrRec = this.getRandomArrayElements(vrRec, 4)
+						this.recItem = vrRec
+						// console.log(this.recItem)
+					})
+					.catch(err => console.log(err))
+			},
+			// 随机获取指定数目的数据
+			getRandomArrayElements(arrList, num) {
+			  let tempArr = arrList.slice(0);
+			  let newArrList = [];
+			  for(let i=0; i<num; i++) {
+			    let random = Math.floor(Math.random()*(tempArr.length-1));
+			    let arr = tempArr[random];
+			    tempArr.splice(random, 1);
+			    newArrList.push(arr);
+				}
+			  return newArrList;
+			},
 		},
 		computed: {
-			showLen: function() {
-				if (this.showing == true){
-					var showLen = this.intro.text.substring(0,56);   // 截取前两行
-					return showLen;
-				}
-				else {
-					return this.intro.text;
-				}
-			}
+			// showLen: function() {
+			// 	if (this.showing == true){
+			// 		var showLen = this.intro[0].text.substring(0,56);   // 截取前两行
+			// 		return showLen;
+			// 	}
+			// 	else {
+			// 		return this.intro[0].text;
+			// 	}
+			// }
 			
 		}
 	}
@@ -153,10 +200,11 @@
 	
 	.intro{
 		margin: 48rpx 48rpx 24rpx 48rpx;
+		overflow: hidden;
 	}
 	
 	.title{
-		font-size: 32rpx;
+		font-size: 36rpx;
 		line-height: 46rpx;
 		color: #382321;
 		font-weight: 600;
@@ -172,7 +220,7 @@
 		margin-left: 48rpx;
 	}
 	
-	.introduction{
+	.introduction-ellipsis{
 		font-size: 24rpx;
 		letter-spacing: 0.02em;
 		color: #73615D;
@@ -183,6 +231,17 @@
 		overflow: hidden;      // 外层还要再写一遍
 		white-space: nowrap; 
 		*/
+	}
+	
+	.introduction-complete{
+		width: 650rpx;
+		font-size: 24rpx;
+		letter-spacing: 0.02em;
+		color: #73615D;
+		line-height: 30rpx;
+		overflow: hidden;
+		white-space: nowrap; 
+		text-overflow: ellipsis;
 	}
 	
 	.zhankai{
@@ -240,7 +299,7 @@
 	
 	.quanjing{
 		margin-top: 48rpx;
-		margin-left: 48rpx;
+/* 		margin-left: 48rpx; */
 	}
 	
 	.vr360{
@@ -248,6 +307,7 @@
 		height: 346.12rpx;
 		border-radius: 20rpx;
 		margin-bottom: 48rpx;
+		margin-left: 48rpx;
 	}
 	
 </style>
