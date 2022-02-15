@@ -54,6 +54,7 @@
 	export default {
 		data() {
 			return {
+				i: 0,
 				touxiang: '../../static/images/iCons/touxiang.png',
 				arrow: '../../static/images/iCons/arrowRightLightbrown.png',
 				settingItems: [
@@ -134,7 +135,7 @@
 			  getPlayData(this.userInfo.username)
 			    .then(res => {
 			      const data = JSON.parse(res.data).endata.data
-			      console.log(data)
+			      // console.log(data)
 			      this.total_num = 0
 			      this.v_num = -1
 			      data.forEach(item => {
@@ -193,15 +194,15 @@
 				})
 			}
 		},
-		onLoad() {
+		onShow() {
 			const that = this
 			const token = wx.getStorageSync('token')
 			const userInfo = wx.getStorageSync('userInfo')
 			if(token) {
 				that.userInfo.username = userInfo[0]
 				that.userInfo.nickName = userInfo[2]
-				this.getCourse()
 			}
+			if(this.i === 0){ this.getCourse(); this.i = 1 }
 			// const openid = wx.getStorageSync('openid')
 			// if(openid) {
 			// 	that.userInfo.openid = openid

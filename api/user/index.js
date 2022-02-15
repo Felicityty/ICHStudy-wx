@@ -80,3 +80,20 @@ export function getPlayData (username) {
     }
   })
 }
+
+//
+export function setting (info) {
+  return request({
+    url: '/user',
+    method: 'POST',
+    data: {
+      endata: {
+        action: 'updinfo',
+        username: info.username,
+        nickname: info.nickname,
+        sex: info.sex,
+        signature: info.signature
+      }
+    }
+  })
+}

@@ -2,14 +2,14 @@
 	<view class="container">	
 		<view class="photo">
 			<text class="text">头像：</text>
-			<image :src="touxiang" mode="aspectFill" class="photo_img"></image>
+			<image :src="userInfo.avatarUrl" mode="aspectFill" class="photo_img"></image>
 			<image :src="arrow" mode="aspectFill" class="arrow"></image>
 		</view>
 		
 		<view class="account">
 			<text class="text">账号：</text>
 			<view class="account_right">
-				<view class="account_content">{{account}}</view>
+				<view class="account_content">{{userInfo.username}}</view>
 				<image :src="arrow" mode="aspectFill" class="arrow"></image>
 			</view>
 		</view>
@@ -17,7 +17,7 @@
 		<view class="nickname" @click="nick()">
 			<text class="text">昵称：</text>
 			<view class="nickname_right">
-				<view class="nickname_content">{{nickname}}</view>
+				<view class="nickname_content">{{userInfo.nickname}}</view>
 				<image :src="arrow" mode="aspectFill" class="arrow"></image>
 			</view>
 		</view>
@@ -25,7 +25,7 @@
 		<view class="signature" @click="sign()">
 			<text class="text">个性签名：</text>
 			<view class="signature_right">
-				<view class="signature_content">{{signature}}</view>
+				<view class="signature_content">{{userInfo.signature}}</view>
 				<image :src="arrow" mode="aspectFill" class="arrow"></image>
 			</view>
 		</view>
@@ -33,7 +33,7 @@
 		<view class="email">
 			<text class="text">邮箱：</text>
 			<view class="email_right">
-				<view class="email_content">{{email}}</view>
+				<view class="email_content">{{userInfo.email}}</view>
 				<image :src="arrow" mode="aspectFill" class="arrow"></image>
 			</view>
 		</view>
@@ -41,7 +41,7 @@
 		<view class="password">
 			<text class="text">密码：</text>
 			<view class="password_right">
-				<view class="password_content">{{password}}</view>
+				<view class="password_content">{{userInfo.password}}</view>
 				<image :src="arrow" mode="aspectFill" class="arrow"></image>
 			</view>
 		</view>
@@ -49,30 +49,44 @@
 </template>
 
 <script>
+
 	export default {
 		data() {
 			return {
-				touxiang: '../../../static/images/iCons/touxiang.png',
 				arrow: '../../../static/images/iCons/arrowRightLightbrown.png',
-				account: 'ASDFGHJK123',
-				nickname: '',
-				signature: '',
-				email: '123456789@123.com',
-				password: 'asd123456'
+				userInfo: {
+					avatarUrl: '../../../static/images/iCons/touxiang.png',
+					username: '',
+					nickname: '',
+					sex: '',
+					signature: '',
+					email: '',
+					ver: '',
+					password: '',
+					checkpwd: ''
+				}
 			}
 		},
-		onLoad() {
-	
+		onShow() {
+			const token = wx.getStorageSync('token')
+			const userInfo = wx.getStorageSync('userInfo')
+			// console.log(userInfo)
+			if(token) {
+				this.userInfo.username = userInfo[0]
+				this.userInfo.avatarUrl = userInfo[1]
+				this.userInfo.nickname = userInfo[2]
+				this.userInfo.email = userInfo[3]
+				this.userInfo.password = userInfo[4]
+				this.userInfo.signature = userInfo[5]
+			}
 		},
 		methods: {
 			nick(){
-				console.log(1)
 				uni.navigateTo({
 					url: "../setting/nickname"
 				})
 			},
 			sign(){
-				console.log(1)
 				uni.navigateTo({
 					url: "../setting/signature"
 				})
@@ -117,9 +131,21 @@
 		margin-left: 404rpx;
 	}
 	
-	.account,.nickname,.signature,.email,.password{
+	.account,.nickname,.email,.password{
 		width: 654rpx;
-		height: 106rpx;
+		padding-top: 30rpx;
+		padding-bottom: 20rpx;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		border-bottom: 2rpx solid #E5E5E5;
+	}
+	
+	.signature{
+		width: 654rpx;
+		padding-top: 30rpx;
+		padding-bottom: 20rpx;
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
@@ -129,7 +155,6 @@
 	
 	.account_right,.nickname_right,.signature_right,.email_right,.password_right{
 		width: 558rpx;
-		height: 106rpx;
 		display: flex;
 		flex-direction: row;
 		justify-content:flex-end;
@@ -140,10 +165,21 @@
 		width: 494rpx;
 	}
 	
-	.account_content,.nickname_content,.signature_content,.email_content,.password_content{
+	.account_content,.nickname_content,.email_content,.password_content{
+		font-size: 28rpx;
+		color: #382321;
+		margin-right: 30rpx;
+	}
+	
+	.signature_content{
+		width: 400rpx;
 		font-size: 28rpx;
 		color: #382321;
 		position: relative;
 		right: 30rpx;
+		text-align: right;
+		overflow:hidden;
+		white-space: normal;
+		word-break: break-all;
 	}
 </style>

@@ -109,7 +109,7 @@
 		{
 		  "path" : "pages/me/setting/signature",
 			"style" : {
-			  "navigationBarTitleText" : "个人签名"
+			  "navigationBarTitleText" : "个性签名"
 		  }
 		},
 		{

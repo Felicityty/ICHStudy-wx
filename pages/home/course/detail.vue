@@ -259,6 +259,8 @@
 		color: #73615D; 
 		font-size: 24rpx; 
 		margin-top: 20rpx;
+		line-height: 40rpx;
+		/* text-indent: 48rpx; */
 	}
 	
 	.video_list{
