@@ -64,14 +64,14 @@
 		{
 			"path": "pages/tourist/index",
 			"style": {
-				"navigationBarTitleText": "研学旅行",
+				"navigationBarTitleText": "课程",
 				"enablePullDownRefresh": true
 			}
 		},
 		{
 			"path": "pages/products/index",
 			"style": {
-				"navigationBarTitleText": "文创产品",
+				"navigationBarTitleText": "VR",
 				"enablePullDownRefresh": true
 			}
 		},
@@ -158,14 +158,14 @@
 				"selectedIconPath": "static/images/buttomIcons/home-2.png"
 			},
 			{
-				"pagePath": "pages/tourist/index",
-				"text": "研学旅行",
+				"pagePath": "pages/home/course/index",
+				"text": "课程",
 				"iconPath": "./static/images/buttomIcons/tourist-1.png",
 				"selectedIconPath": "static/images/buttomIcons/tourist-2.png"
 			},
 			{
-				"pagePath": "pages/products/index",
-				"text": "文创产品",
+				"pagePath": "pages/home/VR/index",
+				"text": "VR",
 				"iconPath": "./static/images/buttomIcons/product-1.png",
 				"selectedIconPath": "./static/images/buttomIcons/product-2.png"
 			},

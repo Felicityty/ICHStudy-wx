@@ -42,10 +42,6 @@
 					{
 						name: "关于我们",
 						url: "./aboutUs"
-					},
-					{
-						name: "团队介绍",
-						url: "./teamIntro"
 					}
 				]
 			}
@@ -97,7 +93,7 @@
 	
 	.buttons{
 		width: 654rpx;
-		height: 228rpx;
+		height: 152rpx;
 		background: #FFFBF8;
 		box-shadow: 0 4rpx 4rpx rgba(0, 0, 0, 0.12);
 		border-radius: 20rpx;

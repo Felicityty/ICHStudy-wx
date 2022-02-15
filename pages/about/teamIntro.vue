@@ -1,3 +1,5 @@
+<!-- 删了吧 -->
+
 <template>
 		<view class="content">
 			
