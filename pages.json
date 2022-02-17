@@ -62,6 +62,13 @@
 			}
 		},
 		{
+			"path": "pages/home/VR/vr",
+			"style": {
+				"navigationBarTitleText": "VR",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
 			"path": "pages/tourist/index",
 			"style": {
 				"navigationBarTitleText": "课程",

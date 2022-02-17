@@ -92,6 +92,7 @@
 						for (let i=0; i<data.length; i++) {
 							if(data[i].id == this.index) {
 								this.intro.push({
+								id: data[i].id,
 								title: data[i].vrcnname,
 								img: getFileUrl('img', data[i].cover),
 								img360: getFileUrl('img', data[i].vr_panoramic_cover),
@@ -104,8 +105,10 @@
 					.catch(err => console.log(err)) 
 			},
 			goUrl(url) {
-				// 不大行
 				console.log(url)
+				uni.navigateTo({
+					url: './vr?url' + url
+				})
 			},
 			getVrRec() {
 				getVrList()
