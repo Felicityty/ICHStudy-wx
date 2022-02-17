@@ -13,7 +13,7 @@
 		},
 		onLoad(options) {
 			this.url = options.url
-			console.log(options)
+			console.log(this.url)
 		},
 		methods: {
 		}

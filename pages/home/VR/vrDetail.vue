@@ -107,7 +107,7 @@
 			goUrl(url) {
 				console.log(url)
 				uni.navigateTo({
-					url: './vr?url' + url
+					url: './vr?url=' + url
 				})
 			},
 			getVrRec() {
