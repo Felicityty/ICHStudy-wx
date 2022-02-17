@@ -33,7 +33,7 @@
 	.course_content{
 		width: 312rpx;
 		height: 408rpx;
-		margin-bottom: 30rpx;
+		margin-bottom: 36rpx;
 		display: flex;
 		justify-content: center;
 		align-items: flex-start;
