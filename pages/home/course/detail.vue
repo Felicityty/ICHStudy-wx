@@ -2,17 +2,15 @@
 	<view class="container">
 		<view class="video_play">
 			<video 
-			autoplay="true"
-      controls="controls"
-      preload="auto"
-      crossorigin="use-credentials"
-      ref="av"
-			@play="startPlay"
-			@ended="endPlay"
-			v-for="(item, index) in toLearnList" :key="index" v-show="index === play">
-				<source :src="item.url" type="video/mp4">
-				<track :src="item.subpath" kind="subtitles" default>
+				:src="toLearnList[play].url" 
+				autoplay
+				ref="av"
+				@play="startPlay"
+				@ended="endPlay"
+				@timeupdate="timeUpdate"
+			>
 			</video>
+			<Track id="track" ref="track"/>
 		</view>
 		
 		<view class="course_details">
@@ -44,6 +42,7 @@
 
 <script>
 	import CourseCommend from '../../../components/course/CourseCommend.vue'
+	import Track from '../../../components/course/Track'
 	import { getCourseList, getSection, uploadMy } from '../../../api/course/index.js'
 	import { getFileUrl } from '../../../common/index.js'
 	
@@ -68,7 +67,8 @@
 			}
 		},
 		components: {
-			CourseCommend
+			CourseCommend,
+			Track
 		},
 		onLoad(options) {
 			const token = wx.getStorageSync('token')
@@ -87,7 +87,9 @@
 				this.getSections()
 				this.getCourseCommend()
 			}
-
+		},
+		destroyed() {
+			this.$refs.av.pause()
 		},
 		methods:{
 			unfold(){　//对箭头进行处理
@@ -99,7 +101,6 @@
 			},
 			changevideo(index){
 				this.upload()
-				// this.$refs.av[this.play].pause()
 				this.play = index
 			},
 			video(index){
@@ -130,9 +131,10 @@
 			  getSection(this.index)
 			    .then(res => {
 			      const data = JSON.parse(res.data).endata.data
-			      // console.log(res.data)
+						this.toLearnList = []
 			      data.forEach(item => {
 			        this.toLearnList.push({
+								sindex: item.sindex,
 			          cnname: item.cnname,
 			          enname: item.enname,
 			          url: getFileUrl('video', item.videopath),
@@ -140,6 +142,7 @@
 			          subpath: getFileUrl('vtt', item.subtitlespath)
 							})
 			      })
+						this.$refs.track.loadZimu(this.toLearnList[this.play].subpath, this.toLearnList[this.play].sindex)
 						// console.log(this.toLearnList[1].url)
 			    })
 			    .catch(err => console.log(err))
@@ -195,12 +198,14 @@
 			  this.stime = this.etime = this.deltaTime = 0
 			},
 			startPlay () {
+				console.log('start')
 			  if (!this.stime) {
 			    this.stime = new Date()
 			  }
 			  // console.log(this.stime)
 			},
 			endPlay () {
+				console.log('end')
 			  if (!this.etime) {
 			    this.etime = new Date()
 			    this.deltaTime = this.etime - this.stime
@@ -208,6 +213,9 @@
 			  // console.log(this.etime)
 			  this.upload()
 			},
+			timeUpdate (e) {
+				this.$refs.track.videoChangeEvent(e.target.currentTime * 1000)
+			}
 		},
 		computed:{
 			showList(){
@@ -243,6 +251,18 @@
 		top: 0rpx;
 		left: 0rpx;
 		z-index: 99;
+	}
+	
+	video {
+		width: 100%;
+	}
+	
+	#track {
+		height: 50rpx;
+		width: 100%;
+		position: relative;
+		left: 0rpx;
+		top: 0rpx;
 	}
 	
 	.course_details{
