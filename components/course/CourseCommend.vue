@@ -1,7 +1,7 @@
 <template>
 	<view class="course_commend_content" @click="go(info.id)">
 		<image :src="info.img" mode="aspectFill" class="course_commend_img"></image>
-		<text class="course_commend_text">{{ info.name }}</text> 
+		<text class="course_commend_text">{{ language? info.enname : info.cnname }}</text> 
 	</view>
 </template>
 
@@ -12,6 +12,10 @@
 			info:{
 				type: Object,
 		    default: {}
+			},
+			language:{
+				type: Number,
+		    default: 1
 			}
 		},
 		data () {

@@ -1,18 +1,18 @@
 <template>
 	<view class="container">
 		<view class="head">
-			<view class="head_text">课程</view>
-			<view class="head_tet">小节</view>
-			<view class="head_txt">学习时长</view>
+			<view class="head_text">{{title[0]}}</view>
+			<view class="head_tet">{{title[1]}}</view>
+			<view class="head_txt">{{title[2]}}</view>
 		</view>
 		
 		<view class="history" v-for="(item,index) in history" :key="item">
 			<view class="history_content">
 				<view class="history_name">
-					<view>{{item.cscn}}</view>
+					<view>{{isLanguage? item.csen:item.cscn }}</view>
 				</view>
 				<view class="history_section">
-					<view>{{item.sccn}}</view>
+					<view>{{isLanguage? item.scen:item.sccn}}</view>
 				</view>
 				<view class="history_time">
 					<view>{{item.ctime}}分</view>
@@ -34,8 +34,15 @@
 				userInfo: {
 					username: '',
 					nickName: '',
-				}
+				},
+				language: 1,
+				isLanguage: true
 			}
+		},
+		onShow(){
+			const userInfo = wx.getStorageSync('userInfo')
+			this.language = userInfo[6]
+			this.getLanguage()
 		},
 		onLoad() {
 			const token = wx.getStorageSync('token')
@@ -52,6 +59,10 @@
 			}
 		},
 		methods: {
+			getLanguage() {
+				if(this.language == 1) this.isLanguage = true
+				else this.isLanguage = false
+			},
 			getCourse() {
 			  getPlayData(this.userInfo.username)
 			    .then(res => {
@@ -68,6 +79,15 @@
 			      })
 			    })
 			    .catch(err => console.log(err))
+			}
+		},
+		computed:{
+			title() {
+			  if (this.language) {
+					return ['Course', 'Sections', 'Learning Time']
+			  } else {
+			    return ['课程', '小节', '学习时长']
+			  }
 			}
 		}
 	}
@@ -109,7 +129,7 @@
 		display: flex;
 		flex-direction: row;
 		align-items: center;
-		padding-left: 90rpx;
+		padding-left: 80rpx;
 	}
 	
 	.head_txt{
@@ -117,6 +137,7 @@
 		height: 88rpx;
 		color: #382321;
 		font-size: 32rpx;
+		text-align: center;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -142,6 +163,7 @@
 		align-items: center;
 		margin-top: 28rpx;
 		padding-bottom: 30rpx;
+		text-align: center;
 	}
 	
 	.history_name{
@@ -150,6 +172,7 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
+		text-align: center;
 	}
 	
 	.history_section{
@@ -158,6 +181,7 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
+		text-align: center;
 	}
 	
 	.history_time{
@@ -166,6 +190,7 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
+		text-align: center;
 	}
 	
 	.line{

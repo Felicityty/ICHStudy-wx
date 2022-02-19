@@ -21,13 +21,18 @@
 					signature: '',
 				},
 				user: [],
-				tip: ''
+				tip: '',
+				language: 1
 			}
 		},
 		methods: {
 			check() {
 				if (this.userInfo.signature.length > 30 ) {
-					this.tip = "签名长度不能超过30"
+					if (this.language == 1){
+						this.tip = "Signature length cannot exceed 30"
+					}else{
+						this.tip = "签名长度不能超过30"
+					}
 				}else{ 
 					this.tip = ""
 					return true 
@@ -53,6 +58,10 @@
 					  .catch(err => console.log(err))
 				}
 			},
+		},
+		onShow(){
+			const userInfo = wx.getStorageSync('userInfo')
+			this.language = userInfo[6]
 		},
 		onLoad() {
 			const token = wx.getStorageSync('token')

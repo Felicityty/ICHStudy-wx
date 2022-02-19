@@ -9,40 +9,40 @@
 		<view class="content">
 			<view class="point">
 				<view class="point_score">{{point}}</view>
-				<text class="point_text">积分</text>
+				<text class="point_text">{{title[0]}}</text>
 			</view>
 			<view class="duration">
 				<view class="duration_score">{{time_text}}</view>
-				<text class="point_text">学习总时长</text>
+				<text class="point_text">{{title[1]}}</text>
 			</view>
 			<view class="times">
 				<view class="times_content">
-					<text class="times_text">观看视频总次数</text>
+					<text class="times_text">{{title[2]}}</text>
 					<view class="times_time">{{total_num}}</view>
 				</view>
 			</view>
 			<view class="max">
-				<text class="max_text">观看最多的视频</text>
+				<text class="max_text">{{title[3]}}</text>
 				<view class="max_content">
-					<view class="max_video">{{v_cntitle}}</view>
+					<view class="max_video">{{isLanguage? v_entitle:v_cntitle}}</view>
 					<view class="max_time">{{v_num}}</view>
 				</view>
 			</view>
 			
 			<view class="setting">
 				<view class="setting_item" v-for="(item, index) in settingItems" :key="index" @click="go(item.url)">
-					<view class="text">{{item.name}}</view>
+					<view class="text">{{isLanguage? item.enname : item.cnname}}</view>
 					<image :src="arrow" mode="aspectFill" class="setting_arrow"></image>
 				</view>
 			</view>
 				
 			<view class="shopping">
 				<view class="shopping_item" v-for="(item, index) in shoppingItems" :key="index" @click="go(item.url)">
-					<view class="text">{{item.name}}</view>
+					<view class="text">{{isLanguage? item.enname : item.cnname}}</view>
 					<image :src="arrow" mode="aspectFill" class="setting_arrow"></image>
 				</view>
 			</view>
-			<button type="default" class="btn" @click="logout()">退出登录</button>
+			<button type="default" class="btn" @click="logout()">{{title[4]}}</button>
 		</view>
 		
 	</view>
@@ -59,25 +59,30 @@
 				arrow: '../../static/images/iCons/arrowRightLightbrown.png',
 				settingItems: [
 					{
-						name: '历史记录',
+						cnname: '历史记录',
+						enname: 'History',
 						url: './setting/history'
 					},
 					{
-						name: '语言',
+						cnname: '语言',
+						enname: 'Language',
 						url: './setting/language'
 					},
 					{
-						name: '关于',
+						cnname: '关于',
+						enname: 'About',
 						url: './../about/index'
 					}
 				],
 				shoppingItems: [
 					{
-						name: '我的地址',
+						cnname: '我的地址',
+						enname: 'Address',
 						url: ''
 					},
 					{
-						name: '我的订单',
+						cnname: '我的订单',
+						enname: 'Order',
 						url: ''
 					}
 				],
@@ -92,7 +97,9 @@
 					avatarUrl: '../../static/images/iCons/touxiang.png',
 					lang: '',
 					openid: ''
-				}
+				},
+				language: 1,
+				isLanguage: true
 			}
 		},
 		computed:{
@@ -102,10 +109,25 @@
 			time_text () {
 			  const hour = Math.floor(this.total_time / 60)
 			  const min = Math.floor(this.total_time - hour * 60)
-			  return `${hour} 时 ${min} 分`
+				if (this.isLanguage) {
+					return `${hour} H ${min} M`
+				}else{
+					return `${hour} 时 ${min} 分`
+				}
 			},
+			title () {
+			  if (this.isLanguage) {
+			    return ['Point', 'Total Learning Duration', 'Number of videos watched', 'Video watched most','Log Out']
+			  } else {
+			    return ['积分', '学习总时长', '观看视频总次数', '观看最多的视频','退出登录']
+			  }
+			}
 		},
 		methods: {
+			getLanguage() {
+				if(this.language == 1) this.isLanguage = true
+				else this.isLanguage = false
+			},
 			set(){
 				if (!this.userInfo.username) {
 					// this.wxGetUserProfile()
@@ -201,6 +223,8 @@
 			if(token) {
 				that.userInfo.username = userInfo[0]
 				that.userInfo.nickName = userInfo[2]
+				this.language = userInfo[6]
+				this.getLanguage()
 			}
 			if(this.i === 0){ this.getCourse(); this.i = 1 }
 			// const openid = wx.getStorageSync('openid')
@@ -242,6 +266,7 @@
 	.point_text{
 		font-size: 28rpx;
 		color: #73615D;
+		text-align: center;
 	}
 	
 	.user{

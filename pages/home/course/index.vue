@@ -3,13 +3,14 @@
 		<!-- <view class="course_search_bg">
 			<view class="course_search_content">
 				<image src="../../../static/images/iCons/search.png" mode="aspectFit" class="course_search_icon"></image>
-				<input type="text" placeholder="搜索课程名称" class="course_search_input" placeholder-class="phcolor"/>
+				<input type="text" placeholder="搜索课程名称" v-show="language===0" class="course_search_input" placeholder-class="phcolor"/>
+				<input type="text" placeholder="Search" v-show="language===1" class="course_search_input" placeholder-class="phcolor"/>
 			</view>
 		</view> -->
 		
 		<view class="content">
 			<view v-for="(item,index) in courseItem" :key="index">
-				<CourseItem :info="item"></CourseItem>
+				<CourseItem :info="item" :language="language"></CourseItem>
 				<!-- <image :src="item.img" mode="aspectFill" class="course_content_img"></image>
 				<text class="course_content_name">{{ item.name }}</text>
 				<text class="course_content_intro">{{item.intro}}</text> -->
@@ -26,11 +27,18 @@
 	export default {
 		data(){
 			return{
-				courseItem: []
+				courseItem: [],
+				language: 0,
+				isLanguage: true
 			}
 		},
 		components: {
 			CourseItem
+		},
+		onShow(){
+			const userInfo = wx.getStorageSync('userInfo')
+			this.language = userInfo[6]
+			this.getLanguage()
 		},
 		onLoad() {
 			const token = wx.getStorageSync('token')
@@ -43,6 +51,10 @@
 			}
 		},
 		methods:{
+			getLanguage() {
+				if(this.language == 1) this.isLanguage = true
+				else this.isLanguage = false
+			},
 			getCourseList() {
 				getCourseList()
 					.then(res => {
@@ -52,8 +64,10 @@
 						data.forEach(item => {
 							courses.push({
 								id: item.cindex,
-								name: item.cnname,
-								intro: item.cninfo,
+								cnname: item.cnname,
+								cnintro: item.cninfo,
+								enname: item.enname,
+								enintro: item.eninfo,
 								img: getFileUrl('img', item.imgpath)
 							})
 						})
@@ -120,8 +134,9 @@
 	
 	.content{
 		width: 654rpx;
-		position: relative;
-		top: 112rpx;
+		/* position: relative;
+		top: 112rpx; */
+		margin-top: 36rpx;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;

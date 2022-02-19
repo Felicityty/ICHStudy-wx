@@ -1,13 +1,13 @@
 <template>
 	<view class="container">	
 		<view class="photo">
-			<text class="text">头像：</text>
+			<text class="text">{{title[0]}}：</text>
 			<image :src="userInfo.avatarUrl" mode="aspectFill" class="photo_img"></image>
 			<image :src="arrow" mode="aspectFill" class="arrow"></image>
 		</view>
 		
 		<view class="account">
-			<text class="text">账号：</text>
+			<text class="text">{{title[1]}}：</text>
 			<view class="account_right">
 				<view class="account_content">{{userInfo.username}}</view>
 				<image :src="arrow" mode="aspectFill" class="arrow"></image>
@@ -15,7 +15,7 @@
 		</view>
 		
 		<view class="nickname" @click="nick()">
-			<text class="text">昵称：</text>
+			<text class="text">{{title[2]}}：</text>
 			<view class="nickname_right">
 				<view class="nickname_content">{{userInfo.nickname}}</view>
 				<image :src="arrow" mode="aspectFill" class="arrow"></image>
@@ -23,7 +23,7 @@
 		</view>
 		
 		<view class="signature" @click="sign()">
-			<text class="text">个性签名：</text>
+			<text class="text">{{title[3]}}：</text>
 			<view class="signature_right">
 				<view class="signature_content">{{userInfo.signature}}</view>
 				<image :src="arrow" mode="aspectFill" class="arrow"></image>
@@ -31,7 +31,7 @@
 		</view>
 		
 		<view class="email">
-			<text class="text">邮箱：</text>
+			<text class="text">{{title[4]}}：</text>
 			<view class="email_right">
 				<view class="email_content">{{userInfo.email}}</view>
 				<image :src="arrow" mode="aspectFill" class="arrow"></image>
@@ -39,7 +39,7 @@
 		</view>
 		
 		<view class="password">
-			<text class="text">密码：</text>
+			<text class="text">{{title[6]}}：</text>
 			<view class="password_right">
 				<view class="password_content">{{userInfo.password}}</view>
 				<image :src="arrow" mode="aspectFill" class="arrow"></image>
@@ -64,7 +64,9 @@
 					ver: '',
 					password: '',
 					checkpwd: ''
-				}
+				},
+				language: 1,
+				isLanguage: true
 			}
 		},
 		onShow() {
@@ -78,9 +80,15 @@
 				this.userInfo.email = userInfo[3]
 				this.userInfo.password = userInfo[4]
 				this.userInfo.signature = userInfo[5]
+				this.language = userInfo[6]
+				this.getLanguage()
 			}
 		},
 		methods: {
+			getLanguage() {
+				if(this.language == 1) this.isLanguage = true
+				else this.isLanguage = false
+			},
 			nick(){
 				uni.navigateTo({
 					url: "../setting/nickname"
@@ -90,6 +98,15 @@
 				uni.navigateTo({
 					url: "../setting/signature"
 				})
+			}
+		},
+		computed:{
+			title() {
+			  if (this.language) {
+					return ['Profile', 'Id', 'Nick Name', 'Signature', 'Email', 'Verification', 'Password']
+			  } else {
+			    return ['头像', '账号', '昵称', '个性签名', '邮箱', '验证码', '密码']
+			  }
 			}
 		}
 	}
@@ -107,6 +124,7 @@
 	.text{
 		font-size: 32rpx;
 		color: #382321;
+		white-space:nowrap;
 	}
 	
 	.arrow{

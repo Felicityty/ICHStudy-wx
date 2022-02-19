@@ -1,8 +1,8 @@
 <template>
 	<view class="course_content" @click="go(info.id)">
 		<image :src="info.img" mode="aspectFill" class="course_content_img"></image>
-		<text class="course_content_name">{{ info.name }}</text>
-		<text class="course_content_intro">{{info.intro}}</text>
+		<text class="course_content_name">{{ language? info.enname : info.cnname }}</text>
+		<text class="course_content_intro">{{ language? info.enintro : info.cnintro }}</text>
 	</view>
 </template>
 
@@ -13,6 +13,10 @@
 			info:{
 				type: Object,
 		    default: {}
+			},
+			language:{
+				type: Number,
+		    default: 1
 			}
 		},
 		data () {

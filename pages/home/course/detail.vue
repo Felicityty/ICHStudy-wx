@@ -14,25 +14,25 @@
 		</view>
 		
 		<view class="course_details">
-			<view class="course_details_name">{{courseinfo[0].name}}</view>
-			<view class="course_details_detail">{{courseinfo[0].intro}}</view>
+			<view class="course_details_name">{{isLanguage? courseinfo[0].enname : courseinfo[0].cnname}}</view>
+			<view class="course_details_detail">{{isLanguage? courseinfo[0].enintro : courseinfo[0].cnintro}}</view>
 		</view>
 		
 		<view class="video_list">
 			<view class="video_list_click" @click="showAll = !showAll">
-				<text class="video_list_headtext">视频列表</text>
+				<text class="video_list_headtext">{{title[0]}}</text>
 				<image :src="unfold()" mode="aspectFit" class="video_list_img"></image>
 			</view>
 			<view v-for="(item, index) in showList" :key="index" class="video_list_content" @click="changevideo(index)" :class="{active:play===index}">
-				{{item.cnname}}
+				{{isLanguage? item.enname : item.cnname}}
 				<image :src="video(index)" mode="aspectFit" class="video_list_content_img"></image>
 			</view>
 		</view>
 		
-		<view class="commend">推荐</view>
+		<view class="commend">{{title[1]}}</view>
 		<view class="course_commend">
 			<view v-for="(item,index) in courseItem" :key="index">
-				<CourseCommend :info="item"></CourseCommend>
+				<CourseCommend :info="item" :language="language"></CourseCommend>
 				<!-- <image :src="item.img" mode="aspectFill" class="course_commend_img"></image>
 				<text class="course_commend_text">{{ item.name }}</text> -->		
 			</view>
@@ -63,26 +63,31 @@
 				userInfo: {
 					username: '',
 					nickName: '',
-				}
+				},
+				language: 0,
+				isLanguage: true
 			}
 		},
 		components: {
 			CourseCommend,
 			Track
 		},
+		onShow(){
+			const userInfo = wx.getStorageSync('userInfo')
+			this.language = userInfo[6]
+			this.getLanguage()
+		},
 		onLoad(options) {
 			const token = wx.getStorageSync('token')
-			const that = this
 			const userInfo = wx.getStorageSync('userInfo')
+			const that = this
 			if(!token) {
 				uni.reLaunch({
 					url: '../../index/index'
 				})
 			} else {
 				this.index = options.id
-				// console.log(options.id)
 				that.userInfo.username = userInfo[0]
-				// console.log(this.userInfo.username)
 				this.getCourseInfo()
 				this.getSections()
 				this.getCourseCommend()
@@ -92,6 +97,10 @@
 			this.$refs.av.pause()
 		},
 		methods:{
+			getLanguage() {
+				if(this.language == 1) this.isLanguage = true
+				else this.isLanguage = false
+			},
 			unfold(){　//对箭头进行处理
 				if(this.showAll == false){
 				    return '../../../static/images/iCons/arrowDownBrown.png'
@@ -114,13 +123,15 @@
 			  getCourseList()
 			    .then(res => {
 			      const data = JSON.parse(res.data).endata.data
-			      console.log(data)
+			      // console.log(data)
 			      for (let i = 0; i < data.length; i++) {
 							if( data[i].cindex === this.index){
 								this.courseinfo.push({
 									id: data[i].cindex,
-									name: data[i].cnname,
-									intro: data[i].cninfo
+									cnname: data[i].cnname,
+									cnintro: data[i].cninfo,
+									enname: data[i].enname,
+									enintro: data[i].eninfo
 								})
 							}
 			      }
@@ -156,8 +167,8 @@
 						data.forEach(item => {
 							courses.push({
 								id: item.cindex,
-								name: item.cnname,
-								intro: item.cninfo,
+								cnname: item.cnname,
+								enname: item.enname,
 								img: getFileUrl('img', item.imgpath)
 							})
 						})
@@ -225,6 +236,13 @@
 				}else{
 				  return this.toLearnList;
 				}
+			},
+			title() {
+			  if (this.language) {
+					return ['Video List', 'Recommend']
+			  } else {
+			    return ['视频列表', '推荐']
+			  }
 			}
 		}
 	}
