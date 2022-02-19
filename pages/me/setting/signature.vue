@@ -1,7 +1,8 @@
 <template>
 	<view class="container">
 		<view class="signature">
-			<textarea type="text" auto-height="true" @blur="save()" v-model="userInfo.signature" placeholder="请输入个性签名" placeholder-class="phcolor" class="signature_content"/>
+			<textarea type="text" auto-height="true" @blur="save()" v-model="userInfo.signature" 
+			placeholder="请输入个性签名" placeholder-class="phcolor" class="signature_content"/>
 		</view>
 		<view class="tips">{{tip}}</view>
 	</view>

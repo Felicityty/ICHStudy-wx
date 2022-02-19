@@ -1,11 +1,11 @@
 <template>
 	<view class="container">
-		<view class="course_search_bg">
+		<!-- <view class="course_search_bg">
 			<view class="course_search_content">
 				<image src="../../../static/images/iCons/search.png" mode="aspectFit" class="course_search_icon"></image>
 				<input type="text" placeholder="搜索课程名称" class="course_search_input" placeholder-class="phcolor"/>
 			</view>
-		</view>
+		</view> -->
 		
 		<view class="content">
 			<view v-for="(item,index) in courseItem" :key="index">

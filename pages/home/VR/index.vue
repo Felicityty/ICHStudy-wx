@@ -1,15 +1,15 @@
 <template>
 		<view class="content">
 			
-			<view class="searchBox">
+<!-- 			<view class="searchBox">
 				<image src="../../../static/images/iCons/search.png" class="searchIcon"></image>
 				<view class="searchText">搜索VR/AR名称</view>
-			</view>
+			</view> -->
 			
 			<view class="listView">
 				<view class="listItem" v-for="(item, index) in vrItem" :key="index" @click="goDetail(item.id)">
 					<image class="listViewPic" :src="item.img"></image>
-					<view class="listViewText">{{item.name}}</view>
+					<view class="listViewText">{{isLanguage ? item.enname : item.cnname}}</view>
 				</view>
 			</view>
 			
@@ -22,13 +22,24 @@
 	export default {
 		data() {
 			return {
-				vrItem: []
+				vrItem: [],
+				language: 1,
+				isLanguage: true
 			}
 		},
-		onLoad() {
+		onShow() {
+			const userInfo = wx.getStorageSync('userInfo')
+			this.language = userInfo[6]
+			console.log(this.language)
+			this.getLanguage()
+			console.log(this.isLanguage)
 			this.getVrList()
 		},
 		methods: {
+			getLanguage() {
+				if(this.language == 1) this.isLanguage = true
+				else this.isLanguage = false
+			},
 			goDetail(id) {
 				uni.navigateTo({
 					url: './vrDetail?id=' + id
@@ -43,7 +54,8 @@
 						data.forEach(item => {
 							vrs.push({
 								id: item.id,
-								name: item.vrcnname,
+								cnname: item.vrcnname,
+								enname: item.vrenname,
 								img: getFileUrl('img', item.cover)
 							})
 						})

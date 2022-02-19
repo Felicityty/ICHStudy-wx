@@ -10,9 +10,9 @@
 				<view class="course">
 					
 					<view class="row">
-						<view class="title">课程</view>
+						<view class="title">{{isLanguage ? 'Courses' : '课程'}}</view>
 						<view class="allCourse" @click="goCourse()">
-							<view class="allText">全部</view>
+							<view class="allText">{{isLanguage ? 'more' : '全部'}}</view>
 							<view class="allArrow">
 								<img class="arrowRight" src="../../static/images/iCons/arrowRightGrey.png">
 							</view>
@@ -24,7 +24,7 @@
 							 v-if="index == 0 || index == 7 || index == 6 || index == 9" @click="goCourseDetail(item.id)">
 							 
 							<image class="couPic" :src="item.img" mode="aspectFill"></image>
-							<view class="couName">{{item.name}}</view>
+							<view class="couName">{{isLanguage ? item.enname : item.cnname}}</view>
 						</view>
 					</view>
 				</view>
@@ -34,7 +34,7 @@
 					<view class="row">
 						<view class="title">VR</view>
 						<view class="allVR" @click="goVR()">
-							<view class="allText">全部</view>
+							<view class="allText">{{isLanguage ? 'more' : '全部'}}</view>
 							<view class="allArrow">
 								<img class="arrowRight" src="../../static/images/iCons/arrowRightGrey.png">
 							</view>
@@ -45,7 +45,7 @@
 						<view class="listView-tile" v-for="(item, index) in vrItem" :key="index" 
 							v-if="index == 0 || index == 4 || index == 1" @click="goVrDetail(item.id)">
 							<image class="couPic" :src="item.img" mode="aspectFill"></image>
-							<view class="couName">{{item.name}}</view>
+							<view class="couName">{{isLanguage ? item.enname : item.cnname}}</view>
 						</view>
 					</view>
 				</view>
@@ -65,21 +65,31 @@
 				title: '首页',
 				courseItem: [],
 				vrItem: [],
-				
+				language: 1,
+				isLanguage: true
 			}
 		},
-		onLoad() {
+		onShow() {   // 把onLoad 改成 onShow
 			const token = wx.getStorageSync('token')
+			const userInfo = wx.getStorageSync('userInfo')
 			if(!token) {
 				uni.reLaunch({
 					url: '../index/index'
 				})
 			} else {
+				this.language = userInfo[6]
+				console.log(this.language)
+				this.getLanguage()
+				console.log(this.isLanguage)
 				this.getCourseList()
 				this.getVrList()
 			}
 		},
 		methods: {
+			getLanguage() {
+				if(this.language == 1) this.isLanguage = true
+				else this.isLanguage = false
+			},
 			goCourse() {
 				uni.navigateTo({
 					url: "./course/index"
@@ -109,7 +119,8 @@
 						data.forEach(item => {
 							courses.push({
 								id: item.cindex,
-								name: item.cnname,
+								cnname: item.cnname,
+								enname: item.enname,
 								img: getFileUrl('img', item.imgpath)
 							})
 						})
@@ -127,7 +138,8 @@
 						data.forEach(item => {
 							vrs.push({
 								id: item.id,
-								name: item.vrcnname,
+								cnname: item.vrcnname,
+								enname: item.vrenname,
 								img: getFileUrl('img', item.cover)
 							})
 						})
