@@ -12,14 +12,16 @@
 			<view class="container">
 				<!-- 介绍 -->
 				<view class="intro">
-					<view class="title">{{intro[0].title}}</view>
-					<view :class="!showing?'introduction-ellipsis':'introduction-complete'">{{intro[0].text}}</view>
+					<view class="title">{{isLanguage ? intro[0].entitle : intro[0].cntitle}}</view>
+					<view :class="!showing?'introduction-ellipsis':'introduction-complete'">{{isLanguage ? intro[0].entext : intro[0].cntext}}</view>
 					<!-- <div class="introduction" v-html="showLen"></div> -->
 					<!-- 要换行只能用div和v-html诶  -->
 				</view>
 				
 				<view class="zhankai" @click="showing = ! showing">
-					<view class="fold">{{showing? '展开更多': '收起更多'}}</view>
+					<view class="fold">
+						{{(showing) ? (isLanguage ? 'Expand More' : '展开更多') : (isLanguage ? 'Pack Up' : '收起更多')}}
+						</view>
 					<view class="arrow">
 						<image class="arrowDown" :src="folded()"></image>
 					</view>
@@ -27,13 +29,13 @@
 				
 				<!-- 推荐 -->
 				<view class="recommend">
-					<view class="name">推荐</view>
+					<view class="name">{{isLanguage ? 'Recommend' : '推荐'}}</view>
 					
 					<view class="listView">
 						<view class="rec" v-for="(item, index) in recItem" :key="index" 
 							@click="goDetail(item.id)">
 							<image class="recPic" :src="item.img"></image>
-							<view class="recName">{{item.name}}</view>
+							<view class="recName">{{isLanguage ? item.enname : item.cnname}}</view>
 						</view>
 					</view>
 					
@@ -41,7 +43,7 @@
 				
 				<!-- 全景 -->
 				<view class="quanjing">
-					<view class="name">VR全景</view>
+					<view class="name">{{isLanguage ? 'VR Panorama' : 'VR全景'}}</view>
 					<image class="vr360" :src="intro[0].img360" @click="goUrl(intro[0].vrUrl)"></image>
 				</view>
 				
@@ -59,6 +61,8 @@
 				intro: [],
 				showing: true,
 				recItem: [],
+				language: 1,
+				isLanguage: true
 			}
 		},
 		onLoad(options) {
@@ -67,7 +71,18 @@
 			// console.log(this.index)
 			this.getVrRec()
 		},
+		onShow() {
+			const userInfo = wx.getStorageSync('userInfo')
+			this.language = userInfo[6]
+			console.log(this.language)
+			this.getLanguage()
+			console.log(this.isLanguage)
+		},
 		methods: {
+			getLanguage() {
+				if(this.language == 1) this.isLanguage = true
+				else this.isLanguage = false
+			},
 			goOff() {
 				uni.navigateBack({
 				});
@@ -93,11 +108,13 @@
 							if(data[i].id == this.index) {
 								this.intro.push({
 								id: data[i].id,
-								title: data[i].vrcnname,
+								cntitle: data[i].vrcnname,
+								entitle: data[i].vrenname,
 								img: getFileUrl('img', data[i].cover),
 								img360: getFileUrl('img', data[i].vr_panoramic_cover),
-								text: data[i].vrcninfo,
-								vrUrl: data[i].vrpath
+								cntext: data[i].vrcninfo,
+								vrUrl: data[i].vrpath,
+								entext: data[i].vreninfo,
 								})
 							}
 						}
@@ -119,7 +136,8 @@
 						data.forEach(item => {
 							vrRec.push({
 								id: item.id,
-								name: item.vrcnname,
+								cnname: item.vrcnname,
+								enname: item.vrenname,
 								img: getFileUrl('img', item.cover)
 							})
 						})

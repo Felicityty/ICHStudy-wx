@@ -3,11 +3,11 @@
 			
 			<view class="logo-group">
 				<image class="logo" :src="logo"></image>
-				<view class="name">{{name}}</view>
-				<view class="platform">{{platform}}</view>
+				<view class="name">{{isLanguage ? enname : cnname}}</view>
+				<view class="platform">{{isLanguage ? enplatform : cnplatform}}</view>
 			</view>
 			
-			<view class="text">{{introText}}</view>
+			<view class="text">{{isLanguage ? enintroText : cnintroText}}</view>
 			
 		</view>
 </template>
@@ -18,16 +18,28 @@
 			return {
 				title: '平台介绍',
 				logo: "../../static/images/iCons/logo.png",
-				name: "国际研学",
-				platform: "中国非遗对外服务平台",
-				introText:"\xa0\xa0\xa0\xa0\xa0\xa0\xa0我们以留学生为主要服务群体，以非传统、民间工艺等中国传统文化为教学内容，开发线上线下研究平台。"
+				cnname: "国际研学",
+				enname: "International Studies",
+				cnplatform: "中国非遗对外服务平台",
+				enplatform: "International Study platform",
+				cnintroText:"\xa0\xa0\xa0\xa0\xa0\xa0\xa0我们以留学生为主要服务群体，以非传统、民间工艺等中国传统文化为教学内容，开发线上线下研究平台。",
+				enintroText:"\xa0\xa0\xa0\xa0\xa0\xa0\xa0We take foreign students as the main service group and take non-traditional, folk crafts and other Chinese traditional culture as the teaching content to develop online and offline research platforms.",
+				language: 1,
+				isLanguage: true
 			}
 		},
-		onLoad() {
-
+		onShow() {
+			const userInfo = wx.getStorageSync('userInfo')
+			this.language = userInfo[6]
+			console.log(this.language)
+			this.getLanguage()
+			console.log(this.isLanguage)
 		},
 		methods: {
-
+			getLanguage() {
+				if(this.language == 1) this.isLanguage = true
+				else this.isLanguage = false
+			}
 		}
 	}
 </script>

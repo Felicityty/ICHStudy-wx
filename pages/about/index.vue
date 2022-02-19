@@ -3,8 +3,8 @@
 			
 			<view class="logo-group">
 				<image class="logo" :src="logo"></image>
-				<view class="name">{{name}}</view>
-				<view class="platform">{{platform}}</view>
+				<view class="name">{{isLanguage ? enname : cnname}}</view>
+				<view class="platform">{{isLanguage ? enplatform : cnplatform}}</view>
 			</view>
 			
 			<view class="buttons">
@@ -12,7 +12,7 @@
 				<view class="list-items" v-for="(item, index) in buttonItems" :key="index" @click="goDetail(item.url)">
 					<!-- v-for 里一定要把item放前面 -->
 					<view class="button">
-						<view class="text-btn">{{item.name}}</view>
+						<view class="text-btn">{{isLanguage ? item.enname : item.cnname}}</view>
 						<view class="arrow-btn">
 							<image class="arrow-right" :src="arrowRight"></image>
 						</view>
@@ -31,25 +31,39 @@
 			return {
 				title: '关于',
 				logo: "../../static/images/iCons/logo.png",
-				name: "国际研学",
-				platform: "中国非遗对外服务平台",
+				cnname: "国际研学",
+				enname: "International Studies",
+				cnplatform: "中国非遗对外服务平台",
+				enplatform: "International Study platform",
 				arrowRight: "../../static/images/iCons/arrowRightGrey.png",
 				buttonItems: [
 					{
-						name: "平台介绍",
+						cnname: "平台介绍",
+						enname: "Platform Introduction",
 						url: "./platformIntro"
 					},
 					{
-						name: "关于我们",
+						cnname: "关于我们",
+						enname: "About Us",
 						url: "./aboutUs"
 					}
-				]
+				],
+				language: 1,
+				isLanguage: true
 			}
 		},
-		onLoad() {
-
+		onShow() {
+			const userInfo = wx.getStorageSync('userInfo')
+			this.language = userInfo[6]
+			console.log(this.language)
+			this.getLanguage()
+			console.log(this.isLanguage)
 		},
 		methods: {
+			getLanguage() {
+				if(this.language == 1) this.isLanguage = true
+				else this.isLanguage = false
+			},
 			goDetail(e) {
 				uni.navigateTo({
 					url: e

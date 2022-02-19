@@ -3,11 +3,11 @@
 			
 			<view class="logo-group">
 				<image class="logo" :src="logo"></image>
-				<view class="name">{{name}}</view>
-				<view class="platform">{{platform}}</view>
+				<view class="name">{{isLanguage ? enname : cnname}}</view>
+				<view class="platform">{{isLanguage ? enplatform : cnplatform}}</view>
 			</view>
 			
-			<view class="text">{{introText}}</view>
+			<view class="text">{{isLanguage ? enintroText : cnintroText}}</view>
 			
 		</view>
 </template>
@@ -18,16 +18,28 @@
 			return {
 				title: '关于我们',
 				logo: "../../static/images/iCons/logo.png",
-				name: "国际研学",
-				platform: "中国非遗对外服务平台",
-				introText:"\xa0\xa0\xa0\xa0\xa0\xa0\xa0我们的团队由数字媒体技术中本科生、研究生和国际信息学院学生组成，拥有在媒体制作和技术开发方面的经验。"
+				cnname: "国际研学",
+				enname: "International Studies",
+				cnplatform: "中国非遗对外服务平台",
+				enplatform: "International Study platform",
+				cnintroText:"\xa0\xa0\xa0\xa0\xa0\xa0\xa0我们的团队由数字媒体技术中本科生、研究生和国际信息学院学生组成，拥有在媒体制作和技术开发方面的经验。",
+				enintroText:"\xa0\xa0\xa0\xa0\xa0\xa0\xa0Our team consists of undergraduate, graduate and international information in digital media technology of college students, have experience in media production and technology development.",
+				language: 1,
+				isLanguage: true
 			}
 		},
-		onLoad() {
-
+		onShow() {
+			const userInfo = wx.getStorageSync('userInfo')
+			this.language = userInfo[6]
+			console.log(this.language)
+			this.getLanguage()
+			console.log(this.isLanguage)
 		},
 		methods: {
-
+			getLanguage() {
+				if(this.language == 1) this.isLanguage = true
+				else this.isLanguage = false
+			}
 		}
 	}
 </script>
