@@ -225,7 +225,7 @@
 	}
 	
 	.title{
-		font-size: 36rpx;
+		font-size: 32rpx;
 		line-height: 46rpx;
 		color: #382321;
 		font-weight: 600;

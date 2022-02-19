@@ -36,12 +36,12 @@
 				</view>
 			</view>
 				
-			<view class="shopping">
+			<!-- <view class="shopping">
 				<view class="shopping_item" v-for="(item, index) in shoppingItems" :key="index" @click="go(item.url)">
 					<view class="text">{{isLanguage? item.enname : item.cnname}}</view>
 					<image :src="arrow" mode="aspectFill" class="setting_arrow"></image>
 				</view>
-			</view>
+			</view> -->
 			<button type="default" class="btn" @click="logout()">{{title[4]}}</button>
 		</view>
 		

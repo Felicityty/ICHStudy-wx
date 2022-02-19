@@ -4,34 +4,34 @@
 			<image class="arrow-left" src="../../static/images/iCons/arrowLeftBrown.png"></image>
 		</view>
 		<view class="input-box">
-			<input type="text" placeholder="请输入账号" v-model="username" 
+			<input type="text" :placeholder="getUsername()" v-model="username" 
 				placeholder-class="phcolor" @blur="checkName()">
 		</view>
 		<view class="tips">{{tipName}}</view>
 		<view class="input-box">
-			<input type="password" placeholder="请输入密码" v-model="password" 
+			<input type="password" :placeholder="getUsername()" v-model="password" 
 				placeholder-class="phcolor">
 		</view>
 		<view class="tips"></view>
 		<view class="input-box">
-			<input type="password" placeholder="请再次确认密码" v-model="checkword" 
+			<input type="password" :placeholder="checkPassword()" v-model="checkword" 
 				placeholder-class="phcolor" @blur="checkPwd()">
 		</view>
 		<view class="tips">{{tipCheck}}</view>
 		<view class="input-box">
-			<input type="text" placeholder="请输入邮箱" v-model="email" 
+			<input type="text" :placeholder="getEmail()" v-model="email" 
 				placeholder-class="phcolor">
 		</view>
 		<view class="tips">{{tipEmail}}</view>
 		<view class="identify-code">
 			<view class="identify-box">
-				<input type="password" placeholder="请输入验证码" v-model="ver" 
+				<input type="password" :placeholder="getVer()" v-model="ver" 
 					placeholder-class="phcolor" @blur="checkVerification()">
 			</view>
-			<view class="identify-btn" @click="sendVer(email)">发送验证码</view>
+			<view class="identify-btn" @click="sendVer(email)">{{isLanguage ? 'Send VER' : '发送验证码'}}</view>
 		</view>
 		<view class="tips">{{tipVer}}</view>
-		<view class="index-btn" @click="checkVerification();checkVer(ver, email)">注册</view>
+		<view class="index-btn" @click="checkVerification();checkVer(ver, email)">{{isLanguage ? 'Sign Up' : '注册'}}</view>
 		<image class="bg" src="../../static/images/indexBG.png"></image>
 	</view>
 </template>
@@ -50,10 +50,53 @@
 				tipEmail: '',
 				tipName: '',
 				tipCheck: '',
-				tipVer: ''
+				tipVer: '',
+				language: 1,
+				isLanguage: true
 			}
 		},
+		onShow() {
+			const userInfo = wx.getStorageSync('userInfo')
+			this.language = userInfo[6]
+			console.log(this.language)
+			this.getLanguage()
+			console.log(this.isLanguage)
+		},
 		methods: {
+			getUsername() {
+				if(this.isLanguage)
+					return 'Input account'
+				else
+					return '请输入账号'
+			},
+			getPassword() {
+				if(this.isLanguage)
+					return 'Input password'
+				else
+					return '请输入密码'
+			},
+			checkPassword() {
+				if(this.isLanguage)
+					return 'Check password'
+				else
+					return '请再次输入密码'
+			},
+			getEmail() {
+				if(this.isLanguage)
+					return 'Input email'
+				else
+					return '请输入邮箱'
+			},
+			getVer() {
+				if(this.isLanguage)
+					return 'Input Verification'
+				else
+					return '请输入验证码'
+			},
+			getLanguage() {
+				if(this.language == 1) this.isLanguage = true
+				else this.isLanguage = false
+			},
 			goOff() {
 				uni.navigateBack({
 				});

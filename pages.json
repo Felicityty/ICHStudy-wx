@@ -35,14 +35,14 @@
 		{
 			"path": "pages/home/course/index",
 			"style": {
-				"navigationBarTitleText": "研学课程",
+				"navigationBarTitleText": "Courses",
 				"enablePullDownRefresh": true
 			}
 		},
 		{
 			"path": "pages/home/course/detail",
 			"style": {
-				"navigationBarTitleText": "课程详情",
+				"navigationBarTitleText": "Course Details",
 				"enablePullDownRefresh": true
 			}
 		},
@@ -71,76 +71,76 @@
 		{
 			"path": "pages/tourist/index",
 			"style": {
-				"navigationBarTitleText": "课程",
+				"navigationBarTitleText": "Courses",
 				"enablePullDownRefresh": true
 			}
 		},
 		{
 			"path": "pages/products/index",
 			"style": {
-				"navigationBarTitleText": "VR",
+				"navigationBarTitleText": "VR/AR",
 				"enablePullDownRefresh": true
 			}
 		},
 		{
 			"path": "pages/me/index",
 			"style": {
-				"navigationBarTitleText": "我的"
+				"navigationBarTitleText": "My"
 			}
 		},
 		{
 	    "path" : "pages/me/setting/index",
 			"style" : {
-			  "navigationBarTitleText" : "个人设置"
+			  "navigationBarTitleText" : "Setting"
 		  }
 	  },
 		{
 		  "path" : "pages/me/setting/history",
 			"style" : {
-			  "navigationBarTitleText" : "历史记录",
+			  "navigationBarTitleText" : "History",
 		    "enablePullDownRefresh" : true
 		  }
 		},
 		{
 		  "path" : "pages/me/setting/nickname",
 			"style" : {
-			  "navigationBarTitleText" : "昵称"
+			  "navigationBarTitleText" : "Nickname"
 		  }
 		},
 		{
 		  "path" : "pages/me/setting/language",
 			"style" : {
-			  "navigationBarTitleText" : "语言"
+			  "navigationBarTitleText" : "Language"
 		  }
 		},
 		{
 		  "path" : "pages/me/setting/signature",
 			"style" : {
-			  "navigationBarTitleText" : "个性签名"
+			  "navigationBarTitleText" : "Signature"
 		  }
 		},
 		{
 			"path": "pages/about/index",
 			"style": {
-				"navigationBarTitleText": "关于"
+				"navigationBarTitleText": "About"
 			}
 		},
 		{
 			"path": "pages/about/platformIntro",
 			"style": {
-				"navigationBarTitleText": "平台介绍"
+				"navigationBarTitleText": "Platform Introduction"
 			}
 		},
 		{
 			"path": "pages/about/aboutUs",
 			"style": {
-				"navigationBarTitleText": "关于我们"
+				"navigationBarTitleText": "About Us"
 			}
 		},
 		{
 			"path": "pages/about/teamIntro",
 			"style": {
-				"navigationBarTitleText": "团队介绍"
+				"navigationBarTitleText": "Team Introduction"
 			}
 		}
 	],
@@ -160,25 +160,25 @@
 		"list":[
 			{
 				"pagePath": "pages/home/index",
-				"text": "首页",
+				"text": "Home",
 				"iconPath": "./static/images/buttomIcons/home-1.png",
 				"selectedIconPath": "static/images/buttomIcons/home-2.png"
 			},
 			{
 				"pagePath": "pages/home/course/index",
-				"text": "课程",
+				"text": "Courses",
 				"iconPath": "./static/images/buttomIcons/tourist-1.png",
 				"selectedIconPath": "static/images/buttomIcons/tourist-2.png"
 			},
 			{
 				"pagePath": "pages/home/VR/index",
-				"text": "VR",
+				"text": "VR/AR",
 				"iconPath": "./static/images/buttomIcons/product-1.png",
 				"selectedIconPath": "./static/images/buttomIcons/product-2.png"
 			},
 			{
 				"pagePath": "pages/me/index",
-				"text": "我的",
+				"text": "My",
 				"iconPath": "static/images/buttomIcons/me-1.png",
 				"selectedIconPath": "./static/images/buttomIcons/me-2.png"
 			}

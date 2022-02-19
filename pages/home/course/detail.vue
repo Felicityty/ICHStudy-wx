@@ -289,8 +289,10 @@
 	}
 	
 	.course_details_name{
-		color: #382321; 
 		font-size: 32rpx;
+		line-height: 46rpx;
+		font-weight: 600;
+		color: #382321; 
 	}
 	
 	.course_details_detail{
@@ -309,6 +311,8 @@
 	.video_list_headtext{
 		color: #382321; 
 		font-size: 32rpx;
+		line-height: 46rpx;
+		font-weight: 600;
 	}
 	
 	.video_list_click{
@@ -349,6 +353,9 @@
 		width: 654rpx;
 		height: 46rpx;
 		margin-top: 72rpx;
+		font-size: 32rpx;
+		line-height: 46rpx;
+		font-weight: 600;
 	}
 	
 	.course_commend{

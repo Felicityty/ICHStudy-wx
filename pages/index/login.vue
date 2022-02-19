@@ -4,12 +4,12 @@
 			<image class="arrow-left" src="../../static/images/iCons/arrowLeftBrown.png"></image>
 		</view>
 		<view class="input-box">
-			<input type="text" placeholder="请输入账号" v-model="username" placeholder-class="phcolor">
+			<input type="text" :placeholder="getUsername()" v-model="username" placeholder-class="phcolor">
 		</view>
 		<view class="input-box">
-			<input type="password" placeholder="请输入密码" v-model="password" placeholder-class="phcolor">
+			<input type="password" :placeholder="getPassword()" v-model="password" placeholder-class="phcolor">
 		</view>
-		<view class="index-btn" @click="login()">登录</view>
+		<view class="index-btn" @click="login()">{{isLanguage ? 'Sign In' : '登录'}}</view>
 		<image class="bg" src="../../static/images/indexBG.png"></image>
 	</view>
 </template>
@@ -20,10 +20,35 @@
 		data() {
 			return {
 				username: '',
-				password: ''
+				password: '',
+				language: 1,
+				isLanguage: true
 			}
 		},
+		onShow() {
+			const userInfo = wx.getStorageSync('userInfo')
+			this.language = userInfo[6]
+			console.log(this.language)
+			this.getLanguage()
+			console.log(this.isLanguage)
+		},
 		methods: {
+			getUsername() {
+				if(this.isLanguage)
+					return 'Input account'
+				else
+					return '请输入账号'
+			},
+			getPassword() {
+				if(this.isLanguage)
+					return 'Input password'
+				else
+					return '请输入密码'
+			},
+			getLanguage() {
+				if(this.language == 1) this.isLanguage = true
+				else this.isLanguage = false
+			},
 			goOff() {
 				uni.navigateBack({
 				});

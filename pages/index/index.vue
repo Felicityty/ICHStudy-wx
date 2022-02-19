@@ -4,8 +4,8 @@
 			<image class="bg-pic" src="../../static/images/indexPic.png" mode="widthFix"></image>
 		</view>
 		<view class="btns">
-			<view class="index-btn" @click="go('login')">登录</view>
-			<view class="index-btn" @click="go('register')">注册</view>
+			<view class="index-btn" @click="go('login')">{{isLanguage ? 'Sign In' : '登录'}}</view>
+			<view class="index-btn" @click="go('register')">{{isLanguage ? 'Sign Up' : '注册'}}</view>
 		</view>
 	</view>
 </template>
@@ -14,9 +14,22 @@
 	export default {
 		data() {
 			return {
+				language: 1,
+				isLanguage: true
 			}
 		},
+		onShow() {
+			const userInfo = wx.getStorageSync('userInfo')
+			this.language = userInfo[6]
+			console.log(this.language)
+			this.getLanguage()
+			console.log(this.isLanguage)
+		},
 		methods: {
+			getLanguage() {
+				if(this.language == 1) this.isLanguage = true
+				else this.isLanguage = false
+			},
 			go(url){
 				uni.navigateTo({
 					url,
