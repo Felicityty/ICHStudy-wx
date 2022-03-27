@@ -44,14 +44,17 @@
 			</view> -->
 			<button type="default" class="btn" @click="logout()">{{title[4]}}</button>
 		</view>
-		
+		<tabbar :state="4"></tabbar>
 	</view>
 </template>
 
 <script>
 	import { getPlayData } from '../../api/user/index.js'
-	
+	import {tabbar} from '../../components/tabbar/tabbar.vue'
 	export default {
+		components:{
+			tabbar
+		},
 		data() {
 			return {
 				i: 0,
@@ -214,7 +217,7 @@
 						}
 					}
 				})
-			}
+			},
 		},
 		onShow() {
 			const that = this
@@ -233,7 +236,7 @@
 			// 	that.wxLogin()
 			// }
 			// console.log(that.userInfo.openid)
-		}
+		},
 	}
 </script>
 

@@ -9,7 +9,7 @@
 		</view>
 		<view class="tips">{{tipName}}</view>
 		<view class="input-box">
-			<input type="password" :placeholder="getUsername()" v-model="password" 
+			<input type="password" :placeholder="getPassword()" v-model="password" 
 				placeholder-class="phcolor">
 		</view>
 		<view class="tips"></view>

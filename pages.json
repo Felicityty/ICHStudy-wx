@@ -149,41 +149,7 @@
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#F9F3EB",
 		"backgroundColor": "#F9F3EB"
-	},
-	"tabBar":{
-		"color": "#9e7d5d",
-		"selectedColor": "#604526",
-		"backgroundColor": "#E6DECC",
-		"position": "bottom",
-		"borderStyle": "black",
-		"selectedfontSize": 800,
-		"list":[
-			{
-				"pagePath": "pages/home/index",
-				"text": "Home",
-				"iconPath": "./static/images/buttomIcons/home-1.png",
-				"selectedIconPath": "static/images/buttomIcons/home-2.png"
-			},
-			{
-				"pagePath": "pages/home/course/index",
-				"text": "Courses",
-				"iconPath": "./static/images/buttomIcons/tourist-1.png",
-				"selectedIconPath": "static/images/buttomIcons/tourist-2.png"
-			},
-			{
-				"pagePath": "pages/home/VR/index",
-				"text": "VR/AR",
-				"iconPath": "./static/images/buttomIcons/product-1.png",
-				"selectedIconPath": "./static/images/buttomIcons/product-2.png"
-			},
-			{
-				"pagePath": "pages/me/index",
-				"text": "My",
-				"iconPath": "static/images/buttomIcons/me-1.png",
-				"selectedIconPath": "./static/images/buttomIcons/me-2.png"
-			}
-		]
-		
 	}
+	
 	
 }

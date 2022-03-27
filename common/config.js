@@ -2,10 +2,10 @@ let baseURL = '';
 
 if(process.env.NODE_ENV==='development'){
 	// 开发环境
-	baseURL = 'http://47.114.116.87:8099/app'
+	baseURL = 'https://api.ichstudy.com'
 }
 else{
-	baseURL = 'http://47.114.116.87:8099/app'
+	baseURL = 'https://testapi.ichstudy.com'
 }
 
 export default baseURL

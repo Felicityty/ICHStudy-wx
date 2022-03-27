@@ -11,7 +11,8 @@
 					
 					<view class="row">
 						<view class="title">{{isLanguage ? 'Courses' : '课程'}}</view>
-						<navigator url="./course/index" open-type="switchTab">
+						<!-- <navigator url="./course/index" open-type="switchTab"> -->
+							<navigator url="./course/index">
 							<view class="allCourse">
 								<view class="allText">{{isLanguage ? 'more' : '全部'}}</view>
 								<view class="allArrow">
@@ -35,7 +36,8 @@
 					
 					<view class="row">
 						<view class="title">VR</view>
-						<navigator url="./VR/index" open-type="switchTab">
+						<!-- <navigator url="./VR/index" open-type="switchTab"> -->
+							<navigator url="./VR/index">
 							<view class="allVR">
 								<view class="allText">{{isLanguage ? 'more' : '全部'}}</view>
 								<view class="allArrow">
@@ -55,7 +57,7 @@
 				</view>
 				
 			</view>
-			
+			<tabbar :state="1"></tabbar>
 		</view>
 </template>
 
@@ -63,7 +65,11 @@
 	import { getCourseList } from '../../api/course/index.js'
 	import { getFileUrl } from '../../common/index.js'
 	import { getVrList } from '../../api/vr/index.js'
+	import {tabbar} from'../../components/tabbar/tabbar.vue'
 	export default {
+		components:{
+			tabbar
+		},
 		data() {
 			return {
 				title: '首页',
@@ -157,7 +163,6 @@
 </script>
 
 <style scoped>
-	
 	.content{
 		width: 750rpx;
 		height: 100%;

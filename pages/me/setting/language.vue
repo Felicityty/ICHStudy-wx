@@ -62,12 +62,16 @@
 							uni.setStorage({
 								key: 'userInfo',
 								data: this.user,
-								success() {}
+								success() {
+									wx.reLaunch({
+										url:'../index'
+									})
+								}
 							})
 					 }
 					})
 					.catch(err => console.log(err))
-			},
+			}
 		}
 	}
 </script>
