@@ -18,12 +18,19 @@
 				isLanguage: true
 			}
 		},
+		onLoad(){
+			uni.setStorage({
+				key: 'language',
+				data: 0
+			})
+		},
 		onShow() {
-			const userInfo = wx.getStorageSync('userInfo')
-			this.language = userInfo[6]
+			// const userInfo = wx.getStorageSync('userInfo')
+			const language = wx.getStorageSync('language')
+			this.language = language
 			console.log(this.language)
 			this.getLanguage()
-			console.log(this.isLanguage)
+			// console.log(this.isLanguage)
 		},
 		methods: {
 			getLanguage() {

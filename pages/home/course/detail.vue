@@ -73,13 +73,15 @@
 			Track
 		},
 		onShow(){
-			const userInfo = wx.getStorageSync('userInfo')
-			this.language = userInfo[6]
+			// const userInfo = wx.getStorageSync('userInfo')
+			const language = wx.getStorageSync('language')
+			this.language = language
 			this.getLanguage()
 		},
 		onLoad(options) {
 			const token = wx.getStorageSync('token')
 			const userInfo = wx.getStorageSync('userInfo')
+			console.log(userInfo)
 			const that = this
 			if(!token) {
 				uni.reLaunch({
@@ -87,7 +89,7 @@
 				})
 			} else {
 				this.index = options.id
-				that.userInfo.username = userInfo[0]
+				that.userInfo.username = userInfo.username
 				this.getCourseInfo()
 				this.getSections()
 				this.getCourseCommend()

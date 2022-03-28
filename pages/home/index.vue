@@ -81,14 +81,15 @@
 		},
 		onShow() {   // 把onLoad 改成 onShow
 			const token = wx.getStorageSync('token')
-			const userInfo = wx.getStorageSync('userInfo')
+			// const userInfo = wx.getStorageSync('userInfo')
+			const language = wx.getStorageSync('language')
 			if(!token) {
 				uni.reLaunch({
 					url: '../index/index'
 				})
 			} else {
-				this.language = userInfo[6]
-				console.log(this.language)
+				this.language = language
+				console.log(this.language + "lan")
 				this.getLanguage()
 				console.log(this.isLanguage)
 				this.getCourseList()

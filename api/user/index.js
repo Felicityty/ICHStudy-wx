@@ -1,5 +1,18 @@
 import request from "../../common/request.js"
 
+// 刷新token
+export function refreshToken() {
+	return request({
+		url: '/user',
+		method: 'POST',
+		data: {
+			endata: {
+				action: 'gettoken'
+			}
+		}
+	})
+}
+
 // 登录
 export function login(username, password) {
 	return request({
@@ -14,29 +27,112 @@ export function login(username, password) {
 	})
 }
 
-// 刷新token
-export function refreshToken() {
-	return request({
-		url: '/user',
-		method: 'POST',
-		data: {
-			endata: {
-				action: 'gettoken'
-			}
-		}
-	})
+// 获取用户信息
+export function getUserInfo () {
+  return request({
+    url: '/user',
+    method: 'POST',
+    data: {
+      endata: {
+        action: 'getinfo'
+      }
+    }
+  })
+}
+
+// 退出登录
+export function logout () {
+  return request({
+    url: '/user',
+    method: 'POST',
+    data: {
+      endata: {
+        action: 'logout'
+      }
+    }
+  })
 }
 
 // 注册
-export function register (name, pwd, email) {
+export function register (name, pwd) {
   return request({
     url: '/register/',
     method: 'POST',
     data: {
       endata: {
         username: name,
-        password: pwd,
-        email: email
+        password: pwd
+      }
+    }
+  })
+}
+// 绑定邮箱
+export function mailBand (email, username) {
+  return request({
+    url: '/mailband/',
+    method: 'POST',
+    data: {
+      endata: {
+        email,
+        username
+      }
+    }
+  })
+}
+
+// 确认邮箱绑定
+export function mailVerify (email, username, code) {
+  return request({
+    url: '/mailverify/',
+    method: 'POST',
+    data: {
+      endata: {
+        email,
+        username,
+        code
+      }
+    }
+  })
+}
+
+// 绑定手机
+export function smsBand (phone, username) {
+  return request({
+    url: '/smsband/',
+    method: 'POST',
+    data: {
+      endata: {
+        phone,
+        username
+      }
+    }
+  })
+}
+
+// 确认手机绑定
+export function smsVerify (phone, username, code) {
+  return request({
+    url: '/smsverify/',
+    method: 'POST',
+    data: {
+      endata: {
+        phone,
+        username,
+        code
+      }
+    }
+  })
+}
+
+// 验证码登录
+export function loginEmail (email, code) {
+  return request({
+    url: '/emailogin/',
+    method: 'POST',
+    data: {
+      endata: {
+        email: email,
+        code: code
       }
     }
   })
@@ -93,6 +189,31 @@ export function setting (info) {
         nickname: info.nickname,
         sex: info.sex,
         signature: info.signature
+      }
+    }
+  })
+}
+
+export function up (cindex, cnname, enname, imgpath, cninfo, eninfo, sindex, senname, scnname, videopath, subtitlepath) {
+  return request({
+    url: '/course/',
+    method: 'POST',
+    data: {
+      endata: {
+        action: 'addcourse',
+        cindex: cindex,
+        cnname: cnname,
+        enname: enname,
+        imgpath: imgpath,
+        cninfo: cninfo,
+        eninfo: eninfo,
+        sdata: {
+          sindex: sindex,
+          enname: senname,
+          cnname: scnname,
+          videopath: videopath,
+          subtitlepath: subtitlepath
+        }
       }
     }
   })

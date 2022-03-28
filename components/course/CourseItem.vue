@@ -54,6 +54,8 @@
 		color: #382321; 
 		font-size: 28rpx; 
 		margin-top: 20rpx;
+		white-space: nowrap; /*文本不换行*/
+		text-overflow:ellipsis;/*ellipsis:文本溢出显示省略号（...）*/
 	}
 	
 	.course_content_intro{

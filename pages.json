@@ -32,6 +32,15 @@
 				"enablePullDownRefresh": true
 			}
 		},
+		
+		{
+			"path": "pages/index/next",
+			"style": {
+				"navigationBarTitleText": "下一步注册",
+				"navigationStyle": "custom",
+				"enablePullDownRefresh": true
+			}
+		},
 		{
 			"path": "pages/home/course/index",
 			"style": {

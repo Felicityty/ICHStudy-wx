@@ -33,15 +33,15 @@
 		<view class="email">
 			<text class="text">{{title[4]}}：</text>
 			<view class="email_right">
-				<view class="email_content">{{userInfo.email}}</view>
+				<view class="email_content">{{userInfo.phone}}</view>
 				<image :src="arrow" mode="aspectFill" class="arrow"></image>
 			</view>
 		</view>
 		
 		<view class="password">
-			<text class="text">{{title[6]}}：</text>
+			<text class="text">{{title[5]}}：</text>
 			<view class="password_right">
-				<view class="password_content">{{userInfo.password}}</view>
+				<view class="password_content">{{userInfo.email}}</view>
 				<image :src="arrow" mode="aspectFill" class="arrow"></image>
 			</view>
 		</view>
@@ -55,14 +55,14 @@
 			return {
 				arrow: '../../../static/images/iCons/arrowRightLightbrown.png',
 				userInfo: {
-					avatarUrl: '../../../static/images/iCons/touxiang.png',
+					avatarimg: '../../../static/images/iCons/touxiang.png',
 					username: '',
 					nickname: '',
 					sex: '',
 					signature: '',
 					email: '',
 					ver: '',
-					password: '',
+					phone: '',
 					checkpwd: ''
 				},
 				language: 1,
@@ -72,15 +72,16 @@
 		onShow() {
 			const token = wx.getStorageSync('token')
 			const userInfo = wx.getStorageSync('userInfo')
-			// console.log(userInfo)
+			const language = wx.getStorageSync('language')
+			this.language = language
+			console.log(userInfo)
 			if(token) {
-				this.userInfo.username = userInfo[0]
-				this.userInfo.avatarUrl = userInfo[1]
-				this.userInfo.nickname = userInfo[2]
-				this.userInfo.email = userInfo[3]
-				this.userInfo.password = userInfo[4]
-				this.userInfo.signature = userInfo[5]
-				this.language = userInfo[6]
+				this.userInfo.username = userInfo.username
+				this.userInfo.avatarimg = userInfo.avatarimg
+				this.userInfo.nickname = userInfo.nick_name
+				this.userInfo.email = userInfo.email
+				this.userInfo.phone = userInfo.phone
+				this.userInfo.signature = userInfo.signature
 				this.getLanguage()
 			}
 		},
@@ -103,9 +104,9 @@
 		computed:{
 			title() {
 			  if (this.language) {
-					return ['Profile', 'Id', 'Nick Name', 'Signature', 'Email', 'Verification', 'Password']
+					return ['Profile', 'Id', 'Nick Name', 'Signature', 'Phone', 'Email']
 			  } else {
-			    return ['头像', '账号', '昵称', '个性签名', '邮箱', '验证码', '密码']
+			    return ['头像', '账号', '昵称', '个性签名', '手机号码', '邮箱']
 			  }
 			}
 		}

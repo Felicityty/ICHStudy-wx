@@ -4,10 +4,10 @@
 			<image class="arrow-left" src="../../static/images/iCons/arrowLeftBrown.png"></image>
 		</view>
 		<view class="input-box">
-			<input type="text" :placeholder="getUsername()" v-model="username" placeholder-class="phcolor">
+			<input type="text" :placeholder="getUsername()" v-model="userInfo.username" placeholder-class="phcolor">
 		</view>
 		<view class="input-box">
-			<input type="password" :placeholder="getPassword()" v-model="password" placeholder-class="phcolor">
+			<input type="password" :placeholder="getPassword()" v-model="userInfo.password" placeholder-class="phcolor">
 		</view>
 		<view class="index-btn" @click="login()">{{isLanguage ? 'Sign In' : '登录'}}</view>
 		<image class="bg" src="../../static/images/indexBG.png"></image>
@@ -15,19 +15,23 @@
 </template>
 
 <script>
-	import { login } from '../../api/user'
+	import { login, getUserInfo } from '../../api/user'
 	export default {
 		data() {
 			return {
-				username: '',
-				password: '',
-				language: 1,
-				isLanguage: true
+				userInfo: {
+					username: '',
+					password: '',
+				},
+				language: 0,
+				isLanguage: false
 			}
 		},
 		onShow() {
-			const userInfo = wx.getStorageSync('userInfo')
-			this.language = userInfo[6]
+			// const userInfo = wx.getStorageSync('userInfo')
+			// this.language = userInfo[6]
+			// const language = wx.getStorageSync('language')
+			// this.language = language
 			console.log(this.language)
 			this.getLanguage()
 			console.log(this.isLanguage)
@@ -50,27 +54,59 @@
 				else this.isLanguage = false
 			},
 			goOff() {
-				uni.navigateBack({
-				});
+				uni.navigateBack({});
+			},
+			getInfo(){
+				// return new Promise((resolve, reject) => {
+				//   getUserInfo()
+				//     .then(res => {
+				//       const result = JSON.parse(res.data).endata.data
+				// 			console.log("2222")
+				// 			console.log(JSON.parse(res.data).endata)
+				// 			this.userInfo = result
+				// 			uni.setStorage({
+				// 				key: 'userInfo',
+				//      		data: this.userInfo
+				//      	})
+				//       resolve(result)
+				//     }).catch(err => {
+				//       reject(err)
+				//     })
+				// })
+				getUserInfo()
+				.then(res => {
+					const result = JSON.parse(res.data).endata.data
+					console.log("2222")
+					console.log(JSON.parse(res.data))
+					this.userInfo = result
+					console.log(this.userInfo)
+					uni.setStorage({
+						key: 'userInfo',
+						data: this.userInfo
+					})
+					console.log(wx.getStorageSync('userInfo'))
+				})
+				.catch(err => console.log(err))
 			},
 			login() {
-				if (!this.username) {
+				if (!this.userInfo.username) {
 					uni.showToast({
 						title: '请填写账号',
 						icon: 'none'
 					})
 					return
 				}
-				if (!this.password) {
+				if (!this.userInfo.password) {
 					uni.showToast({
 						title: '请填写密码',
 						icon: 'none'
 					})
 					return
 				}
-				login(this.username, this.password)
+				login(this.userInfo.username, this.userInfo.password)
 					.then(res => {
 						const data = JSON.parse(res.data).endata
+						console.log("1111")
 						console.log(data)
 						uni.showToast({
 							title: data.msg,
@@ -83,12 +119,7 @@
 								key: 'token',
 								data: data.token
 							})
-							uni.setStorage({
-								key: 'userInfo',
-								data: data.userdata[0],
-								success() {
-								}
-							})
+							this.getInfo()
 							uni.reLaunch({
 								url: '../home/index',
 							})

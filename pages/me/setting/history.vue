@@ -40,8 +40,9 @@
 			}
 		},
 		onShow(){
-			const userInfo = wx.getStorageSync('userInfo')
-			this.language = userInfo[6]
+			// const userInfo = wx.getStorageSync('userInfo')
+			const language = wx.getStorageSync('language')
+			this.language = language
 			this.getLanguage()
 		},
 		onLoad() {

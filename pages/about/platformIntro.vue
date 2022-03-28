@@ -29,8 +29,9 @@
 			}
 		},
 		onShow() {
-			const userInfo = wx.getStorageSync('userInfo')
-			this.language = userInfo[6]
+			// const userInfo = wx.getStorageSync('userInfo')
+			const language = wx.getStorageSync('language')
+			this.language = language
 			console.log(this.language)
 			this.getLanguage()
 			console.log(this.isLanguage)

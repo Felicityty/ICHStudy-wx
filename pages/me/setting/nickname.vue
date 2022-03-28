@@ -16,7 +16,7 @@
 					sex: '',
 					signature: '',
 				},
-				user: []
+				user: {}
 			}
 		},
 		methods: {
@@ -25,7 +25,7 @@
 			    .then(res => {
 			      const data = JSON.parse(res.data).endata
 			      if (data.su === 1) {
-							this.user[2] = this.userInfo.nickname
+							this.user.nick_name = this.userInfo.nickname
 							console.log(this.user)
 							uni.removeStorageSync('userInfo')
 							uni.setStorage({
@@ -44,9 +44,9 @@
 			const userInfo = wx.getStorageSync('userInfo')
 			if(token) {
 				this.user = userInfo
-				this.userInfo.username = userInfo[0]
-				this.userInfo.nickname = userInfo[2]
-				this.userInfo.signature = userInfo[5]
+				this.userInfo.username = userInfo.username
+				this.userInfo.nickname = userInfo.nick_name
+				this.userInfo.signature = userInfo.signature
 			}
 		}
 	}

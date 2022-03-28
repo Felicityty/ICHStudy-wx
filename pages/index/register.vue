@@ -10,34 +10,21 @@
 		<view class="tips">{{tipName}}</view>
 		<view class="input-box">
 			<input type="password" :placeholder="getPassword()" v-model="password" 
-				placeholder-class="phcolor">
-		</view>
-		<view class="tips"></view>
-		<view class="input-box">
-			<input type="password" :placeholder="checkPassword()" v-model="checkword" 
 				placeholder-class="phcolor" @blur="checkPwd()">
 		</view>
 		<view class="tips">{{tipCheck}}</view>
 		<view class="input-box">
-			<input type="text" :placeholder="getEmail()" v-model="email" 
-				placeholder-class="phcolor">
+			<input type="password" :placeholder="checkPassword()" v-model="checkword" 
+				placeholder-class="phcolor" @blur="checkdPwd()">
 		</view>
-		<view class="tips">{{tipEmail}}</view>
-		<view class="identify-code">
-			<view class="identify-box">
-				<input type="password" :placeholder="getVer()" v-model="ver" 
-					placeholder-class="phcolor" @blur="checkVerification()">
-			</view>
-			<view class="identify-btn" @click="sendVer(email)">{{isLanguage ? 'Send VER' : '发送验证码'}}</view>
-		</view>
-		<view class="tips">{{tipVer}}</view>
-		<view class="index-btn" @click="checkVerification();checkVer(ver, email)">{{isLanguage ? 'Sign Up' : '注册'}}</view>
+		<view class="tips">{{tipdCheck}}</view>
+		<view class="index-btn" @click="next()">{{isLanguage ? 'Next' : '下一步'}}</view>
 		<image class="bg" src="../../static/images/indexBG.png"></image>
 	</view>
 </template>
 
 <script>
-	import { register, sendVer, checkVer } from '../../api/user'
+	import { register } from '../../api/user'
 	
 	export default {
 		data() {
@@ -45,19 +32,17 @@
 				username: '',
 				password: '',
 				checkword: '',
-				email: '',
-				ver: '',
-				tipEmail: '',
 				tipName: '',
 				tipCheck: '',
-				tipVer: '',
+				tipdCheck: '',
 				language: 1,
 				isLanguage: true
 			}
 		},
 		onShow() {
-			const userInfo = wx.getStorageSync('userInfo')
-			this.language = userInfo[6]
+			// const userInfo = wx.getStorageSync('userInfo')
+			const language = wx.getStorageSync('language')
+			this.language = language
 			console.log(this.language)
 			this.getLanguage()
 			console.log(this.isLanguage)
@@ -80,18 +65,6 @@
 					return 'Check password'
 				else
 					return '请再次输入密码'
-			},
-			getEmail() {
-				if(this.isLanguage)
-					return 'Input email'
-				else
-					return '请输入邮箱'
-			},
-			getVer() {
-				if(this.isLanguage)
-					return 'Input Verification'
-				else
-					return '请输入验证码'
 			},
 			getLanguage() {
 				if(this.language == 1) this.isLanguage = true
@@ -116,26 +89,26 @@
 				}
 			},
 			checkPwd(){
-				if (this.checkword == '') {
-					this.tipCheck = "请再次输入密码"
-				}else if (this.password != this.checkword) {
-					this.tipCheck = "两次输入密码不一致!"
+				if (this.password == '') {
+					this.tipCheck = "请输入密码"
 				}else {
 					this.tipCheck = "";
 					return true 
 				}
 			},
-			checkVerification(){
-				if (this.ver == '') {
-					this.tipVer = "请输入验证码"
+			checkdPwd(){
+				if (this.checkword == '') {
+					this.tipdCheck = "请再次输入密码"
+				}else if (this.password != this.checkword) {
+					this.tipdCheck = "两次输入密码不一致!"
 				}else {
-					this.tipVer = "";
+					this.tipdCheck = "";
 					return true 
 				}
 			},
-			check(){
-					register(this.username, this.password, this.email)
-						.then(res => {
+			next(){
+				register(this.username, this.password)
+					.then(res => {
 						const data = JSON.parse(res.data).endata
 						// console.log(data)
 						// 注册成功
@@ -145,61 +118,14 @@
 						})
 						if(data.su === 0) {
 							return
-						} 
-						})
-						.catch(err => console.log(err))
-			},
-			sendVer (email) {
-				if(this.checkName() && this.checkPwd()){
-					this.check()
-					sendVer('/vregsend/', email)
-					  .then(res => {
-					    const data = JSON.parse(res.data).endata
-					    // console.log(data)
-							// 邮箱不存在/已发送验证码给..
-					    // uni.showToast({
-					    // 	title: data.msg,
-					    // 	icon: 'none'
-					    // })
-					    // if(data.su === 0) {
-					    // 	return
-					    // }
-					  })
-					  .catch(err => console.log(err))
-				}else{
-					uni.showToast({
-						title: '请确保信息填写正确且完整',
-						icon: 'none'
-					})
-				}
-			},
-			checkVer(ver, email) {
-				if(this.checkName() && this.checkPwd() && this.checkVerification()){
-					checkVer(ver, email)
-					  .then(res => {
-					    const data = JSON.parse(res.data).endata
-							uni.reLaunch({
-								url: '../index/index',
+						} else{
+							uni.navigateTo({
+								url: './next?name=' + this.username
 							})
-					    // console.log(data)
-							// 激活成功
-					    uni.showToast({
-					    	title: data.msg,
-					    	icon: 'none'
-					    })
-					    if(data.su === 0) {
-					    	return
-					    }
-					  })
-					  .catch(err => console.log(err))
-				}else{
-					uni.showToast({
-						title: '请确保信息填写正确且完整',
-						icon: 'none'
+						}
 					})
-				}
-			  
-			},
+					.catch(err => console.log(err))
+			}
 		}
 	}
 </script>
@@ -232,10 +158,10 @@
 	}
 	
 	.content {
-		padding-top: 24vh;
+		padding-top: 31vh;
 		display: flex;
 		flex-direction: column;
-		/* align-items: center; */
+		align-items: flex-start;
 		margin-left: 48rpx;
 		justify-content: center;
 	}
@@ -245,55 +171,26 @@
 		font-size: 32rpx;
 	}
 	
-	.identify-code{
-			width: 654rpx;
-			height: 100rpx;
-			display: flex;
-			flex-direction: row;
-			align-items: center;
-			justify-content: space-between;
-		}
+	.tips{
+		color: #FB8539;
+		height: 54rpx;
+		font-size: 26rpx;
+		margin-left: 18rpx;
+	}
 		
-		.identify-box{
-			width: 400rpx;
-			border-bottom: 2rpx solid #D6CEBD;
-		}
-		
-		.identify-box input{
-			width: 400rpx;
-		}
-		
-		.identify-btn{
-			width: 210rpx;
-			height: 68rpx;
-			color: #FFFFFF;
-			background-color: #987744;
-			text-align: center;
-			font-size: 28rpx;
-			line-height: 68rpx;
-			border-radius: 20rpx;
-		}
-		
-		.tips{
-			color: #FB8539;
-			height: 54rpx;
-			font-size: 26rpx;
-			margin-left: 6rpx;
-		}
-		
-		.index-btn{
-			width: 654rpx;
-			height: 84rpx;
-			margin-top: 114rpx;
-			background-color: #987744;
-			border-radius: 20rpx;
-			color: #FFFFFF;
-			font-size: 36rpx;
-			line-height: 84rpx;
-		}
-		
-		.input-box{
-			margin-top: 0;
-		}
+	.index-btn{
+		width: 654rpx;
+		height: 84rpx;
+		margin-top: 64rpx;
+		background-color: #987744;
+		border-radius: 20rpx;
+		color: #FFFFFF;
+		font-size: 36rpx;
+		line-height: 84rpx;
+	}
+	
+	.input-box{			
+		margin-top: 0;
+	}
 	
 </style>

@@ -223,10 +223,13 @@
 			const that = this
 			const token = wx.getStorageSync('token')
 			const userInfo = wx.getStorageSync('userInfo')
+			const language = wx.getStorageSync('language')
 			if(token) {
-				that.userInfo.username = userInfo[0]
-				that.userInfo.nickName = userInfo[2]
-				this.language = userInfo[6]
+				console.log(userInfo)
+				that.userInfo.username = userInfo.username
+				that.userInfo.nickName = userInfo.nick_name
+				this.language = language
+				console.log(this.language + "lan")
 				this.getLanguage()
 			}
 			if(this.i === 0){ this.getCourse(); this.i = 1 }
