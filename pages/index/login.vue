@@ -105,6 +105,7 @@
 				}
 				login(this.userInfo.username, this.userInfo.password)
 					.then(res => {
+						const that = this
 						const data = JSON.parse(res.data).endata
 						console.log("1111")
 						console.log(data)
@@ -117,11 +118,13 @@
 						} else {
 							uni.setStorage({
 								key: 'token',
-								data: data.token
-							})
-							this.getInfo()
-							uni.reLaunch({
-								url: '../home/index',
+								data: data.token,
+								success() {
+									that.getInfo()
+									uni.reLaunch({
+										url: '../home/index',
+									})
+								}
 							})
 						}
 					})

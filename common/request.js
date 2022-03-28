@@ -1,7 +1,5 @@
 import baseURL from './config.js'
 
-const token = wx.getStorageSync('token');
-
 function service(options = {}) {
 	// store.state.token && (token = store.state.token); //从vuex中获取登录凭证
 	options.url = `${baseURL}${options.url}`;
@@ -11,7 +9,7 @@ function service(options = {}) {
 	options.header = {
 		// 'content-type': 'application/x-www-form-urlencoded',
 		'Content-type':'application/json',
-		'token': token
+		'token': wx.getStorageSync('token')
 	};
 	
 	return new Promise((resolved, rejected) => {
