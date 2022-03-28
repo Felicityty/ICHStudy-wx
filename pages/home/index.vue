@@ -79,27 +79,45 @@
 				isLanguage: true
 			}
 		},
-		onShow() {   // 把onLoad 改成 onShow
+		// onLoad() {
+		// 	this.getLanguage()
+		// },
+		onShow() {
 			const token = wx.getStorageSync('token')
-			// const userInfo = wx.getStorageSync('userInfo')
-			const language = wx.getStorageSync('language')
+			this.getLanguage()
 			if(!token) {
 				uni.reLaunch({
 					url: '../index/index'
 				})
 			} else {
-				this.language = language
-				console.log(this.language + "lan")
-				this.getLanguage()
-				console.log(this.isLanguage)
 				this.getCourseList()
 				this.getVrList()
 			}
 		},
 		methods: {
 			getLanguage() {
-				if(this.language == 1) this.isLanguage = true
-				else this.isLanguage = false
+				const that = this
+				if(wx.getStorageSync('language') === 1) {
+					this.isLanguage = true
+				} else if (wx.getStorageSync('language') === 0) {
+					that.isLanguage = false
+				} else {
+					wx.getSystemInfoAsync({
+						success(res) {
+							if(res.language === 'zh_CN') {
+								that.language = 0
+								that.isLanguage = false
+							} else {
+								that.language = 1
+								that.isLanguage = true
+							}
+							uni.setStorage({
+								key: 'language',
+								data: that.language
+							})
+						}
+					})
+				}
 			},
 			goCourse() {
 				uni.navigateTo({

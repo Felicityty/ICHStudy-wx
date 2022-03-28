@@ -54,7 +54,7 @@
 		},
 		methods:{
 			getLanguage() {
-				if(this.language == 1) this.isLanguage = true
+				if(wx.getStorageSync('language') === 1) this.isLanguage = true
 				else this.isLanguage = false
 			},
 			getCourseList() {

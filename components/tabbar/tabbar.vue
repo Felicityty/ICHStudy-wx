@@ -81,7 +81,7 @@
 				}
 			},
 			getLanguage() {
-				if(this.language == 1) this.isLanguage = true
+				if(wx.getStorageSync('language') === 1) this.isLanguage = true
 				else this.isLanguage = false
 			},
 		},
@@ -97,7 +97,7 @@
 		left: 0;
 		right: 0;
 		bottom: 0;
-		height: 150rpx;   //安全距离没有了诶
+		height: 150rpx;   /* 安全距离没有了诶 */
 		/* height: 98rpx; */
 		width: 750rpx;
 		display: flex;

@@ -28,13 +28,7 @@
 			}
 		},
 		onShow() {
-			// const userInfo = wx.getStorageSync('userInfo')
-			// this.language = userInfo[6]
-			// const language = wx.getStorageSync('language')
-			// this.language = language
-			console.log(this.language)
 			this.getLanguage()
-			console.log(this.isLanguage)
 		},
 		methods: {
 			getUsername() {
@@ -50,29 +44,13 @@
 					return '请输入密码'
 			},
 			getLanguage() {
-				if(this.language == 1) this.isLanguage = true
+				if(wx.getStorageSync('language') === 1) this.isLanguage = true
 				else this.isLanguage = false
 			},
 			goOff() {
 				uni.navigateBack({});
 			},
 			getInfo(){
-				// return new Promise((resolve, reject) => {
-				//   getUserInfo()
-				//     .then(res => {
-				//       const result = JSON.parse(res.data).endata.data
-				// 			console.log("2222")
-				// 			console.log(JSON.parse(res.data).endata)
-				// 			this.userInfo = result
-				// 			uni.setStorage({
-				// 				key: 'userInfo',
-				//      		data: this.userInfo
-				//      	})
-				//       resolve(result)
-				//     }).catch(err => {
-				//       reject(err)
-				//     })
-				// })
 				getUserInfo()
 				.then(res => {
 					const result = JSON.parse(res.data).endata.data
