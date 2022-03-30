@@ -85,12 +85,12 @@
 				}else if (ph.test(this.ep)) {
 					this.tip = ""
 					this.i = '0'
-					this.email = this.ep
+					this.phone = this.ep
 					return
 				}else if (email.test(this.ep)) {
 					this.tip = ""
 					this.i = '1'
-					this.phone = this.ep
+					this.email = this.ep
 					return
 				}else{
 					this.tip = "请输入正确的邮箱/手机号码"
@@ -167,6 +167,10 @@
 						})
 						if(data.su === 0) {
 							return
+						}else{
+							uni.navigateTo({
+								url: './index'
+							})
 						}
 						// this.$emit('goLogin')
 					})
@@ -182,6 +186,10 @@
 						})
 						if(data.su === 0) {
 							return
+						}else{
+							uni.navigateTo({
+								url: './index'
+							})
 						}
 					  // this.$emit('goLogin')
 					})

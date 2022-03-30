@@ -90,8 +90,6 @@
 					url: '../index/index'
 				})
 			} else {
-				this.language = language
-				this.getLanguage()
 				this.getCourseList()
 				this.getVrList()
 			}
