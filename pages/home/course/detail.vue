@@ -2,7 +2,7 @@
 	<view class="container">
 		<view class="video_play">
 			<video 
-				:src="toLearnList[play].url" 
+				:src="toLearnList[play].url"
 				autoplay
 				ref="av"
 				@play="startPlay"
@@ -115,7 +115,7 @@
 				this.play = index
 			},
 			video(index){
-				if(this.play === index){　　　　　　　　　　　
+				if(this.play === index){
 				    return '../../../static/images/iCons/zhengzaibofang.png'
 				  }else{
 				    return ''
@@ -152,11 +152,12 @@
 			          enname: item.enname,
 			          url: getFileUrl('video', item.videopath),
 			          sectionId: item.sindex,
-			          subpath: getFileUrl('vtt', item.subtitlespath)
+			          subpath: item.subtitlespath ? getFileUrl('vtt', item.subtitlespath) : ''
 							})
 			      })
-						this.$refs.track.loadZimu(this.toLearnList[this.play].subpath, this.toLearnList[this.play].sindex)
-						// console.log(this.toLearnList[1].url)
+						if(this.toLearnList[this.play].subpath) {
+							this.$refs.track.loadZimu(this.toLearnList[this.play].subpath, this.toLearnList[this.play].sindex)
+						}
 			    })
 			    .catch(err => console.log(err))
 			},
@@ -278,7 +279,7 @@
 	}
 	
 	#track {
-		height: 50rpx;
+		height: 0rpx;
 		width: 100%;
 		position: relative;
 		left: 0rpx;
