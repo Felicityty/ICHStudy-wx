@@ -13,7 +13,7 @@
 				<input type="text" :placeholder="getVer()" v-model="ver" 
 					placeholder-class="phcolor" @blur="checkVer()">
 			</view>
-			<view class="identify-btn" @click="send()">{{isLanguage ? 'Send VER' : '发送验证码'}}</view>
+			<view class="identify-btn" @click="send()" :disabled="ifSend">{{text}}</view>
 		</view>
 		<view class="tips">{{tipVer}}</view>
 		<view class="index-btn" @click="reg()">{{isLanguage ? 'Sign Up' : '注册'}}</view>
@@ -36,7 +36,9 @@
 				language: 1,
 				isLanguage: true,
 				i: '',
-				username: ''
+				username: '',
+				ifSend: false,
+				text: ''
 			}
 		},
 		onLoad(options){
@@ -48,6 +50,11 @@
 			console.log(this.language)
 			this.getLanguage()
 			console.log(this.isLanguage)
+			if (!this.isLanguage) {
+			  this.text = '发送验证码'
+			} else {
+			  this.text = 'Send Ver'
+			}
 		},
 		methods: {
 			getEP() {
@@ -103,9 +110,11 @@
 				console.log(this.i)
 				if (this.i == '0'){
 					console.log(this.username)
-					this.bindEmail()
-				}else if (this.i == '1'){
+					this.changeSendBtn()
 					this.bindPhone()
+				}else if (this.i == '1'){
+					this.changeSendBtn()
+					this.bindEmail()
 				}
 			},
 			reg() {
@@ -113,10 +122,9 @@
 				this.checkEP()
 				console.log(this.i)
 				if (this.i == '0'){
-					console.log(this.username)
-					this.verifyEmail()
-				}else if (this.i == '1'){
 					this.verifyPhone()
+				}else if (this.i == '1'){
+					this.verifyEmail()
 				}
 			},
 			bindEmail () {
@@ -137,7 +145,7 @@
 				smsBand(this.phone, this.username)
 					.then(res => {
 						const data = JSON.parse(res.data).endata
-						console.log('1')
+						console.log('0')
 						console.log(data)
 						uni.showToast({
 						  title: data.msg,
@@ -178,6 +186,29 @@
 					  // this.$emit('goLogin')
 					})
 			},
+			changeSendBtn () {
+			  this.ifSend = true
+			  let restTime = 30
+			  const that = this
+			  const a = setInterval(function () {
+			    if (restTime === 0) {
+			      that.ifSend = false
+			      if (!this.isLanguage) {
+			        that.text = '发送验证码'
+			      } else {
+			        that.text = 'Send Ver'
+			      }
+			      clearInterval(a)
+			    } else {
+			      restTime--
+			      if (!this.isLanguage) {
+			        that.text = `倒计时${restTime}秒`
+			      } else {
+			        that.text = `Wait ${restTime}s`
+			      }
+			    }
+			  }, 1000)
+			}
 		}
 	}
 </script>

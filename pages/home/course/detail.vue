@@ -81,7 +81,7 @@
 		onLoad(options) {
 			const token = wx.getStorageSync('token')
 			const userInfo = wx.getStorageSync('userInfo')
-			console.log(userInfo)
+			// console.log(userInfo)
 			const that = this
 			if(!token) {
 				uni.reLaunch({

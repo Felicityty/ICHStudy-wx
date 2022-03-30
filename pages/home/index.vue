@@ -89,9 +89,7 @@
 				})
 			} else {
 				this.language = language
-				console.log(this.language + "lan")
 				this.getLanguage()
-				console.log(this.isLanguage)
 				this.getCourseList()
 				this.getVrList()
 			}
@@ -125,7 +123,7 @@
 				getCourseList()
 					.then(res => {
 						const data = JSON.parse(res.data).endata.data
-						console.log(data)
+						// console.log(data)
 						const courses = []
 						data.forEach(item => {
 							courses.push({
@@ -144,7 +142,7 @@
 				getVrList()
 					.then(res => {
 						const data = JSON.parse(res.data).endata.data
-						console.log(data)
+						// console.log(data)
 						const vrs =[]
 						data.forEach(item => {
 							vrs.push({
