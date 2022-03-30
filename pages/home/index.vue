@@ -186,6 +186,7 @@
 		width: 750rpx;
 		height: 100%;
 		position: relative;
+		bottom: 40rpx;
 	}
 	
 	.bg{

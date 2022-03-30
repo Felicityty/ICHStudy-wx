@@ -68,11 +68,13 @@
 				}else if(num===2){
 					uni.redirectTo({
 						// url:"../../pages/tourist/index",
-						url:"/pages/tourist/index",
+						// url:"/pages/tourist/index",
+						url:"/pages/home/course/index",
 					})
 				}else if(num===3){
 					uni.redirectTo({
-						url:"/pages/products/index",
+						// url:"/pages/products/index",
+						url:"/pages/home/VR/index",
 					})
 				}else{
 					uni.redirectTo({
@@ -97,7 +99,7 @@
 		left: 0;
 		right: 0;
 		bottom: 0;
-		height: 150rpx;   /* 安全距离没有了诶 */
+		height: 98rpx;   /* 安全距离没有了诶 */
 		/* height: 98rpx; */
 		width: 750rpx;
 		display: flex;
@@ -117,12 +119,12 @@
 	}
 	
 	.tabbar image{
-		width: 60rpx;
-		height: 60rpx;
+		width: 50rpx;
+		height: 50rpx;
 	}
 	
 	.title{
-		margin-top: 10rpx;
+		margin-top: 8rpx;
 		font-size: 24rpx;
 	}
 	

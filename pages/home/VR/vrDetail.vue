@@ -181,6 +181,7 @@
 		width: 750rpx;
 		height: 100%;
 		position: relative;
+		bottom: 60rpx;
 	}
 	
 	.back{
@@ -189,7 +190,7 @@
 		background-color: #FFFFFF;
 		border-radius: 100rpx;
 		position: absolute;
-		top: 90rpx;
+		top: 158rpx;
 		left: 48rpx;
 
 	}

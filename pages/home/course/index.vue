@@ -16,6 +16,7 @@
 				<text class="course_content_intro">{{item.intro}}</text> -->
 			</view>
 		</view>
+		<tabbar :state="2"></tabbar>
 	</view>
 </template>
 
@@ -23,6 +24,7 @@
 	import CourseItem from '../../../components/course/CourseItem.vue'
 	import { getCourseList } from '../../../api/course/index.js'
 	import { getFileUrl } from '../../../common/index.js'
+	import tabbar from'../../../components/tabbar/tabbar.vue'
 	
 	export default {
 		data(){
@@ -33,11 +35,11 @@
 			}
 		},
 		components: {
-			CourseItem
+			CourseItem,
+			tabbar
 		},
 		onShow(){
 			const userInfo = wx.getStorageSync('userInfo')
-			console.log(userInfo)
 			const language = wx.getStorageSync('language')
 			this.language = language
 			this.getLanguage()
@@ -61,7 +63,7 @@
 				getCourseList()
 					.then(res => {
 						const data = JSON.parse(res.data).endata.data
-						console.log(data)
+						// console.log(data)
 						const courses = []
 						data.forEach(item => {
 							courses.push({
@@ -89,6 +91,7 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
+		margin-bottom: 118rpx;
 	}
 	
 	.phcolor{
