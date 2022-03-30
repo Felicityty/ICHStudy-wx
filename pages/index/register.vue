@@ -110,7 +110,7 @@
 				register(this.username, this.password)
 					.then(res => {
 						const data = JSON.parse(res.data).endata
-						// console.log(data)
+						console.log(data)
 						// 注册成功
 						uni.showToast({
 							title: data.msg,

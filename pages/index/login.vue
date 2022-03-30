@@ -54,15 +54,12 @@
 				getUserInfo()
 				.then(res => {
 					const result = JSON.parse(res.data).endata.data
-					console.log("2222")
-					console.log(JSON.parse(res.data))
+					// console.log(result)
 					this.userInfo = result
-					console.log(this.userInfo)
 					uni.setStorage({
 						key: 'userInfo',
 						data: this.userInfo
 					})
-					console.log(wx.getStorageSync('userInfo'))
 				})
 				.catch(err => console.log(err))
 			},
@@ -85,8 +82,7 @@
 					.then(res => {
 						const that = this
 						const data = JSON.parse(res.data).endata
-						console.log("1111")
-						console.log(data)
+						// console.log(data)
 						uni.showToast({
 							title: data.msg,
 							icon: 'none'

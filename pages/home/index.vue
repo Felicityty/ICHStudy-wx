@@ -143,7 +143,7 @@
 				getCourseList()
 					.then(res => {
 						const data = JSON.parse(res.data).endata.data
-						console.log(data)
+						// console.log(data)
 						const courses = []
 						data.forEach(item => {
 							courses.push({
@@ -162,7 +162,7 @@
 				getVrList()
 					.then(res => {
 						const data = JSON.parse(res.data).endata.data
-						console.log(data)
+						// console.log(data)
 						const vrs =[]
 						data.forEach(item => {
 							vrs.push({
@@ -186,6 +186,7 @@
 		width: 750rpx;
 		height: 100%;
 		position: relative;
+		bottom: 40rpx;
 	}
 	
 	.bg{

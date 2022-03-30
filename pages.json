@@ -141,12 +141,6 @@
 			}
 		},
 		{
-			"path": "pages/about/aboutUs",
-			"style": {
-				"navigationBarTitleText": "About Us"
-			}
-		},
-		{
 			"path": "pages/about/teamIntro",
 			"style": {
 				"navigationBarTitleText": "Team Introduction"

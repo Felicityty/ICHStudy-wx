@@ -1,7 +1,8 @@
 <template>
 	<view class="container">
 		<view class="video_play">
-			<video 
+			<video
+				class="video"
 				:src="toLearnList[play].url"
 				autoplay
 				ref="av"
@@ -81,7 +82,7 @@
 		onLoad(options) {
 			const token = wx.getStorageSync('token')
 			const userInfo = wx.getStorageSync('userInfo')
-			console.log(userInfo)
+			// console.log(userInfo)
 			const that = this
 			if(!token) {
 				uni.reLaunch({
@@ -258,6 +259,7 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
+		margin-bottom: 60rpx;
 	}
 	
 	.video_play{
@@ -278,6 +280,13 @@
 		width: 100%;
 	}
 	
+	.video{
+		position: fixed;
+		top: 6rpx;
+		left: 0rpx;
+		z-index: 999;
+	}
+	
 	#track {
 		height: 0rpx;
 		width: 100%;
@@ -288,7 +297,7 @@
 	
 	.course_details{
 		width: 654rpx;
-		margin-top: 462rpx;
+		margin-top: 502rpx;
 	}
 	
 	.course_details_name{

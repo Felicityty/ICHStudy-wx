@@ -12,14 +12,19 @@
 					<view class="listViewText">{{isLanguage ? item.enname : item.cnname}}</view>
 				</view>
 			</view>
-			
+			<tabbar :state="3"></tabbar>
 		</view>
 </template>
 
 <script>
 	import { getVrList } from '../../../api/vr/index.js'
 	import { getFileUrl } from '../../../common/index.js'
+	import {tabbar} from'../../../components/tabbar/tabbar.vue'
+	
 	export default {
+		components:{
+			tabbar
+		},
 		data() {
 			return {
 				vrItem: [],
@@ -74,6 +79,7 @@
 		width: 750rpx;
 		height: 100%;
 		position: relative;
+		bottom: 118rpx;
 	}
 	
 	.searchBox{
