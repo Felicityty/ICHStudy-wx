@@ -67,7 +67,7 @@
 					return '请再次输入密码'
 			},
 			getLanguage() {
-				if(this.language == 1) this.isLanguage = true
+				if(wx.getStorageSync('language') === 1) this.isLanguage = true
 				else this.isLanguage = false
 			},
 			goOff() {

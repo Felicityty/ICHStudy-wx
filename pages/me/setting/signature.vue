@@ -28,7 +28,7 @@
 		methods: {
 			check() {
 				if (this.userInfo.signature.length > 30 ) {
-					if (this.language == 1){
+					if (wx.getStorageSync('language') === 1){
 						this.tip = "Signature length cannot exceed 30"
 					}else{
 						this.tip = "签名长度不能超过30"

@@ -18,12 +18,6 @@
 				isLanguage: true
 			}
 		},
-		onLoad(){
-			uni.setStorage({
-				key: 'language',
-				data: 0
-			})
-		},
 		onShow() {
 			// const userInfo = wx.getStorageSync('userInfo')
 			const language = wx.getStorageSync('language')
@@ -34,7 +28,7 @@
 		},
 		methods: {
 			getLanguage() {
-				if(this.language == 1) this.isLanguage = true
+				if(wx.getStorageSync('language') === 1) this.isLanguage = true
 				else this.isLanguage = false
 			},
 			go(url){
