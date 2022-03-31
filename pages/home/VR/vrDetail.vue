@@ -5,7 +5,7 @@
 				<image class="picbg" :src="intro[0].img"></image>
 			</view>
 			
-			<view class="back" @click="goOff()">
+			<view class="back" @click="goOff()" :style="{top: scrollTop + 'rpx'}">
 				<image class="arrow-left" src="../../../static/images/iCons/arrowLeftBrown.png"></image>
 			</view>
 			
@@ -18,7 +18,7 @@
 					<!-- 要换行只能用div和v-html诶  -->
 				</view>
 				
-				<view class="zhankai" @click="showing = ! showing">
+				<view class="zhankai" @click="showing = !showing">
 					<view class="fold">
 						{{(showing) ? (isLanguage ? 'Expand More' : '展开更多') : (isLanguage ? 'Pack Up' : '收起更多')}}
 						</view>
@@ -62,7 +62,8 @@
 				showing: true,
 				recItem: [],
 				language: 1,
-				isLanguage: true
+				isLanguage: true,
+				scrollTop: 0
 			}
 		},
 		onLoad(options) {
@@ -70,6 +71,9 @@
 			this.index = options.id
 			// console.log(this.index)
 			this.getVrRec()
+			this.getTop()
+			this.scrollTop = this.scrollTop * 2 +14
+			
 		},
 		onShow() {
 			// const userInfo = wx.getStorageSync('userInfo')
@@ -92,6 +96,15 @@
 				uni.navigateTo({
 					url: './vrDetail?id=' + id
 				})
+			},
+			getTop() {
+			  const that = this
+			    wx.getSystemInfo({
+			      success: function (res) {
+			        that.scrollTop = res.statusBarHeight
+							// console.log(that.scrollTop)
+			      },
+			    });
 			},
 			folded(){
 				if(this.showing == false){
@@ -185,20 +198,21 @@
 	}
 	
 	.back{
-		height: 58rpx;
-		width: 58rpx;
-		background-color: #FFFFFF;
+		height: 60rpx;
+		width: 60rpx;
+		/* background-color: #bbbbbb; */
+		background-color: rgba(255, 255, 255, 0.8);
 		border-radius: 100rpx;
-		position: absolute;
-		top: 158rpx;
-		left: 48rpx;
-
+		position: fixed;
+		left: 18rpx;
+		z-index: 999;
 	}
 	
 	.arrow-left{
-		margin-top: 7rpx;
-		height: 43rpx;
-		width: 57rpx;
+		margin-top: 8rpx;
+		margin-left: 4rpx;
+		height: 46rpx;
+		width: 46rpx;
 	}
 	
 	.bg{

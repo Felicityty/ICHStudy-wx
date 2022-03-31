@@ -1,6 +1,6 @@
 <template>
 	<view class="content">
-		<view class="back" @click="goOff()">
+		<view class="back" @click="goOff()"  :style="{top: scrollTop + 'rpx'}">
 			<image class="arrow-left" src="../../static/images/iCons/arrowLeftBrown.png"></image>
 		</view>
 		<view class="input-box">
@@ -38,11 +38,14 @@
 				i: '',
 				username: '',
 				ifSend: false,
-				text: ''
+				text: '',
+				scrollTop: 0
 			}
 		},
 		onLoad(options){
 			this.username = options.name
+			this.getTop()
+			this.scrollTop = this.scrollTop * 2 +14
 		},
 		onShow() {
 			const language = wx.getStorageSync('language')
@@ -76,6 +79,15 @@
 			goOff() {
 				uni.navigateBack({
 				});
+			},
+			getTop() {
+			  const that = this
+			    wx.getSystemInfo({
+			      success: function (res) {
+			        that.scrollTop = res.statusBarHeight
+							// console.log(that.scrollTop)
+			      },
+			    });
 			},
 			checkEP(){
 				var ph = /^1\d{10}$/
@@ -223,20 +235,21 @@
 
 <style>
 	.back{
-		height: 58rpx;
-		width: 58rpx;
-		background-color: #FFFFFF;
+		height: 60rpx;
+		width: 60rpx;
+		background-color: rgba(255, 255, 255, 0.8);
 		border-radius: 100rpx;
-		position: absolute;
-		top: 90rpx;
-		left: 48rpx;
+		position: fixed;
+		left: 18rpx;
+		z-index: 999;
 	
 	}
 	
 	.arrow-left{
-		margin-top: 7rpx;
-		height: 43rpx;
-		width: 57rpx;
+		margin-top: 8rpx;
+		margin-left: 4rpx;
+		height: 46rpx;
+		width: 46rpx;
 	}
 	
 	.bg {
