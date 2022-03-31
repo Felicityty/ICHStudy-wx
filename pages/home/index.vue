@@ -79,9 +79,6 @@
 				isLanguage: true
 			}
 		},
-		// onLoad() {
-		// 	this.getLanguage()
-		// },
 		onShow() {
 			const token = wx.getStorageSync('token')
 			this.getLanguage()

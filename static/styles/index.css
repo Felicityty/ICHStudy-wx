@@ -23,3 +23,13 @@
 	margin-left: 18rpx;
 	width: 644rpx;
 }
+
+.safe-area {
+	position: fixed;
+	bottom: 0rpx;
+	left: 0rpx;
+	width: 100%;
+	height: constant(safe-area-inset-bottom);
+	height: env(safe-area-inset-bottom);
+	background-color: #F9F3EB;
+}

@@ -3,14 +3,14 @@
 		<view class="photo">
 			<text class="text">{{title[0]}}：</text>
 			<image :src="userInfo.avatarUrl" mode="aspectFill" class="photo_img"></image>
-			<image :src="arrow" mode="aspectFill" class="arrow"></image>
+			<!-- <image :src="arrow" mode="aspectFill" class="arrow"></image> -->
 		</view>
 		
 		<view class="account">
 			<text class="text">{{title[1]}}：</text>
 			<view class="account_right">
 				<view class="account_content">{{userInfo.username}}</view>
-				<image :src="arrow" mode="aspectFill" class="arrow"></image>
+				<!-- <image :src="arrow" mode="aspectFill" class="arrow"></image> -->
 			</view>
 		</view>
 		

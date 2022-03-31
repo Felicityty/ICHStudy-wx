@@ -64,12 +64,14 @@
 				if(num===1){
 					uni.redirectTo({
 						url:"/pages/home/index",
+						// url:"../../pages/home/index",
 					})
 				}else if(num===2){
 					uni.redirectTo({
 						// url:"../../pages/tourist/index",
 						// url:"/pages/tourist/index",
 						url:"/pages/home/course/index",
+						// url:"../../pages/home/course/index",
 					})
 				}else if(num===3){
 					uni.redirectTo({
@@ -79,6 +81,7 @@
 				}else{
 					uni.redirectTo({
 						url:"/pages/me/index",
+						// url:"../../pages/me/index",
 					})
 				}
 			},
@@ -99,8 +102,10 @@
 		left: 0;
 		right: 0;
 		bottom: 0;
-		height: 98rpx;   /* 安全距离没有了诶 */
-		/* height: 98rpx; */
+		/* height: 132rpx; */
+		height: auto;
+		padding-bottom: constant(safe-area-inset-bottom); /*兼容 IOS<11.2*/
+		padding-bottom: env(safe-area-inset-bottom); /*兼容 IOS>11.2*/
 		width: 750rpx;
 		display: flex;
 		justify-content: space-around;
@@ -121,11 +126,13 @@
 	.tabbar image{
 		width: 50rpx;
 		height: 50rpx;
+		padding-top: 12rpx;
 	}
 	
 	.title{
 		margin-top: 8rpx;
 		font-size: 24rpx;
+		padding-bottom: 12rpx;
 	}
 	
 </style>

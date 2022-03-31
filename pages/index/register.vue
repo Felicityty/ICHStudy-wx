@@ -93,8 +93,8 @@
 				const username = this.username
 				if (!username) {
 					this.tipName = "请输入账号"
-				} else if (username.length < 8 || username.length > 20) {
-					this.tipName = "账号长度需为8-20位"
+				} else if (username.length < 6 || username.length > 20) {
+					this.tipName = "账号长度需为6-20位"
 				}else if(!reg.test(username)) {
 					this.tipName = "用户名需为字母和数字"
 				}else {

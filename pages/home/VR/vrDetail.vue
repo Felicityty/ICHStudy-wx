@@ -48,6 +48,8 @@
 				</view>
 				
 			</view>
+			
+			<view class="safe-area"></view>
 		</view>
 </template>
 

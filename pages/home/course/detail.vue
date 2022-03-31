@@ -38,6 +38,8 @@
 				<text class="course_commend_text">{{ item.name }}</text> -->		
 			</view>
 		</view>
+		
+		<view class="safe-area"></view>
 	</view>
 </template>
 
@@ -58,7 +60,7 @@
 				deltaTime: 0,
 				toLearnList:[],
 				play: 0,
-			  showAll: false,
+			  showAll: true,
 				bofang: '../../../static/images/iCons/zhengzaibofang.png',
 				courseItem: [],
 				userInfo: {
@@ -184,13 +186,15 @@
 			},
 			// 随机获取指定数目的数据
 			getRandomArrayElements(arrList,num){
-			  let tempArr=arrList.slice(0);
-			  let newArrList=[];    
-			  for(let i=0;i<num;i++){
-			    let random=Math.floor(Math.random()*(tempArr.length-1));
-			    let arr=tempArr[random];
-			    tempArr.splice(random, 1);
-			    newArrList.push(arr);    
+				let tempArr = arrList.slice(0)
+				let newArrList=[]
+				while(newArrList.length < 4) {
+					const random = Math.floor(Math.random() * (tempArr.length - 1))
+					const arr = tempArr[random]
+					if(arr.id !== this.index) {
+						tempArr.splice(random, 1)
+						newArrList.push(arr)
+					}
 				}
 			  return newArrList;
 			},
@@ -379,5 +383,4 @@
 		flex-direction: row;
 		flex-wrap: wrap;
 	}
-	
 </style>
