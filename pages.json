@@ -141,9 +141,9 @@
 			}
 		},
 		{
-			"path": "pages/about/teamIntro",
+			"path": "pages/about/aboutUs",
 			"style": {
-				"navigationBarTitleText": "Team Introduction"
+				"navigationBarTitleText": "About Us"
 			}
 		}
 	],
