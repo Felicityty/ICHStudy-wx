@@ -35,13 +35,6 @@
 					<image :src="arrow" mode="aspectFill" class="setting_arrow"></image>
 				</view>
 			</view>
-				
-			<!-- <view class="shopping">
-				<view class="shopping_item" v-for="(item, index) in shoppingItems" :key="index" @click="go(item.url)">
-					<view class="text">{{isLanguage? item.enname : item.cnname}}</view>
-					<image :src="arrow" mode="aspectFill" class="setting_arrow"></image>
-				</view>
-			</view> -->
 			<button type="default" class="btn" @click="logout()">{{title[4]}}</button>
 		</view>
 		<tabbar :state="4"></tabbar>
@@ -181,8 +174,6 @@
 			    })
 			    .catch(err => console.log(err))
 			},
-			
-			
 			wxGetUserProfile() {
 				const that = this
 				wx.getUserProfile({
@@ -192,38 +183,9 @@
 					 	let user = res.userInfo
 					 	that.userInfo.nickName = user.nickName
 					 	that.userInfo.avatarUrl = user.avatarUrl
-						that.wxLogin()
 					}
 				})
-			},
-			wxLogin() {
-				const that = this
-				wx.login({
-					success(res) {
-						console.log('login', res)
-						if(res.code) {
-							const appid = 'wx1c12e54d3dc406d2'
-							const secret = 'ba3120c84339931678d81bdee21557f0'
-							const url = 'https://api.weixin.qq.com/sns/jscode2session?appid=' + appid + '&secret=' + secret + '&js_code=' + res.code + '&grant_type=authorization_code'
-							wx.request({
-								url: url,
-								data:{},
-								header: {'content-type': 'json'},
-								success: function (res) {
-									console.log('login request', res)
-									uni.setStorage({
-										key: 'openid',
-										data: res.data.openid,
-										success() {
-											that.userInfo.openid = res.data.openid
-										}
-									})
-								}
-							})
-						}
-					}
-				})
-			},
+			}
 		},
 		onShow() {
 			const that = this
@@ -239,12 +201,6 @@
 				this.getLanguage()
 			}
 			if(this.i === 0){ this.getCourse(); this.i = 1 }
-			// const openid = wx.getStorageSync('openid')
-			// if(openid) {
-			// 	that.userInfo.openid = openid
-			// 	that.wxLogin()
-			// }
-			// console.log(that.userInfo.openid)
 		},
 	}
 </script>
