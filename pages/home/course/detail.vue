@@ -191,10 +191,10 @@
 					.catch(err => console.log(err))
 			},
 			// 随机获取指定数目的数据
-			getRandomArrayElements(arrList,num){
+			getRandomArrayElements(arrList, num){
 				let tempArr = arrList.slice(0)
 				let newArrList=[]
-				while(newArrList.length < 4) {
+				while(newArrList.length < num) {
 					const random = Math.floor(Math.random() * (tempArr.length - 1))
 					const arr = tempArr[random]
 					if(arr.id !== this.index) {

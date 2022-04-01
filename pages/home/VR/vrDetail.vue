@@ -59,7 +59,7 @@
 	export default {
 		data() {
 			return {
-				index: '',
+				index: null,
 				intro: [],
 				showing: true,
 				recItem: [],
@@ -71,7 +71,7 @@
 		onLoad(options) {
 			this.getVrList()
 			this.index = options.id
-			// console.log(this.index)
+			console.log('index', this.index)
 			this.getVrRec()
 			this.getTop()
 			this.scrollTop = this.scrollTop * 2 +14
@@ -165,28 +165,18 @@
 			},
 			// 随机获取指定数目的数据
 			getRandomArrayElements(arrList, num) {
-			  let tempArr = arrList.slice(0);
-			  let newArrList = [];
-			  for(let i=0; i<num; i++) {
-			    let random = Math.floor(Math.random()*(tempArr.length-1));
-			    let arr = tempArr[random];
-			    tempArr.splice(random, 1);
-			    newArrList.push(arr);
+				let tempArr = arrList.slice(0)
+				let newArrList=[]
+				while(newArrList.length < num) {
+					const random = Math.floor(Math.random() * (tempArr.length - 1))
+					const arr = tempArr[random]
+					if(arr.id.toString() !== this.index) {
+						tempArr.splice(random, 1)
+						newArrList.push(arr)
+					}
 				}
-			  return newArrList;
+				return newArrList
 			},
-		},
-		computed: {
-			// showLen: function() {
-			// 	if (this.showing == true){
-			// 		var showLen = this.intro[0].text.substring(0,56);   // 截取前两行
-			// 		return showLen;
-			// 	}
-			// 	else {
-			// 		return this.intro[0].text;
-			// 	}
-			// }
-			
 		}
 	}
 </script>
