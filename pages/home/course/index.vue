@@ -91,7 +91,8 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		margin-bottom: 118rpx;
+		margin-bottom: calc(118rpx + constant(safe-area-inset-bottom));
+		margin-bottom: calc(118rpx + env(safe-area-inset-bottom));
 	}
 	
 	.phcolor{

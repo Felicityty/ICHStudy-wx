@@ -161,6 +161,12 @@
 			    .then(res => {
 			      const data = JSON.parse(res.data).endata.data
 			      // console.log(data)
+						if(data.length === 0) {
+							this.v_cntitle = '暂无'
+							this.v_entitle = 'no course'
+							this.v_num = 0
+							return
+						}
 			      this.total_num = 0
 			      this.v_num = -1
 			      data.forEach(item => {
@@ -250,6 +256,8 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
+		margin-bottom: calc(118rpx + constant(safe-area-inset-bottom));
+		margin-bottom: calc(118rpx + env(safe-area-inset-bottom));
 	}
 	
 	.text{

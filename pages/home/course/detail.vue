@@ -2,10 +2,10 @@
 	<view class="container">
 		<view class="video_play">
 			<video
+				id="video-player"
 				class="video"
 				:src="toLearnList[play].url"
 				autoplay
-				ref="av"
 				@play="startPlay"
 				@ended="endPlay"
 				@timeupdate="timeUpdate"
@@ -98,8 +98,14 @@
 				this.getCourseCommend()
 			}
 		},
+		beforeDestroy() {
+			console.log('onUnload')
+			let video = uni.createVideoContext('video-player')
+			video.pause()
+			this.upload()
+		},
 		destroyed() {
-			this.$refs.av.pause()
+			console.log('destroryed')
 		},
 		methods:{
 			getLanguage() {
@@ -200,6 +206,7 @@
 			},
 			upload () {
 			  if (!this.stime) {
+					console.log('sss')
 			    return
 			  }
 			  if (!this.etime) {

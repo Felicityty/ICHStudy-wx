@@ -6,6 +6,10 @@
 			<view class="head_txt">{{title[2]}}</view>
 		</view>
 		
+		<view class="no-course" v-show="history.length===0">
+			{{ isLanguage ? cninfo : eninfo }}
+		</view>
+		
 		<view class="history" v-for="(item,index) in history" :key="item">
 			<view class="history_content">
 				<view class="history_name">
@@ -36,6 +40,8 @@
 					username: '',
 					nickName: '',
 				},
+				cninfo: '',
+				eninfo: '',
 				language: 1,
 				isLanguage: true
 			}
@@ -55,7 +61,7 @@
 					url: '../../index/index'
 				})
 			} else {
-				that.userInfo.username = userInfo[0]
+				that.userInfo = userInfo
 				// console.log(this.userInfo.username)
 				this.getCourse()
 			}
@@ -70,6 +76,11 @@
 			    .then(res => {
 			      const data = JSON.parse(res.data).endata.data
 			      console.log(data)
+						if(data.length === 0) {
+							this.cninfo = '暂无观看历史'
+							this.eninfo = 'no history'
+							return
+						}
 			      data.forEach(item => {
 			        this.history.push({
 			          cscn: item.cscn,
@@ -144,6 +155,11 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
+	}
+	
+	.no-course {
+		margin-top: 30rpx;
+		color: #382321;
 	}
 	
 	.history{

@@ -79,7 +79,8 @@
 		width: 750rpx;
 		height: 100%;
 		position: relative;
-		bottom: 118rpx;
+		margin-bottom: calc(118rpx + constant(safe-area-inset-bottom));
+		margin-bottom: calc(118rpx + env(safe-area-inset-bottom));
 	}
 	
 	.searchBox{
