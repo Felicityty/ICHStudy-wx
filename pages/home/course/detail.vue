@@ -12,7 +12,7 @@
 			>
 			</video>
 			<Track id="track" ref="track"/>
-			<view class="end-img" v-show="!showEndImg">
+			<view class="end-img" v-show="showEndImg">
 				<view class="QRcode">
 					<image src="../../../static/images/QRcode.jpg" mode="aspectFit"></image>
 				</view>
