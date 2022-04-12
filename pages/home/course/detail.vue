@@ -12,6 +12,15 @@
 			>
 			</video>
 			<Track id="track" ref="track"/>
+			<view class="end-img" v-show="!showEndImg">
+				<view class="QRcode">
+					<image src="../../../static/images/QRcode.jpg" mode="aspectFit"></image>
+				</view>
+				<view class="divide"></view>
+				<view class="restart" @click="restart()">
+					<image src="../../../static/images/iCons/restart.png" mode="aspectFit"></image>
+				</view>
+			</view>
 		</view>
 		
 		<view class="course_details">
@@ -24,9 +33,11 @@
 				<text class="video_list_headtext">{{title[0]}}</text>
 				<image :src="unfold()" mode="aspectFit" class="video_list_img"></image>
 			</view>
-			<view v-for="(item, index) in showList" :key="index" class="video_list_content" @click="changevideo(index)" :class="{active:play===index}">
-				{{isLanguage? item.enname : item.cnname}}
-				<image :src="video(index)" mode="aspectFit" class="video_list_content_img"></image>
+			<view class="video_list_container">
+				<view v-for="(item, index) in showList" :key="index" class="video_list_content" @click="changevideo(index)" :class="{active:play===index}">
+					{{isLanguage? item.enname : item.cnname}}
+					<image :src="video(index)" mode="aspectFit" class="video_list_content_img"></image>
+				</view>
 			</view>
 		</view>
 		
@@ -61,6 +72,7 @@
 				toLearnList:[],
 				play: 0,
 			  showAll: true,
+				showEndImg: false,
 				bofang: '../../../static/images/iCons/zhengzaibofang.png',
 				courseItem: [],
 				userInfo: {
@@ -122,6 +134,11 @@
 			changevideo(index){
 				this.upload()
 				this.play = index
+			},
+			restart() {
+				this.showEndImg = false
+				let video = uni.createVideoContext('video-player')
+				video.play()
 			},
 			video(index){
 				if(this.play === index){
@@ -232,6 +249,7 @@
 			},
 			endPlay () {
 				console.log('end')
+				this.showEndImg = true
 			  if (!this.etime) {
 			    this.etime = new Date()
 			    this.deltaTime = this.etime - this.stime
@@ -275,7 +293,7 @@
 	
 	.video_play{
 		width: 750rpx;
-		height: 422rpx;
+		height: 450rpx;
 		background-color: #000000;
 		display: flex;
 		flex-direction: column;
@@ -293,9 +311,42 @@
 	
 	.video{
 		position: fixed;
-		top: 6rpx;
+		top: 0rpx;
 		left: 0rpx;
-		z-index: 999;
+		z-index: 100;
+	}
+	
+	.end-img {
+		height: 450rpx;
+		width: 100%;
+		background-color: #000000;
+		position: fixed;
+		z-index: 101;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	
+	.end-img .QRcode {
+		height: 150rpx;
+		width: 150rpx;
+	}	
+	
+	.end-img .divide {
+		width: 4rpx;
+		height: 40rpx;
+		background-color: #ffffff;
+		margin: 0 50rpx;
+	}
+	
+	.end-img .restart {
+		height: 60rpx;
+		width: 60rpx;
+	}
+	
+	.end-img .QRcode image, .end-img .restart image {
+		height: 100%;
+		width: 100%;
 	}
 	
 	#track {
@@ -329,6 +380,11 @@
 	.video_list{
 		width: 654rpx;
 		margin-top: 48rpx;
+	}
+	
+	.video_list_container {
+		max-height: 300rpx;
+		overflow: auto;
 	}
 	
 	.video_list_headtext{
