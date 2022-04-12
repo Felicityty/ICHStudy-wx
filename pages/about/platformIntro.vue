@@ -18,9 +18,9 @@
 			return {
 				title: '平台介绍',
 				logo: "../../static/images/iCons/logo.png",
-				cnname: "国际研学",
+				cnname: "非遗研学",
 				enname: "International Studies",
-				cnplatform: "中国非遗对外服务平台",
+				cnplatform: "中国非遗文旅一体化平台",
 				enplatform: "International Study platform",
 				cnintroText:"\xa0\xa0\xa0\xa0\xa0\xa0\xa0我们以留学生为主要服务群体，以非传统、民间工艺等中国传统文化为教学内容，开发线上线下研究平台。",
 				enintroText:"\xa0\xa0\xa0\xa0\xa0\xa0\xa0We take foreign students as the main service group and take non-traditional, folk crafts and other Chinese traditional culture as the teaching content to develop online and offline research platforms.",
@@ -60,7 +60,7 @@
 	
 	.logo{
 		height: 141.72rpx;
-		width: 160rpx;
+		width: 220rpx;
 		margin-top: 48rpx;
 	}
 	
