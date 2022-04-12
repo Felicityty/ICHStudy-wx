@@ -94,27 +94,21 @@
 		methods: {
 			getLanguage() {
 				const that = this
-				if(wx.getStorageSync('language') === 1) {
-					this.isLanguage = true
-				} else if (wx.getStorageSync('language') === 0) {
-					that.isLanguage = false
-				} else {
-					wx.getSystemInfoAsync({
-						success(res) {
-							if(res.language === 'zh_CN') {
-								that.language = 0
-								that.isLanguage = false
-							} else {
-								that.language = 1
-								that.isLanguage = true
-							}
-							uni.setStorage({
-								key: 'language',
-								data: that.language
-							})
+				wx.getSystemInfoAsync({
+					success(res) {
+						if(res.language === 'zh_CN') {
+							that.language = 0
+							that.isLanguage = false
+						} else {
+							that.language = 1
+							that.isLanguage = true
 						}
-					})
-				}
+						uni.setStorage({
+							key: 'language',
+							data: that.language
+						})
+					}
+				})
 			},
 			goCourse() {
 				uni.navigateTo({
