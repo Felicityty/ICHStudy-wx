@@ -1,8 +1,27 @@
 <template>
 		<view class="content">
 			
-			<view class="bg">
+			<!-- <view class="bg">
 				<image class="picbg" src="../../static/images/banner.png"></image>
+			</view> -->
+			
+			<view class="bg">
+				<swiper class="swiper" 
+				indicator-dots="true"
+				display-multiple-items="1"
+				interval="3000" 
+				duration="1200" 
+				autoplay="true"
+				circular="ture"
+				previous-margin="0" 
+				next-margin="0"
+				indicator-active-color="#382321">
+					<block v-for="(item, index) in bannerItem" :key="index">
+						<swiper-item>
+							<image :src="item.img" class="picbg"></image>
+						</swiper-item>
+					</block>
+				</swiper>
 			</view>
 			
 			<view class="container">
@@ -76,7 +95,12 @@
 				courseItem: [],
 				vrItem: [],
 				language: 1,
-				isLanguage: true
+				isLanguage: true,
+				bannerItem:[
+					{id: 1, img: "../../static/images/bannerImgs/banner1.jpg"},
+					{id: 2, img: "../../static/images/bannerImgs/banner2.jpg"},
+					{id: 3, img: "../../static/images/bannerImgs/banner3.jpg"}	
+				]
 			}
 		},
 		onShow() {
@@ -184,11 +208,17 @@
 		position: absolute;
 		width: 100%;
 		height: 620rpx;
+		line-height: 260rpx;
+	}
+	
+	.swiper{
+		width: 100%;
+		height: 620rpx;
 	}
 	
 	.picbg{
 		width: 100%;
-		height: 620rpx;
+		height: 100%;
 	}
 	
 	.container{

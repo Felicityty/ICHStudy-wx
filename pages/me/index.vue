@@ -346,9 +346,13 @@
 	}
 	
 	.max_video{
+		width: 520rpx;
 		font-weight: 600;
 		font-size: 28rpx;
 		color: #382321;
+		overflow: hidden;
+		white-space: nowrap; /*文本不换行*/
+		text-overflow:ellipsis;/*ellipsis:文本溢出显示省略号（...）*/
 	}
 	
 	.max_time{
