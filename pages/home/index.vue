@@ -1,10 +1,6 @@
 <template>
 		<view class="content">
 			
-			<!-- <view class="bg">
-				<image class="picbg" src="../../static/images/banner.png"></image>
-			</view> -->
-			
 			<view class="bg">
 				<swiper class="swiper" 
 				indicator-dots="true"
@@ -44,7 +40,7 @@
 					
 					<view class="listView">
 						<view class="listView-tile" v-for="(item, index) in courseItem" :key="index" 
-							 v-if="index == 0 || index == 7 || index == 6 || index == 9" @click="goCourseDetail(item.id)">
+							 v-if="index == 0 || index == 6 || index == 8 || index == 10" @click="goCourseDetail(item.id)">
 							<image class="couPic" :src="item.img" mode="aspectFill"></image>
 							<view class="couName">{{isLanguage ? item.enname : item.cnname}}</view>
 						</view>
@@ -158,7 +154,7 @@
 				getCourseList()
 					.then(res => {
 						const data = JSON.parse(res.data).endata.data
-						// console.log(data)
+						console.log(data)
 						const courses = []
 						data.forEach(item => {
 							courses.push({

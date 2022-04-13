@@ -10,7 +10,11 @@
 				@ended="endPlay"
 				@timeupdate="timeUpdate"
 			>
+				<cover-view class="watermark">
+					<cover-image src="../../../static/images/watermark.png"></cover-image>
+				</cover-view>
 			</video>
+			
 			<Track id="track" ref="track"/>
 			<view class="end-img" v-show="showEndImg">
 				<view class="QRcode">
@@ -80,7 +84,8 @@
 					nickName: '',
 				},
 				language: 0,
-				isLanguage: true
+				isLanguage: true,
+				screenWidth: 0,
 			}
 		},
 		components: {
@@ -108,6 +113,13 @@
 				this.getCourseInfo()
 				this.getSections()
 				this.getCourseCommend()
+				// uni.getSystemInfo({
+				// 	success(res){
+				// 		console.log(res);
+				// 		that.screenWidth = res.screenWidth;
+				// 		console.log(that.screenWidth);
+				// 	}
+				// })
 			}
 		},
 		beforeDestroy() {
@@ -282,6 +294,14 @@
 </script>
 
 <style>
+	.watermark{
+		height: 70rpx;
+		width: 90rpx;
+		position: fixed;
+		top: 30rpx;
+		right: 12%;
+	}
+	
 	.container {
 		width: 750rpx;
 		display: flex;
