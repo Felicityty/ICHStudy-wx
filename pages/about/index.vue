@@ -31,9 +31,9 @@
 			return {
 				title: '关于',
 				logo: "../../static/images/iCons/logo.png",
-				cnname: "国际研学",
+				cnname: "非遗研学",
 				enname: "International Studies",
-				cnplatform: "中国非遗对外服务平台",
+				cnplatform: "中国非遗文旅一体化平台",
 				enplatform: "International Study platform",
 				arrowRight: "../../static/images/iCons/arrowRightGrey.png",
 				buttonItems: [
@@ -89,7 +89,7 @@
 	
 	.logo{
 		height: 141.72rpx;
-		width: 160rpx;
+		width: 220rpx;
 		margin-top: 48rpx;
 	}
 	

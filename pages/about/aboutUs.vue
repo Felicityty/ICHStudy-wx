@@ -18,9 +18,9 @@
 			return {
 				title: '关于我们',
 				logo: "../../static/images/iCons/logo.png",
-				cnname: "国际研学",
+				cnname: "非遗研学",
 				enname: "International Studies",
-				cnplatform: "中国非遗对外服务平台",
+				cnplatform: "中国非遗文旅一体化平台",
 				enplatform: "International Study platform",
 				cnintroText:"\xa0\xa0\xa0\xa0\xa0\xa0\xa0我们的团队由数字媒体技术中本科生、研究生和国际信息学院学生组成，拥有在媒体制作和技术开发方面的经验。",
 				enintroText:"\xa0\xa0\xa0\xa0\xa0\xa0\xa0Our team consists of undergraduate, graduate and international information in digital media technology of college students, have experience in media production and technology development.",
@@ -60,7 +60,7 @@
 	
 	.logo{
 		height: 141.72rpx;
-		width: 160rpx;
+		width: 220rpx;
 		margin-top: 48rpx;
 	}
 	
