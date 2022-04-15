@@ -2,8 +2,8 @@
 	<view class="container">
 		<view class="head">
 			<view class="head_text">{{title[0]}}</view>
-			<view class="head_tet">{{title[1]}}</view>
-			<view class="head_txt">{{title[2]}}</view>
+			<view class="head_text">{{title[1]}}</view>
+			<view class="head_text">{{title[2]}}</view>
 		</view>
 		
 		<view class="no-course" v-show="history.length===0">
@@ -124,37 +124,15 @@
 	}
 	
 	.head_text{
-		width: 180rpx;
+		width: 210rpx;
 		height: 88rpx;
 		color: #382321;
 		font-size: 32rpx;
 		display: flex;
 		flex-direction: row;
 		align-items: center;
-		padding-left: 80rpx;
-	}
-	
-	.head_tet{
-		width: 200rpx;
-		height: 88rpx;
-		color: #382321;
-		font-size: 32rpx;
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		padding-left: 80rpx;
-	}
-	
-	.head_txt{
-		width: 200rpx;
-		height: 88rpx;
-		color: #382321;
-		font-size: 32rpx;
-		text-align: center;
-		display: flex;
-		flex-direction: column;
 		justify-content: center;
-		align-items: center;
+		margin-left: 30rpx;
 	}
 	
 	.no-course {
@@ -177,15 +155,15 @@
 		width: 750rpx;
 		display: flex;
 		flex-direction: row;
-		justify-content: space-between;
 		align-items: center;
-		margin-top: 28rpx;
-		padding-bottom: 30rpx;
+		margin-top: 30rpx;
+		margin-bottom: 30rpx;
 		text-align: center;
 	}
 	
 	.history_name{
-		width: 230rpx;
+		width: 200rpx;
+		margin-left: 30rpx;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -194,25 +172,27 @@
 	}
 	
 	.history_section{
-		width: 320rpx;
+		width: 240rpx;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
 		text-align: center;
+		margin-left: 25rpx;
 	}
 	
 	.history_time{
-		width: 200rpx;
+		width: 180rpx;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
 		text-align: center;
+		margin-left: 30rpx;
 	}
 	
 	.line{
-		width: 654rpx;
+		width: 690rpx;
 		height: 2rpx;
 		background-color: #E5E5E5
 	}

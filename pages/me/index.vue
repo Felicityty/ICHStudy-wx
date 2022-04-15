@@ -30,7 +30,7 @@
 			</view>
 			
 			<view class="setting">
-				<view class="setting_item" v-for="(item, index) in settingItems" :key="index" @click="go(item.url)">
+				<view :class="index === settingItems.length - 1? 'none':'setting_item'" v-for="(item, index) in settingItems" :key="index" @click="go(item.url)">
 					<view class="text">{{isLanguage? item.enname : item.cnname}}</view>
 					<image :src="arrow" mode="aspectFill" class="setting_arrow"></image>
 				</view>
@@ -58,11 +58,6 @@
 						cnname: '历史记录',
 						enname: 'History',
 						url: './setting/history'
-					},
-					{
-						cnname: '语言',
-						enname: 'Language',
-						url: './setting/language'
 					},
 					{
 						cnname: '关于',
@@ -193,11 +188,9 @@
 			const userInfo = wx.getStorageSync('userInfo')
 			const language = wx.getStorageSync('language')
 			if(token) {
-				console.log(userInfo)
 				that.userInfo.username = userInfo.username
 				that.userInfo.nickName = userInfo.nick_name
 				this.language = language
-				console.log(this.language + "lan")
 				this.getLanguage()
 			}
 			if(this.i === 0){ this.getCourse(); this.i = 1 }
@@ -363,7 +356,7 @@
 	
 	.setting{
 		width: 654rpx;
-		height: 240rpx;
+		height: 160rpx;
 		display: flex;
 		flex-direction: column;
 		border-radius: 20rpx;
@@ -387,6 +380,17 @@
 		margin-left: 30rpx;
 		margin-top: 0rpx;
 		border-bottom: 2rpx solid #E5E5E5;
+	}
+	
+	.none{
+		width: 594rpx;
+		height: 80rpx;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+		margin-left: 30rpx;
+		margin-top: 0rpx;
 	}
 	
 	.shopping{

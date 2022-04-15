@@ -4,32 +4,28 @@
 			"path": "pages/home/index",
 			"style": {
 				"navigationBarTitleText": "首页",
-				"navigationStyle": "custom",
-				"enablePullDownRefresh": true
+				"navigationStyle": "custom"
 			}
 		},
 		{
 			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "非遗研学",
-				"navigationStyle": "custom",
-				"enablePullDownRefresh": true
+				"navigationStyle": "custom"
 			}
 		},
 		{
 			"path": "pages/index/login",
 			"style": {
 				"navigationBarTitleText": "登录",
-				"navigationStyle": "custom",
-				"enablePullDownRefresh": true
+				"navigationStyle": "custom"
 			}
 		},
 		{
 			"path": "pages/index/register",
 			"style": {
 				"navigationBarTitleText": "注册",
-				"navigationStyle": "custom",
-				"enablePullDownRefresh": true
+				"navigationStyle": "custom"
 			}
 		},
 		
@@ -37,58 +33,50 @@
 			"path": "pages/index/next",
 			"style": {
 				"navigationBarTitleText": "下一步注册",
-				"navigationStyle": "custom",
-				"enablePullDownRefresh": true
+				"navigationStyle": "custom"
 			}
 		},
 		{
 			"path": "pages/home/course/index",
 			"style": {
-				"navigationBarTitleText": "Courses",
-				"enablePullDownRefresh": true
+				"navigationBarTitleText": "Courses"
 			}
 		},
 		{
 			"path": "pages/home/course/detail",
 			"style": {
-				"navigationBarTitleText": "Course Details",
-				"enablePullDownRefresh": true
+				"navigationBarTitleText": "Course Details"
 			}
 		},
 		{
 			"path": "pages/home/VR/index",
 			"style": {
-				"navigationBarTitleText": "VR/AR",
-				"enablePullDownRefresh": true
+				"navigationBarTitleText": "VR/AR"
 			}
 		},
 		{
 			"path": "pages/home/VR/vrDetail",
 			"style": {
 				"navigationBarTitleText": "VR详情",
-				"navigationStyle": "custom",
-				"enablePullDownRefresh": true
+				"navigationStyle": "custom"
 			}
 		},
 		{
 			"path": "pages/home/VR/vr",
 			"style": {
-				"navigationBarTitleText": "VR",
-				"enablePullDownRefresh": true
+				"navigationBarTitleText": "VR"
 			}
 		},
 		{
 			"path": "pages/tourist/index",
 			"style": {
-				"navigationBarTitleText": "Courses",
-				"enablePullDownRefresh": true
+				"navigationBarTitleText": "Courses"
 			}
 		},
 		{
 			"path": "pages/products/index",
 			"style": {
-				"navigationBarTitleText": "VR/AR",
-				"enablePullDownRefresh": true
+				"navigationBarTitleText": "VR/AR"
 			}
 		},
 		{
@@ -106,20 +94,13 @@
 		{
 		  "path" : "pages/me/setting/history",
 			"style" : {
-			  "navigationBarTitleText" : "History",
-		    "enablePullDownRefresh" : true
+			  "navigationBarTitleText" : "History"
 		  }
 		},
 		{
 		  "path" : "pages/me/setting/nickname",
 			"style" : {
 			  "navigationBarTitleText" : "Nickname"
-		  }
-		},
-		{
-		  "path" : "pages/me/setting/language",
-			"style" : {
-			  "navigationBarTitleText" : "Language"
 		  }
 		},
 		{
