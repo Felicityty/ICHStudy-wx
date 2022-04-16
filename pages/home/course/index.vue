@@ -139,13 +139,14 @@
 	}
 	
 	.content{
-		width: 654rpx;
+		width: 702rpx;
 		/* position: relative;
 		top: 112rpx; */
+		margin-left: 48rpx;
 		margin-top: 36rpx;
 		display: flex;
-		justify-content: space-between;
-		align-items: center;
+		justify-content: flex-start;
+		align-items: flex-start;
 		flex-direction: row;
 		flex-wrap: wrap;
 	}

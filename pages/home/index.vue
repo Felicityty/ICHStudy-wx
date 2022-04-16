@@ -195,16 +195,17 @@
 <style scoped>
 	.content{
 		width: 750rpx;
-		height: 100%;
-		position: relative;
-		bottom: 40rpx;
+		margin-bottom: calc(118rpx + constant(safe-area-inset-bottom));
+		margin-bottom: calc(118rpx + env(safe-area-inset-bottom));
 	}
 	
 	.bg{
-		position: absolute;
+		position: relative;
+		top: 0rpx;
+		left: 0rpx;
 		width: 100%;
 		height: 620rpx;
-		line-height: 260rpx;
+		line-height: 250rpx;
 	}
 	
 	.swiper{
@@ -219,10 +220,10 @@
 	
 	.container{
 		width: 100%;
-		height: 1040rpx;
 		background-color: #F9F3EB;
-		position: absolute;
-		margin-top: 486rpx;
+		position: relative;
+		bottom: 54rpx;
+		margin-top: -70rpx;
 		border-radius: 60rpx 60rpx 0 0;
 	}
 	
@@ -232,11 +233,12 @@
 		color: #382321;
 		font-weight: 600;
 		margin-bottom: 36rpx;
+		margin-top: 48rpx;
 	}
 	
 	.course, .VR{
 		/* margin-left: 48rpx; */
-		margin-top: 48rpx;
+		margin-bottom: 48rpx;
 	}
 	
 	.row{
@@ -302,6 +304,13 @@
 		font-size: 28rpx;
 		line-height: 40rpx;
 		color: #382321;
+		width: 264rpx;
+		white-space: normal;
+		text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2; /* 这里是超出几行省略 */
+    overflow: hidden;
 	}
 	
 </style>

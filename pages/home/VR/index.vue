@@ -122,7 +122,7 @@
 	
 	.listViewText{
 		margin-top: 20rpx;
-		margin-bottom: 30rpx;
+		margin-bottom: 36rpx;
 		font-size: 28rpx;
 		line-height: 20px;
 		color: #382321;

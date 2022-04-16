@@ -458,11 +458,12 @@
 	}
 	
 	.course_commend{
-		width: 654rpx;
+		width: 702rpx;
 		margin-top: 20rpx;
+		margin-left: 48rpx;
 		display: flex;
-		justify-content: space-between;
-		align-items: center;
+		justify-content: flex-start;
+		align-items: flex-start;
 		flex-direction: row;
 		flex-wrap: wrap;
 	}
