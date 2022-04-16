@@ -35,8 +35,9 @@
 <style>
 	.course_commend_content{
 		width: 312rpx;
-		height: 268rpx;
+		height: auto;
 		margin-bottom: 30rpx;
+		margin-right: 30rpx;
 		display: flex;
 		justify-content: center;
 		align-items: flex-start;
@@ -50,8 +51,18 @@
 	}
 	
 	.course_commend_text{
+		height: auto;
 		color: #382321; 
 		font-size: 28rpx; 
 		margin-top: 20rpx;
+		width: 264rpx;
+		white-space: normal;
+		text-overflow: -o-ellipsis-lastline;
+		overflow: hidden;				//溢出内容隐藏
+		text-overflow: ellipsis;		//文本溢出部分用省略号表示
+		display: -webkit-box;			//特别显示模式
+		-webkit-line-clamp: 2;			//行数
+		line-clamp: 2;					
+		-webkit-box-orient: vertical;	//盒子中内容竖直排列
 	}
 </style>
