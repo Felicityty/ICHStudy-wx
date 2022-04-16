@@ -95,7 +95,9 @@
 				bannerItem:[
 					{id: 1, img: "../../static/images/bannerImgs/banner1.jpg"},
 					{id: 2, img: "../../static/images/bannerImgs/banner2.jpg"},
-					{id: 3, img: "../../static/images/bannerImgs/banner3.jpg"}	
+					{id: 3, img: "../../static/images/bannerImgs/banner3.jpg"},
+					{id: 4, img: "../../static/images/bannerImgs/banner4.jpg"},
+					{id: 5, img: "../../static/images/bannerImgs/banner5.jpg"},
 				]
 			}
 		},

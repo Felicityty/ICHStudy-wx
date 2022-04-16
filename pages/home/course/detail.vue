@@ -295,8 +295,8 @@
 
 <style>
 	.watermark{
-		height: 70rpx;
-		width: 90rpx;
+		height: 55rpx;
+		width: 85rpx;
 		position: fixed;
 		top: 30rpx;
 		right: 12%;
