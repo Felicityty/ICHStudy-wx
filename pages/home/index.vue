@@ -80,7 +80,8 @@
 	import { getCourseList } from '../../api/course/index.js'
 	import { getFileUrl } from '../../common/index.js'
 	import { getVrList } from '../../api/vr/index.js'
-	import {tabbar} from'../../components/tabbar/tabbar.vue'
+	import { tabbar } from'../../components/tabbar/tabbar.vue'
+	import { getBannerList } from '../../api/banner/index.js'
 	export default {
 		components:{
 			tabbar
@@ -92,13 +93,7 @@
 				vrItem: [],
 				language: 1,
 				isLanguage: true,
-				bannerItem:[
-					{id: 1, img: "../../static/images/bannerImgs/banner1.jpg"},
-					{id: 2, img: "../../static/images/bannerImgs/banner2.jpg"},
-					{id: 3, img: "../../static/images/bannerImgs/banner3.jpg"},
-					{id: 4, img: "../../static/images/bannerImgs/banner4.jpg"},
-					{id: 5, img: "../../static/images/bannerImgs/banner5.jpg"},
-				]
+				bannerItem: []
 			}
 		},
 		onShow() {
@@ -111,6 +106,7 @@
 			} else {
 				this.getCourseList()
 				this.getVrList()
+				this.getBannerList()
 			}
 		},
 		methods: {
@@ -187,6 +183,22 @@
 						})
 						this.vrItem = vrs
 						// console.log(this.vrItem)
+					})
+					.catch(err => console.log(err)) 
+			},
+			getBannerList() {
+				getBannerList()
+					.then(res => {
+						const data = JSON.parse(res.data).endata.data
+						// console.log(data)
+						const banners =[]
+						data.forEach(item => {
+							banners.push({
+								id: item.id,
+								img: getFileUrl('img', item.image)
+							})
+						})
+						this.bannerItem = banners
 					})
 					.catch(err => console.log(err)) 
 			}
