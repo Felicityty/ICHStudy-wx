@@ -1,6 +1,6 @@
 <template>
 	<view class="container">
-		<view class="video_play">
+		<!-- <view class="video_play">
 			<video
 				id="video-player"
 				class="video"
@@ -24,6 +24,12 @@
 				<view class="restart" @click="restart()">
 					<image src="../../../static/images/iCons/restart.png" mode="aspectFit"></image>
 				</view>
+			</view>
+		</view> -->
+		
+		<view class="video_play">
+			<view>
+				<txv-video vid="e0354z3cqjp" playerid="txv1" class="video" id="video-player"></txv-video>
 			</view>
 		</view>
 		
@@ -325,7 +331,7 @@
 		z-index: 99;
 	}
 	
-	video {
+	txv-vedio {
 		width: 100%;
 	}
 	

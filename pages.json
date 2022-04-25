@@ -43,9 +43,21 @@
 			}
 		},
 		{
+			"path": "pages/home/course/try",
+			"style": {
+				"navigationBarTitleText": "Course try",
+				"usingComponents": {
+					"txv-video": "plugin://tencentvideo/video"
+				}
+			}
+		},
+		{
 			"path": "pages/home/course/detail",
 			"style": {
-				"navigationBarTitleText": "Course Details"
+				"navigationBarTitleText": "Course Details",
+				"usingComponents": {
+					"txv-video": "plugin://tencentvideo/video"
+				}
 			}
 		},
 		{
