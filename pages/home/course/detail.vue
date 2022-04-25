@@ -28,9 +28,21 @@
 		</view> -->
 		
 		<view class="video_play">
-			<view>
-				<txv-video vid="e0354z3cqjp" playerid="txv1" class="video" id="video-player"></txv-video>
+			<view class="video">
+				<txv-video vid="e0354z3cqjp"
+					playerid="txv1" 
+					id="video-player"
+					autoplay
+					@play="startPlay"
+					@ended="endPlay"
+					@timeupdate="timeUpdate"
+				>
+					<cover-view class="watermark">
+						<cover-image src="../../../static/images/watermark.png"></cover-image>
+					</cover-view>
+				</txv-video>
 			</view>
+			<Track id="track" ref="track"/>
 		</view>
 		
 		<view class="course_details">
@@ -320,7 +332,6 @@
 	.video_play{
 		width: 750rpx;
 		height: 450rpx;
-		background-color: #000000;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -328,18 +339,17 @@
 		position: fixed;
 		top: 0rpx;
 		left: 0rpx;
-		z-index: 99;
+		z-index: 100;
 	}
 	
-	txv-vedio {
-		width: 100%;
+	txv-video {
+		z-index: 100;
 	}
 	
 	.video{
-		position: fixed;
-		top: 0rpx;
-		left: 0rpx;
 		z-index: 100;
+		width: 750rpx;
+		height: 450rpx;
 	}
 	
 	.end-img {
