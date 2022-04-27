@@ -166,6 +166,89 @@ export function checkVer (code, email) {
   })
 }
 
+// 邮箱验证
+export function passwordreset (username) {
+  return request({
+    url: '/passwordreset/',
+    method: 'POST',
+    data: {
+      endata: {
+        username: username
+      }
+    }
+  })
+}
+
+// 发送邮箱验证码
+export function sendmailforreset (email) {
+  return request({
+    url: '/sendmailforreset/',
+    method: 'POST',
+    data: {
+      endata: {
+        email: email
+      }
+    }
+  })
+}
+
+// 发送手机验证码
+export function sendsmsforreset (phone, username) {
+  return request({
+    url: '/sendsmsforreset/',
+    method: 'POST',
+    data: {
+      endata: {
+				phone: phone,
+				username: username
+      }
+    }
+  })
+}
+
+// 邮箱验证码验证
+export function emailpasswordresetverify (email, code) {
+  return request({
+    url: '/passwordresetverify/',
+    method: 'POST',
+    data: {
+      endata: {
+				email: email,
+				code: code
+      }
+    }
+  })
+}
+
+// 手机验证码验证
+export function smspasswordresetverify (phone, code) {
+  return request({
+    url: '/passwordresetverify/',
+    method: 'POST',
+    data: {
+      endata: {
+				phone: phone,
+				code: code
+      }
+    }
+  })
+}
+
+//通过验证修改密码
+export function passwordmailresetdone (username, password, verifypassword) {
+  return request({
+    url: '/passwordmailresetdone/',
+    method: 'POST',
+    data: {
+			endata: {
+				username: username,
+				password: password,
+				verifypassword: verifypassword
+			}
+    }
+  })
+}
+
 //获取播放数据
 export function getPlayData (username) {
   return request({

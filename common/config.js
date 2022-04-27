@@ -2,7 +2,7 @@ let baseURL = '';
 
 if(process.env.NODE_ENV==='development'){
 	// 开发环境
-	baseURL = 'https://api.ichstudy.com'
+	baseURL = 'https://testapi.ichstudy.com'
 }
 else{
 	baseURL = 'https://api.ichstudy.com'

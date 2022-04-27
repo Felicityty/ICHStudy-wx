@@ -9,6 +9,7 @@
 		<view class="input-box">
 			<input type="password" :placeholder="getPassword()" v-model="userInfo.password" placeholder-class="phcolor">
 		</view>
+		<view class="forgot-btn" @click="forgotPsd()">{{isLanguage ? 'Forgot Password' : '忘记密码'}}</view>
 		<view class="index-btn" @click="login()">{{isLanguage ? 'Sign In' : '登录'}}</view>
 		<image class="bg" src="../../static/images/indexBG.png"></image>
 	</view>
@@ -54,6 +55,11 @@
 			},
 			goOff() {
 				uni.navigateBack({});
+			},
+			forgotPsd(){
+				uni.navigateTo({
+					url: './forgot',
+				})
 			},
 			getTop() {
 			  const that = this
@@ -154,8 +160,12 @@
 		padding-top: 31vh;
 		display: flex;
 		flex-direction: column;
-		align-items: center;
-		justify-content: center;
+		align-items: flex-start;
+		justify-content: flex-start;
+	}
+	
+	.input-box{
+		margin-left: 48rpx;
 	}
 	
 	.phcolor{
@@ -163,14 +173,24 @@
 		font-size: 32rpx;
 	}
 	
+	.forgot-btn{
+		width: auto;
+		height: auto;
+		font-size: 28rpx;
+		margin-left: 584rpx;
+		margin-top: 22rpx;
+		color: #73615D;
+	}
+	
 	.index-btn{
 		width: 654rpx;
 		height: 84rpx;
-		margin-top: 114rpx;
+		margin-top: 60rpx;
 		background-color: #987744;
 		border-radius: 20rpx;
 		color: #FFFFFF;
 		font-size: 36rpx;
 		line-height: 84rpx;
+		margin-left: 48rpx;
 	}
 </style>

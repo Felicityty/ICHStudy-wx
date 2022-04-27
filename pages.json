@@ -28,11 +28,24 @@
 				"navigationStyle": "custom"
 			}
 		},
-		
 		{
 			"path": "pages/index/next",
 			"style": {
 				"navigationBarTitleText": "下一步注册",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/index/forgot",
+			"style": {
+				"navigationBarTitleText": "忘记密码",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/index/newpwd",
+			"style": {
+				"navigationBarTitleText": "新密码",
 				"navigationStyle": "custom"
 			}
 		},
