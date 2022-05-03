@@ -70,9 +70,6 @@
 			}
 		},
 		methods: {
-			get(){
-				
-			},
 			getUser() {
 				if(this.isLanguage)
 					return 'Input Username'
@@ -115,7 +112,7 @@
 					passwordreset(this.username)
 						.then(res => {
 							const data = JSON.parse(res.data).endata
-							// console.log(data)
+							console.log(data)
 							if(data.su === 1) {
 								this.tipUser = ""
 								return true

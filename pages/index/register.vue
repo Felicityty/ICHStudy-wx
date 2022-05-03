@@ -121,24 +121,26 @@
 				}
 			},
 			next(){
-				register(this.username, this.password)
-					.then(res => {
-						const data = JSON.parse(res.data).endata
-						console.log(data)
-						// 注册成功
-						uni.showToast({
-							title: data.msg,
-							icon: 'none'
-						})
-						if(data.su === 0) {
-							return
-						} else{
-							uni.navigateTo({
-								url: './next?name=' + this.username
+				if(this.checkName() && this.checkPwd() && this.checkdPwd()) {
+					register(this.username, this.password)
+						.then(res => {
+							const data = JSON.parse(res.data).endata
+							console.log(data)
+							// 注册成功
+							uni.showToast({
+								title: data.msg,
+								icon: 'none'
 							})
-						}
-					})
-					.catch(err => console.log(err))
+							if(data.su === 0) {
+								return
+							} else{
+								uni.navigateTo({
+									url: './next?name=' + this.username
+								})
+							}
+						})
+						.catch(err => console.log(err))
+				}
 			}
 		}
 	}
