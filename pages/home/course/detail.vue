@@ -29,7 +29,7 @@
 		
 		<view class="video_play">
 			<view class="video">
-				<txv-video vid="e0354z3cqjp"
+				<txv-video :vid="toLearnList[play].vid"
 					playerid="txv1" 
 					id="video-player"
 					autoplay
@@ -92,6 +92,7 @@
 				etime: 0,
 				deltaTime: 0,
 				toLearnList:[],
+				vid: 0,
 				play: 0,
 			  showAll: true,
 				showEndImg: false,
@@ -200,12 +201,14 @@
 			  getSection(this.index)
 			    .then(res => {
 			      const data = JSON.parse(res.data).endata.data
+			      console.log(data)
 						this.toLearnList = []
 			      data.forEach(item => {
 			        this.toLearnList.push({
 								sindex: item.sindex,
 			          cnname: item.cnname,
 			          enname: item.enname,
+								vid: item.vidfortx,
 			          url: getFileUrl('video', item.videopath),
 			          sectionId: item.sindex,
 			          subpath: item.subtitlespath ? getFileUrl('vtt', item.subtitlespath) : ''
