@@ -8,7 +8,7 @@
 			</view>
 			
 			<view class="text">{{isLanguage ? enintroText : cnintroText}}</view>
-			
+			<view class="qq-num" @click="copyNum()">{{isLanguage ? enqqText : cnqqText}}</view>
 		</view>
 </template>
 
@@ -22,8 +22,10 @@
 				enname: "International Studies",
 				cnplatform: "中国非遗文旅一体化平台",
 				enplatform: "International Study platform",
-				cnintroText:"\xa0\xa0\xa0\xa0\xa0\xa0\xa0我们的团队由数字媒体技术中本科生、研究生和国际信息学院学生组成，拥有在媒体制作和技术开发方面的经验。",
-				enintroText:"\xa0\xa0\xa0\xa0\xa0\xa0\xa0Our team consists of undergraduate, graduate and international information in digital media technology of college students, have experience in media production and technology development.",
+				cnintroText:"\xa0\xa0\xa0\xa0\xa0\xa0\xa0与20位非遗传承人展开合作，开发60个非遗数字化产品，产品形式包括非遗短视频、交互媒体、移动应用、微课、VR全景及专题网站。",
+				enintroText:"\xa0\xa0\xa0\xa0\xa0\xa0\xa0Cooperate with 20 inheritors of intangible cultural heritage to develop 60 intangible cultural heritage digital products in the form of intangible cultural heritage short video, interactive media, mobile application, micro class, VR panorama and special website.",
+				cnqqText:"\xa0\xa0\xa0\xa0\xa0\xa0\xa0平台官方QQ号：3517004704 （点击复制）",
+				enqqText:"\xa0\xa0\xa0\xa0\xa0\xa0\xa0Official QQ number of the platform:3517004704(Click Copy)",
 				language: 1,
 				isLanguage: true
 			}
@@ -40,6 +42,14 @@
 			getLanguage() {
 				if(wx.getStorageSync('language') === 1) this.isLanguage = true
 				else this.isLanguage = false
+			},
+			copyNum() {
+				uni.setClipboardData({
+					data: '3517004704',
+					success:function(){
+						console.log('success');
+					}
+				})
 			}
 		}
 	}
@@ -79,10 +89,18 @@
 	
 	.text{
 		font-size: 28rpx;
-		line-height: 36rpx;
+		line-height: 44rpx;
 		letter-spacing: 0.02em;
 		color: #382321;
 		margin:60rpx 48rpx 0 48rpx;
+	}
+	
+	.qq-num{
+		font-size: 28rpx;
+		line-height: 36rpx;
+		letter-spacing: 0.02em;
+		color: #382321;
+		margin:20rpx 48rpx 0 48rpx;
 	}
 	
 </style>

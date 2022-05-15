@@ -22,8 +22,8 @@
 				enname: "International Studies",
 				cnplatform: "中国非遗文旅一体化平台",
 				enplatform: "International Study platform",
-				cnintroText:"\xa0\xa0\xa0\xa0\xa0\xa0\xa0我们以留学生为主要服务群体，以非传统、民间工艺等中国传统文化为教学内容，开发线上线下研究平台。",
-				enintroText:"\xa0\xa0\xa0\xa0\xa0\xa0\xa0We take foreign students as the main service group and take non-traditional, folk crafts and other Chinese traditional culture as the teaching content to develop online and offline research platforms.",
+				cnintroText:"\xa0\xa0\xa0\xa0\xa0\xa0\xa0守护文化根脉，托起民族未来，本平台是一个致力于中国非物质文化遗产保护和传承的微信小程序，平台已与20位非遗传承人合作开发非遗项目，并已经与20个非遗研学基地建立合作关系，完成非遗数字化项目60余个，通过打造原汁原味数字化非遗研学产品、定制个性化研学路线，带动乡村振兴，并发展非遗研学新业态。",
+				enintroText:"\xa0\xa0\xa0\xa0\xa0\xa0\xa0Guarding the cultural roots and supporting the future of the nation, this platform is a wechat applet dedicated to the protection and inheritance of China's intangible cultural heritage. The platform has developed intangible cultural heritage projects in cooperation with 20 intangible cultural heritage inheritors, established cooperative relations with 20 intangible cultural heritage research bases, completed more than 60 intangible cultural heritage digital projects, and promoted rural revitalization by creating authentic digital intangible cultural heritage research products and customizing personalized research routes, The development of new forms of non heritage research.",
 				language: 1,
 				isLanguage: true
 			}
@@ -79,7 +79,7 @@
 	
 	.text{
 		font-size: 28rpx;
-		line-height: 36rpx;
+		line-height: 44rpx;
 		letter-spacing: 0.02em;
 		color: #382321;
 		margin:60rpx 48rpx 0 48rpx;
