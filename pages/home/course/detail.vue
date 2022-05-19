@@ -204,7 +204,7 @@
 								this.courseinfo.push({
 									id: data[i].cindex,
 									cnname: data[i].cnname,
-									cnintro: data[i].cninfo,
+									cnintro: "\xa0\xa0\xa0\xa0\xa0\xa0\xa0"+data[i].cninfo,
 									enname: data[i].enname,
 									enintro: data[i].eninfo
 								})
@@ -241,7 +241,7 @@
 				getCourseList()
 					.then(res => {
 						const data = JSON.parse(res.data).endata.data
-						// console.log(data)
+						console.log(data)
 						let courses = []
 						data.forEach(item => {
 							courses.push({
