@@ -63,15 +63,15 @@
 				getCourseList()
 					.then(res => {
 						const data = JSON.parse(res.data).endata.data
-						// console.log(data)
+						console.log(data)
 						const courses = []
 						data.forEach(item => {
 							courses.push({
 								id: item.cindex,
 								cnname: item.cnname,
-								cnintro: item.cninfo,
+								cnintro: item.cninfo.slice(0,20),
 								enname: item.enname,
-								enintro: item.eninfo,
+								enintro: item.eninfo.slice(0,20),
 								img: getFileUrl('img', item.imgpath)
 							})
 						})
