@@ -47,7 +47,15 @@
 		
 		<view class="course_details">
 			<view class="course_details_name">{{isLanguage? courseinfo[0].enname : courseinfo[0].cnname}}</view>
-			<view class="course_details_detail">{{isLanguage? courseinfo[0].enintro : courseinfo[0].cnintro}}</view>
+			<view :class="!showing ?'course_details_detail':'course_details_complete'">{{isLanguage? courseinfo[0].enintro : courseinfo[0].cnintro}}</view>
+		</view>
+		<view class="zhankai" @click="showing = !showing">
+			<view class="fold">
+				{{(showing) ? (isLanguage ? 'Expand More' : '展开更多') : (isLanguage ? 'Pack Up' : '收起更多')}}
+				</view>
+			<view class="arrow">
+				<image class="arrowDown" :src="folded()"></image>
+			</view>
 		</view>
 		
 		<view class="video_list">
@@ -105,6 +113,7 @@
 				language: 0,
 				isLanguage: true,
 				screenWidth: 0,
+				showing: true,
 			}
 		},
 		components: {
@@ -155,6 +164,13 @@
 				if(wx.getStorageSync('language') === 1) this.isLanguage = true
 				else this.isLanguage = false
 			},
+			folded(){
+				if(this.showing == false){
+				  return '../../../static/images/iCons/arrowUpBrown.png'    // false
+				}else{
+				  return '../../../static/images/iCons/arrowDownBrown.png'  // true
+				} 
+			},
 			unfold(){　//对箭头进行处理
 				if(this.showAll == false){
 				    return '../../../static/images/iCons/arrowDownBrown.png'
@@ -182,7 +198,7 @@
 			  getCourseList()
 			    .then(res => {
 			      const data = JSON.parse(res.data).endata.data
-			      // console.log(data)
+			      console.log(data)
 			      for (let i = 0; i < data.length; i++) {
 							if( data[i].cindex === this.index){
 								this.courseinfo.push({
@@ -204,6 +220,7 @@
 			      console.log(data)
 						this.toLearnList = []
 			      data.forEach(item => {
+							if(item.vidfortx == 'vidfortx') { return }
 			        this.toLearnList.push({
 								sindex: item.sindex,
 			          cnname: item.cnname,
@@ -414,6 +431,34 @@
 		margin-top: 20rpx;
 		line-height: 40rpx;
 		/* text-indent: 48rpx; */
+	}
+	
+	.course_details_complete{
+		color: #73615D;
+		font-size: 24rpx; 
+		margin-top: 20rpx;
+		line-height: 40rpx;
+		overflow: hidden;
+		white-space: nowrap; 
+		text-overflow: ellipsis;
+	}
+	
+	.zhankai{
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+	}
+	
+	.arrowDown{
+		width: 18rpx;
+		height: 20.16rpx;
+		margin-left: 10rpx;
+	}
+	
+	.fold{
+		font-size: 24rpx;
+		color: #382321;
 	}
 	
 	.video_list{
