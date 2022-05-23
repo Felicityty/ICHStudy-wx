@@ -72,19 +72,19 @@
 		methods: {
 			getUser() {
 				if(this.isLanguage)
-					return 'Input Username'
+					return 'Enter Username'
 				else
 					return '请输入账号'
 			},
 			getEP() {
 				if(this.isLanguage)
-					return 'Input Email/Phone'
+					return 'Enter Email/Phone'
 				else
 					return '请输入邮箱/手机号码'
 			},
 			getVer() {
 				if(this.isLanguage)
-					return 'Input Verification'
+					return 'Enter Verification'
 				else
 					return '请输入验证码'
 			},

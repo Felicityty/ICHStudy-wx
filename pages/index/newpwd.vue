@@ -51,13 +51,13 @@
 		methods: {
 			getPassword() {
 				if(this.isLanguage)
-					return 'Input new password'
+					return 'Enter New Password'
 				else
 					return '请输入新密码'
 			},
 			checkPassword() {
 				if(this.isLanguage)
-					return 'Check new password'
+					return 'Check New Password'
 				else
 					return '请再次输入新密码'
 			},

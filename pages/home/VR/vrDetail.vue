@@ -20,7 +20,7 @@
 				
 				<view class="zhankai" @click="showing = !showing">
 					<view class="fold">
-						{{(showing) ? (isLanguage ? 'Expand More' : '展开更多') : (isLanguage ? 'Pack Up' : '收起更多')}}
+						{{(showing) ? (isLanguage ? 'See More' : '展开更多') : (isLanguage ? 'See Less' : '收起更多')}}
 						</view>
 					<view class="arrow">
 						<image class="arrowDown" :src="folded()"></image>

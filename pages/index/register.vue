@@ -55,19 +55,19 @@
 		methods: {
 			getUsername() {
 				if(this.isLanguage)
-					return 'Input account'
+					return '"Enter Username'
 				else
 					return '请输入账号'
 			},
 			getPassword() {
 				if(this.isLanguage)
-					return 'Input password'
+					return 'Enter Password'
 				else
 					return '请输入密码'
 			},
 			checkPassword() {
 				if(this.isLanguage)
-					return 'Check password'
+					return 'Re-enter Password'
 				else
 					return '请再次输入密码'
 			},
