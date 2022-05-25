@@ -27,6 +27,12 @@
 					</view>
 				</view>
 				
+				<!-- 全景 -->
+				<view class="quanjing">
+					<view class="name">{{isLanguage ? 'VR Panorama' : 'VR全景'}}</view>
+					<image class="vr360" :src="intro[0].img360" @click="goUrl(intro[0].vrUrl)"></image>
+				</view>
+				
 				<!-- 推荐 -->
 				<view class="recommend">
 					<view class="name">{{isLanguage ? 'Recommend' : '推荐'}}</view>
@@ -39,12 +45,6 @@
 						</view>
 					</view>
 					
-				</view>
-				
-				<!-- 全景 -->
-				<view class="quanjing">
-					<view class="name">{{isLanguage ? 'VR Panorama' : 'VR全景'}}</view>
-					<image class="vr360" :src="intro[0].img360" @click="goUrl(intro[0].vrUrl)"></image>
 				</view>
 				
 			</view>
@@ -294,6 +294,7 @@
 	.recommend{
 		/* margin-left: 48rpx; */
 		margin-top: 48rpx;
+		margin-bottom: 72rpx;
 	}
 	
 	.listView{
@@ -335,7 +336,7 @@
 		width: 652rpx;
 		height: 346.12rpx;
 		border-radius: 20rpx;
-		margin-bottom: 48rpx;
+		/* margin-bottom: 48rpx; */
 		margin-left: 48rpx;
 	}
 	
