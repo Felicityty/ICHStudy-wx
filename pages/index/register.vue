@@ -55,7 +55,7 @@
 		methods: {
 			getUsername() {
 				if(this.isLanguage)
-					return '"Enter Username'
+					return 'Enter Username'
 				else
 					return '请输入账号'
 			},
