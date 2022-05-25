@@ -40,7 +40,7 @@
 					
 					<view class="listView">
 						<view class="listView-tile" v-for="(item, index) in courseItem" :key="index" 
-							 v-if="index == 0 || index == 7 || index == 8 || index == 9" @click="goCourseDetail(item.id)">
+							 v-if="index == 0 || index == 5 || index == 10 || index == 18" @click="goCourseDetail(item.id)">
 							<image class="couPic" :src="item.img" mode="aspectFill"></image>
 							<view class="couName">{{isLanguage ? item.enname : item.cnname}}</view>
 						</view>
