@@ -10,10 +10,15 @@
 		<view class="tips">{{tip}}</view>
 		<view class="identify-code">
 			<view class="identify-box">
-				<input type="text" :placeholder="getVer()" v-model="ver" 
-					placeholder-class="phcolor" @blur="checkVer()">
+				<input
+					type="text"
+					:placeholder="getVer()"
+					v-model="ver"
+					placeholder-class="phcolor"
+					@blur="checkVer()"
+				>
 			</view>
-			<view class="identify-btn" @click="send()" :disabled="ifSend">{{text}}</view>
+			<button class="identify-btn" @click="send()" :disabled="ifSend">{{text}}</button>
 		</view>
 		<view class="tips">{{tipVer}}</view>
 		<view class="index-btn" @click="reg()">{{isLanguage ? 'Sign Up' : '注册'}}</view>
@@ -22,7 +27,7 @@
 </template>
 
 <script>
-	import { sendVer, checkVer, mailBand, mailVerify, smsBand, smsVerify } from '../../api/user'
+	import { sendVer, mailBand, mailVerify, smsBand, smsVerify } from '../../api/user'
 	
 	export default {
 		data() {
@@ -92,26 +97,28 @@
 			checkEP(){
 				var ph = /^1\d{10}$/
 				var email = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
-				if (this.ep == '') {
+				if (this.ep === '') {
 					this.tip = "请输入邮箱/手机号码"
+					return false
 				}else if (ph.test(this.ep)) {
 					this.tip = ""
 					this.i = '0'
 					this.phone = this.ep
-					return
+					return true
 				}else if (email.test(this.ep)) {
 					this.tip = ""
 					this.i = '1'
 					this.email = this.ep
-					return
+					return true
 				}else{
 					this.tip = "请输入正确的邮箱/手机号码"
-					return
+					return false
 				}
 			},
 			checkVer(){
-				if (this.ver == '') {
+				if (this.ver === '') {
 					this.tipVer = "请输入验证码"
+					return false
 				}else {
 					this.tipVer = "";
 					return true 
@@ -120,23 +127,26 @@
 			send() {
 				this.checkEP()
 				console.log(this.i)
-				if (this.i == '0'){
+				if (this.i === '0'){
 					console.log(this.username)
 					this.changeSendBtn()
 					this.bindPhone()
-				}else if (this.i == '1'){
+				}else if (this.i === '1'){
 					this.changeSendBtn()
 					this.bindEmail()
 				}
 			},
 			reg() {
-				this.checkVer()
-				this.checkEP()
-				console.log(this.i)
-				if (this.i == '0'){
-					this.verifyPhone()
-				}else if (this.i == '1'){
-					this.verifyEmail()
+				const ver = this.checkVer()
+				const ep = this.checkEP()
+				console.log(ver, ep)
+				if(ver && ep) {
+					console.log('i', this.i)
+					if (this.i === '0'){
+						this.verifyPhone()
+					}else if (this.i === '1'){
+						this.verifyEmail()
+					}
 				}
 			},
 			bindEmail () {
