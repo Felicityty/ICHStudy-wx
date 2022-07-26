@@ -25,16 +25,17 @@
 
 <script>
 	import CourseItem from '../../../components/course/CourseItem.vue'
-	import { getCourseList } from '../../../api/course/index.js'
+	// import { getCourseList } from '../../../api/course/index.js'
 	import { getFileUrl } from '../../../common/index.js'
 	import tabbar from'../../../components/tabbar/tabbar.vue'
+	import { getCourseList, getCourseList_tourist } from '../../../api/course/index.js'
 	
 	export default {
 		data(){
 			return{
 				courseItem: [],
 				language: 0,
-				isLanguage: true
+				isLanguage: true,
 			}
 		},
 		components: {
@@ -49,13 +50,23 @@
 		},
 		onLoad() {
 			const token = wx.getStorageSync('token')
-			if(!token) {
-				uni.reLaunch({
-					url: '../../index/index'
-				})
-			} else {
+			// if(!token) {
+			// 	uni.reLaunch({
+			// 		url: '../../index/index'
+			// 	})
+			// } else {
+			// 	this.getCourseList()
+			// }
+			if(token) {
 				this.getCourseList()
+				// this.getBannerList()
+				console.log("有token啦")
+			} else {
+				this.getCourseList_tourist()
+				// this.getBannerList()
+				console.log("游客模式开启")
 			}
+			// this.getCourseList_tourist()
 		},
 		methods:{
 			getLanguage() {
@@ -66,7 +77,28 @@
 				getCourseList()
 					.then(res => {
 						const data = JSON.parse(res.data).endata.data
-						console.log(data)
+						// console.log(data)
+						const courses = []
+						data.forEach(item => {
+							courses.push({
+								id: item.cindex,
+								cnname: item.cnname,
+								cnintro: item.cninfo.slice(0,20),
+								enname: item.enname,
+								enintro: item.eninfo.slice(0,20),
+								img: getFileUrl('img', item.imgpath)
+							})
+						})
+						this.courseItem = courses
+						// console.log(this.courseItem)
+					})
+					.catch(err => console.log(err))
+			},
+			getCourseList_tourist() {
+				getCourseList_tourist()
+					.then(res => {
+						const data = JSON.parse(res.data).endata.data
+						// console.log(data)
 						const courses = []
 						data.forEach(item => {
 							courses.push({

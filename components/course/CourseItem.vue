@@ -21,13 +21,36 @@
 		},
 		data () {
 		  return {
+				courseClick: 0
 		  }
 		},
 		methods:{
 			go(id){
-				uni.navigateTo({ 
-					url: './detail?id=' + id
+				const that = this
+				const token = wx.getStorageSync('token')
+				that.courseClick = wx.getStorageSync('courseClick')
+				that.courseClick++;
+				console.log(that.courseClick)
+				uni.setStorage({
+					key: 'courseClick',
+					data: that.courseClick
 				})
+				if(this.courseClick > 3 && !token) {
+					uni.showToast({
+						title: '试看结束，请先登录',
+						icon: 'none'
+					})
+					setTimeout(() => { // 显示几秒后再跳转到index页面
+							wx.reLaunch({
+									url: '../../index/index',
+									// 这里的相对路径是course-index文件的相对路径
+							});
+						}, 1500)
+				} else {
+					uni.navigateTo({
+						url: './detail?id=' + id
+					})
+				}
 			}
 		}
 	}

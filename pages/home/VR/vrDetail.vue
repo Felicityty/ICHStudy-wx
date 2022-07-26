@@ -54,7 +54,7 @@
 </template>
 
 <script>
-	import { getVrList } from '../../../api/vr/index.js'
+	import { getVrList, getVrList_tourist } from '../../../api/vr/index.js'
 	import { getFileUrl } from '../../../common/index.js'
 	export default {
 		data() {
@@ -65,25 +65,36 @@
 				recItem: [],
 				language: 1,
 				isLanguage: true,
-				scrollTop: 0
+				scrollTop: 0,
+				vrClick: 0,
+				isToken: false
 			}
 		},
 		onLoad(options) {
-			this.getVrList()
+			const token = wx.getStorageSync('token')
+			if(token) {
+				this.getVrList()
+				this.isToken = true
+				// this.getBannerList()
+				console.log("有token啦")
+			} else {
+				this.getVrList_tourist()
+				// this.getBannerList()
+				console.log("游客模式开启")
+			}
 			this.index = options.id
 			console.log('index', this.index)
 			this.getVrRec()
 			this.getTop()
 			this.scrollTop = this.scrollTop * 2 +14
-			
 		},
 		onShow() {
 			// const userInfo = wx.getStorageSync('userInfo')
 			const language = wx.getStorageSync('language')
 			this.language = language
-			console.log(this.language)
+			// console.log(this.language)
 			this.getLanguage()
-			console.log(this.isLanguage)
+			// console.log(this.isLanguage)
 		},
 		methods: {
 			getLanguage() {
@@ -95,9 +106,29 @@
 				});
 			},
 			goDetail(id) {
-				uni.navigateTo({
-					url: './vrDetail?id=' + id
+				const that = this
+				that.vrClick = wx.getStorageSync('vrClick')
+				that.vrClick++
+				// console.log(that.vrClick)
+				uni.setStorage({
+					key: 'vrClick',
+					data: that.vrClick
 				})
+				if(that.vrClick > 3 && !that.isToken) {
+					uni.showToast({
+						title: '试看结束，请先登录',
+						icon: 'none'
+					})
+					setTimeout(() => { // 显示几秒后再跳转到index页面
+							uni.reLaunch({
+									url: '../../index/index'
+							});
+						}, 1500)
+				} else {
+					uni.navigateTo({
+						url: './vrDetail?id=' + id
+					})
+				}
 			},
 			getTop() {
 			  const that = this
@@ -115,11 +146,11 @@
 				  return '../../../static/images/iCons/arrowDownBrown.png'  // true
 				} 
 			},
-			getVrList() {
-				getVrList()
+			getVrList_tourist() {
+				getVrList_tourist()
 					.then(res => {
 						const data = JSON.parse(res.data).endata.data
-						console.log(data)
+						// console.log(data)
 						for (let i=0; i<data.length; i++) {
 							if(data[i].id == this.index) {
 								this.intro.push({
@@ -144,7 +175,7 @@
 				})
 			},
 			getVrRec() {
-				getVrList()
+				getVrList_tourist()
 					.then(res => {
 						const data = JSON.parse(res.data).endata.data
 						// console.log(data)

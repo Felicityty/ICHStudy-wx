@@ -43,3 +43,30 @@ export function uploadMy (name, cindex, sindex, time) {
     }
   })
 }
+
+// 游客模式获取课程列表
+export function getCourseList_tourist() {
+	return request({
+		url: '/course/visitor/getcourse/',
+		method: 'POST',
+		data: {
+			endata: {
+				// action: 'getcourse'
+			}
+		}
+	})
+}
+
+// 游客模式 获取课程章节
+export function getSection_tourist (courseId) {
+  return request({
+    url: '/course/visitor/getsection/',
+    method: 'POST',
+    data: {
+      endata: {
+        // action: 'getsection',
+        cindex: courseId
+      }
+    }
+  })
+}

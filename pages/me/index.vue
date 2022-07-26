@@ -90,7 +90,7 @@
 					openid: ''
 				},
 				language: 1,
-				isLanguage: true
+				isLanguage: false
 			}
 		},
 		computed:{
@@ -140,8 +140,11 @@
 				wx.removeStorageSync('openid')
 				wx.removeStorageSync('token')
 				wx.removeStorageSync('userInfo')
-				uni.reLaunch({
-					url: '../index/index'
+				// uni.reLaunch({
+				// 	url: '../index/index'
+				// })
+				uni.redirectTo({
+					url: '/pages/me/index'
 				})
 			},
 			getCourse() {

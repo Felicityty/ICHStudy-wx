@@ -17,7 +17,7 @@
 </template>
 
 <script>
-	import { getVrList } from '../../../api/vr/index.js'
+	import { getVrList, getVrList_tourist } from '../../../api/vr/index.js'
 	import { getFileUrl } from '../../../common/index.js'
 	import {tabbar} from'../../../components/tabbar/tabbar.vue'
 	
@@ -29,17 +29,29 @@
 			return {
 				vrItem: [],
 				language: 1,
-				isLanguage: true
+				isLanguage: true,
+				vrClick: 0,
+				isToken: false
 			}
 		},
 		onShow() {
 			// const userInfo = wx.getStorageSync('userInfo')
+			const token = wx.getStorageSync('token')
 			const language = wx.getStorageSync('language')
 			this.language = language
-			console.log(this.language)
+			// console.log(this.language)
 			this.getLanguage()
-			console.log(this.isLanguage)
-			this.getVrList()
+			// console.log(this.isLanguage)
+			if(token) {
+				this.getVrList()
+				this.isToken = true
+				// this.getBannerList()
+				console.log("有token啦")
+			} else {
+				this.getVrList_tourist()
+				// this.getBannerList()
+				console.log("游客模式开启")
+			}
 		},
 		methods: {
 			getLanguage() {
@@ -47,9 +59,48 @@
 				else this.isLanguage = false
 			},
 			goDetail(id) {
-				uni.navigateTo({
-					url: './vrDetail?id=' + id
+				const that = this
+				that.vrClick = wx.getStorageSync('vrClick')
+				that.vrClick++
+				// console.log(that.vrClick)
+				uni.setStorage({
+					key: 'vrClick',
+					data: that.vrClick
 				})
+				if(that.vrClick > 3 && !that.isToken) {
+					uni.showToast({
+						title: '试看结束，请先登录',
+						icon: 'none'
+					})
+					setTimeout(() => { // 显示几秒后再跳转到index页面
+							uni.reLaunch({
+									url: '../../index/index'
+							});
+						}, 1500)
+				} else {
+					uni.navigateTo({
+						url: './vrDetail?id=' + id
+					})
+				}
+			},
+			getVrList_tourist() {
+				getVrList_tourist()
+					.then(res => {
+						const data = JSON.parse(res.data).endata.data
+						console.log(data)
+						const vrs =[]
+						data.forEach(item => {
+							vrs.push({
+								id: item.id,
+								cnname: item.vrcnname,
+								enname: item.vrenname,
+								img: getFileUrl('img', item.cover)
+							})
+						})
+						this.vrItem = vrs
+						// console.log(this.vrItem)
+					})
+					.catch(err => console.log(err)) 
 			},
 			getVrList() {
 				getVrList()

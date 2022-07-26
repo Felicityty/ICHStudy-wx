@@ -89,6 +89,7 @@
 	import Track from '../../../components/course/Track'
 	import { getCourseList, getSection, uploadMy } from '../../../api/course/index.js'
 	import { getFileUrl } from '../../../common/index.js'
+	import { getSection_tourist, getCourseList_tourist } from '../../../api/course/index.js'
 	
 	export default {
 		name: 'av',
@@ -131,24 +132,39 @@
 			const userInfo = wx.getStorageSync('userInfo')
 			// console.log(userInfo)
 			const that = this
-			if(!token) {
-				uni.reLaunch({
-					url: '../../index/index'
-				})
+			// if(!token) {
+			// 	uni.reLaunch({
+			// 		url: '../../index/index'
+			// 	})
+			// } else {
+			// 	this.index = options.id
+			// 	that.userInfo.username = userInfo.username
+			// 	this.getCourseInfo()
+			// 	this.getSections()
+			// 	this.getCourseCommend()
+			// 	// uni.getSystemInfo({
+			// 	// 	success(res){
+			// 	// 		console.log(res);
+			// 	// 		that.screenWidth = res.screenWidth;
+			// 	// 		console.log(that.screenWidth);
+			// 	// 	}
+			// 	// })
+			// }
+			this.index = options.id
+			that.userInfo.username = userInfo.username
+			this.getCourseInfo()
+			// this.getSection_tourist()
+			// this.getSections()
+			if(token) {
+				this.getSection()
+				// this.getBannerList()
+				console.log("有token啦")
 			} else {
-				this.index = options.id
-				that.userInfo.username = userInfo.username
-				this.getCourseInfo()
-				this.getSections()
-				this.getCourseCommend()
-				// uni.getSystemInfo({
-				// 	success(res){
-				// 		console.log(res);
-				// 		that.screenWidth = res.screenWidth;
-				// 		console.log(that.screenWidth);
-				// 	}
-				// })
+				this.getSection_tourist()
+				// this.getBannerList()
+				console.log("游客模式开启")
 			}
+			this.getCourseCommend()
 		},
 		beforeDestroy() {
 			console.log('onUnload')
@@ -195,10 +211,10 @@
 				}
 			},
 			getCourseInfo () {
-			  getCourseList()
+			  getCourseList_tourist()
 			    .then(res => {
 			      const data = JSON.parse(res.data).endata.data
-			      console.log(data)
+			      // console.log(data)
 			      for (let i = 0; i < data.length; i++) {
 							if( data[i].cindex === this.index){
 								this.courseinfo.push({
@@ -213,11 +229,35 @@
 			    })
 			    .catch(err => console.log(err))	
 			},
-			getSections() {
+			getSection() {
 			  getSection(this.index)
 			    .then(res => {
 			      const data = JSON.parse(res.data).endata.data
-			      console.log(data)
+			      // console.log(data)
+						this.toLearnList = []
+			      data.forEach(item => {
+							if(item.vidfortx == 'vidfortx') { return }
+			        this.toLearnList.push({
+								sindex: item.sindex,
+			          cnname: item.cnname,
+			          enname: item.enname,
+								vid: item.vidfortx,
+			          url: getFileUrl('video', item.videopath),
+			          sectionId: item.sindex,
+			          subpath: item.subtitlespath ? getFileUrl('vtt', item.subtitlespath) : ''
+							})
+			      })
+						if(this.toLearnList[this.play].subpath) {
+							this.$refs.track.loadZimu(this.toLearnList[this.play].subpath, this.toLearnList[this.play].sindex)
+						}
+			    })
+			    .catch(err => console.log(err))
+			},
+			getSection_tourist() {
+			  getSection_tourist(this.index)
+			    .then(res => {
+			      const data = JSON.parse(res.data).endata.data
+			      // console.log(data)
 						this.toLearnList = []
 			      data.forEach(item => {
 							if(item.vidfortx == 'vidfortx') { return }
@@ -238,10 +278,10 @@
 			    .catch(err => console.log(err))
 			},
 			getCourseCommend() {
-				getCourseList()
+				getCourseList_tourist()
 					.then(res => {
 						const data = JSON.parse(res.data).endata.data
-						console.log(data)
+						// console.log(data)
 						let courses = []
 						data.forEach(item => {
 							courses.push({

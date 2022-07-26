@@ -25,7 +25,7 @@
 				<view class="course">
 					
 					<view class="row">
-						<view class="title">{{isLanguage ? 'Courses' : '课程'}}</view>
+						<view class="titleC">{{isLanguage ? 'Courses' : '课程'}}</view>
 						<!-- <navigator url="./course/index" open-type="switchTab"> -->
 							<navigator url="./course/index">
 							<view class="allCourse">
@@ -50,7 +50,7 @@
 				<view class="VR">
 					
 					<view class="row">
-						<view class="title">VR</view>
+						<view class="titleV">VR</view>
 						<!-- <navigator url="./VR/index" open-type="switchTab"> -->
 							<navigator url="./VR/index">
 							<view class="allVR">
@@ -80,8 +80,10 @@
 	import { getCourseList } from '../../api/course/index.js'
 	import { getFileUrl } from '../../common/index.js'
 	import { getVrList } from '../../api/vr/index.js'
+	import { getVrList_tourist } from '../../api/vr/index.js'
 	import { tabbar } from'../../components/tabbar/tabbar.vue'
 	import { getBannerList } from '../../api/banner/index.js'
+	import { getCourseList_tourist } from '../../api/course/index.js'
 	export default {
 		components:{
 			tabbar
@@ -93,21 +95,41 @@
 				vrItem: [],
 				language: 1,
 				isLanguage: true,
-				bannerItem: []
+				bannerItem: [],
+				courseClick: 0,
+				vrClick: 0,
+				isToken: false
 			}
 		},
 		onShow() {
 			const token = wx.getStorageSync('token')
 			this.getLanguage()
-			if(!token) {
-				uni.reLaunch({
-					url: '../index/index'
-				})
-			} else {
+			// this.getCourseList()
+			// this.getCourseList_tourist()
+			// this.getVrList()
+			// this.getVrList_tourist()
+			this.getBannerList()
+			if(token) {
 				this.getCourseList()
 				this.getVrList()
-				this.getBannerList()
+				this.isToken = true
+				// this.getBannerList()
+				console.log("有token啦")
+			} else {
+				this.getCourseList_tourist()
+				this.getVrList_tourist()
+				// this.getBannerList()
+				console.log("游客模式开启")
 			}
+			// if(!token) {
+			// 	uni.reLaunch({
+			// 		url: '../index/index'
+			// 	})
+			// } else {
+			// 	this.getCourseList()
+			// 	this.getVrList()
+			// 	this.getBannerList()
+			// }
 		},
 		methods: {
 			getLanguage() {
@@ -139,14 +161,54 @@
 				})
 			},
 			goVrDetail(id) {
-				uni.navigateTo({
-					url: './VR/vrDetail?id=' + id
+				const that = this
+				that.vrClick = wx.getStorageSync('vrClick')
+				that.vrClick++
+				// console.log(that.vrClick)s
+				uni.setStorage({
+					key: 'vrClick',
+					data: that.vrClick
 				})
+				if((that.courseClick > 3 || that.vrClick > 3) && !that.isToken) {
+					uni.showToast({
+						title: '试看结束，请先登录',
+						icon: 'none'
+					})
+					setTimeout(() => { // 显示几秒后再跳转到index页面
+							uni.reLaunch({
+									url: '../index/index'
+							});
+						}, 1500)
+				} else {
+					uni.navigateTo({
+						url: './VR/vrDetail?id=' + id
+					})
+				}
 			},
 			goCourseDetail(id){
-				uni.navigateTo({ 
-					url: './course/detail?id=' + id
+				const that = this
+				that.courseClick = wx.getStorageSync('courseClick')
+				that.courseClick++
+				// console.log(that.courseClick)
+				uni.setStorage({
+					key: 'courseClick',
+					data: that.courseClick
 				})
+				if((that.courseClick > 3 || that.vrClick > 3) && !that.isToken) {
+					uni.showToast({
+						title: '试看结束，请先登录',
+						icon: 'none'
+					})
+					setTimeout(() => { // 显示几秒后再跳转到index页面
+							uni.reLaunch({
+									url: '../index/index'
+							});
+						}, 1500)
+				} else {
+					uni.navigateTo({
+						url: './course/detail?id=' + id
+					})
+				}
 			},
 			getCourseList() {
 				getCourseList()
@@ -169,6 +231,45 @@
 			},
 			getVrList() {
 				getVrList()
+					.then(res => {
+						const data = JSON.parse(res.data).endata.data
+						// console.log(data)
+						const vrs =[]
+						data.forEach(item => {
+							vrs.push({
+								id: item.id,
+								cnname: item.vrcnname,
+								enname: item.vrenname,
+								img: getFileUrl('img', item.cover)
+							})
+						})
+						this.vrItem = vrs
+						// console.log(this.vrItem)
+					})
+					.catch(err => console.log(err)) 
+			},
+			// 游客模式
+			getCourseList_tourist() {
+				getCourseList_tourist()
+					.then(res => {
+						const data = JSON.parse(res.data).endata.data
+						// console.log(data)
+						const courses = []
+						data.forEach(item => {
+							courses.push({
+								id: item.cindex,
+								cnname: item.cnname,
+								enname: item.enname,
+								img: getFileUrl('img', item.imgpath)
+							})
+						})
+						this.courseItem = courses
+						// console.log(this.courseItem)
+					})
+					.catch(err => console.log(err))
+			},
+			getVrList_tourist() {
+				getVrList_tourist()
 					.then(res => {
 						const data = JSON.parse(res.data).endata.data
 						// console.log(data)
@@ -241,13 +342,22 @@
 		border-radius: 60rpx 60rpx 0 0;
 	}
 	
-	.title{
+	.titleC{
 		font-size: 32rpx;
 		line-height: 46rpx;
 		color: #382321;
 		font-weight: 600;
 		margin-bottom: 36rpx;
 		margin-top: 48rpx;
+	}
+	
+	.titleV{
+		font-size: 32rpx;
+		line-height: 46rpx;
+		color: #382321;
+		font-weight: 600;
+		margin-bottom: 36rpx;
+		margin-top: 12rpx;
 	}
 	
 	.course, .VR{
