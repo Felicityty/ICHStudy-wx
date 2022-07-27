@@ -9,13 +9,13 @@
 		</view> -->
 		
 		<view class="content">
-			<view v-for="(item,index) in courseItem" :key="index" v-if="index==0 ||  index==1 || index==3 || index==5 || index==6 || index==8 ||index==10 || index==12 ||index==13 || index==18">
+			<view v-for="(item,index) in courseItem" :key="index" v-if="index==0 ||  index==1 || index==3 || index==5 || index==6 || index==8 ||index==10 || index==12 ||index==13 || index==19">
 				<CourseItem :info="item" :language="language"></CourseItem>
 				<!-- <image :src="item.img" mode="aspectFill" class="course_content_img"></image>
 				<text class="course_content_name">{{ item.name }}</text>
 				<text class="course_content_intro">{{item.intro}}</text> -->
 			</view>
-			<view v-for="(item,index) in courseItem" :key="index" v-if="index==2 ||  index==4 || index==7 || index==9 || index==11 || index==14 ||index==15 || index==16 ||index==17">
+			<view v-for="(item,index) in courseItem" :key="index" v-if="index==2 ||  index==4 || index==7 || index==9 || index==11 || index==14 ||index==15 || index==16 || index==17 || index==18">
 				<CourseItem :info="item" :language="language"></CourseItem>
 			</view>
 		</view>
@@ -98,7 +98,7 @@
 				getCourseList_tourist()
 					.then(res => {
 						const data = JSON.parse(res.data).endata.data
-						// console.log(data)
+						console.log(data)
 						const courses = []
 						data.forEach(item => {
 							courses.push({
