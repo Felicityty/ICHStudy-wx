@@ -70,3 +70,16 @@ export function getSection_tourist (courseId) {
     }
   })
 }
+
+// 获取问题
+export function getQuestion () {
+  return request({
+    url: '/question/',
+    method: 'POST',
+    data: {
+      endata: {
+        action: 'getQuestion',
+      }
+    }
+  })
+}

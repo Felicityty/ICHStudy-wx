@@ -1,5 +1,5 @@
 <template>
-	<view class="container">
+	<view class="container" :style="{'position': darkBackQ, 'background-color': darkQ}">
 		<!-- <view class="video_play">
 			<video
 				id="video-player"
@@ -45,6 +45,21 @@
 			<Track id="track" ref="track"/>
 		</view>
 		
+		<view class="questionBox" :style="{'display': showQ}">
+			<view class="question-title">
+				<view>{{question[numQ].type}}</view>
+				<image src='../../../static/images/iCons/cha.png' mode="aspectFit" class="question-img" @click="closeBox(index)"></image>
+			</view>
+			<view class="question">{{question[numQ].q}}</view>
+			<view class="choice" v-for="(itemq, indexq) in questionChoice" :key="indexq" @click="changAns(itemq, indexq, question[numQ].type)">
+				<view v-show="isRadio" :class = "isActiveAns === indexq ? 'activeAns' : 'choice-num'">{{ String.fromCharCode(itemq.id + 65) }}</view>
+				<view v-show="!isRadio" :class = "checkboxList.indexOf(itemq) != -1 ? 'activeAns' : 'choice-num'">{{ String.fromCharCode(itemq.id + 65) }}</view>
+				<view class="choice-content">{{ itemq.content }}</view>
+			</view>
+			<button class="question-btn" @click="DoneQ()">确定</button>
+			<view v-show="isDone" class="question-ans">{{'正确答案：' + question[numQ].ans}}</view>
+		</view>
+		
 		<view class="course_details">
 			<view class="course_details_name">{{isLanguage? courseinfo[0].enname : courseinfo[0].cnname}}</view>
 			<view :class="!showing ?'course_details_detail':'course_details_complete'">{{isLanguage? courseinfo[0].enintro : courseinfo[0].cnintro}}</view>
@@ -87,9 +102,9 @@
 <script>
 	import CourseCommend from '../../../components/course/CourseCommend.vue'
 	import Track from '../../../components/course/Track'
-	import { getCourseList, getSection, uploadMy } from '../../../api/course/index.js'
+	import { getCourseList, getSection, uploadMy, getQuestion } from '../../../api/course/index.js'
 	import { getFileUrl } from '../../../common/index.js'
-	import { getSection_tourist, getCourseList_tourist, getQuestion } from '../../../api/course/index.js'
+	import { getSection_tourist, getCourseList_tourist } from '../../../api/course/index.js'
 	
 	export default {
 		name: 'av',
@@ -115,6 +130,16 @@
 				isLanguage: true,
 				screenWidth: 0,
 				showing: true,
+				currentTime: 0,
+				showQ: 'none',
+				darkBackQ: 'static',
+				darkQ: 'none',
+				isActiveAns: false,
+				isRadio: true,
+				isDone: false,
+				numQ: 0,
+				checkboxList: [],
+				question: []
 			}
 		},
 		components: {
@@ -198,6 +223,8 @@
 			changevideo(index){
 				this.upload()
 				this.play = index
+				this.numQ = 0
+				this.getQuestion()
 			},
 			restart() {
 				this.showEndImg = false
@@ -234,7 +261,7 @@
 			  getSection(this.index)
 			    .then(res => {
 			      const data = JSON.parse(res.data).endata.data
-			      console.log(data)
+			      // console.log(data)
 						this.toLearnList = []
 			      data.forEach(item => {
 							if(item.vidfortx == 'vidfortx') { return }
@@ -258,7 +285,7 @@
 			  getSection_tourist(this.index)
 			    .then(res => {
 			      const data = JSON.parse(res.data).endata.data
-			      console.log(data)
+			      // console.log(data)
 						this.toLearnList = []
 			      data.forEach(item => {
 							if(item.vidfortx == 'vidfortx') { return }
@@ -350,26 +377,95 @@
 			},
 			timeUpdate (e) {
 				this.$refs.track.videoChangeEvent(e.target.currentTime * 1000)
+				this.currentTime = Math.floor(e.target.currentTime * 10);
+				if(this.question.length !== 0){
+					if(this.currentTime < this.question[this.numQ].qtime * 10 + 11
+					&& this.currentTime > this.question[this.numQ].qtime * 10 + 7){
+						this.upload();
+						const TxvContext = requirePlugin("tencentvideo");  
+						let txvContext = TxvContext.getTxvContext('txv1');
+						txvContext.pause();
+						this.showQ = 'block';
+						this.darkBackQ = 'fixed';
+						this.darkQ = 'rgba(12, 12, 12, 0.4)';
+					}
+				}
+				
 			},
-			getQuestion() {
+			getQuestion () {
 				getQuestion()
 					.then(res => {
-						const data = JSON.parse(res.data).endata.data
+						const data = JSON.parse(res.data).endata.data;
 						console.log(data)
-						console.log(1111)
-						// const vrs =[]
-						// data.forEach(item => {
-						// 	vrs.push({
-						// 		id: item.id,
-						// 		cnname: item.vrcnname,
-						// 		enname: item.vrenname,
-						// 		img: getFileUrl('img', item.cover)
-						// 	})
-						// })
-						// this.vrItem = vrs
-						// // console.log(this.vrItem)
+						let qItem = [];
+						let answer = [];
+						// console.log(this.toLearnList[this.play])
+						data.forEach(item => {
+							if(this.toLearnList[this.play].sindex === item.sindex){
+								answer.push(
+									{id: 0, content: item.answerA},
+									{id: 1, content: item.answerB},
+									{id: 2, content: item.answerC},
+									{id: 3, content: item.answerD},
+								)
+								qItem.push({
+									id: item.id,
+									type: item.question_type,
+									q: item.stem,
+									choice: answer,
+									qtime: item.time,
+									ans: item.solution,
+									sindex: item.sindex
+								})
+								answer = [];
+							}
+						})
+						this.question = qItem;
 					})
-					.catch(err => console.log(err)) 
+					.catch(err => console.log(err))
+			},
+			changAns (item, index, type) {
+				const that = this;
+				if(that.isDone === false){
+					if(type === '单选题'){
+						that.isRadio = true;
+						that.isActiveAns = index;
+					} else {
+						that.isRadio = false;
+						if (that.checkboxList.indexOf(item) !== -1) {
+							that.checkboxList.splice(that.checkboxList.indexOf(item), 1) //取消
+						} else {
+							that.checkboxList.push(item) //选中添加到数组里
+						}
+					}
+				}
+			},
+			DoneQ () {
+				const that = this;
+				if(that.isActiveAns !== false){
+					that.isDone = true;
+				} else if (that.checkboxList.length !== 0){
+					that.isDone = true;
+				}
+			},
+			closeBox (index) {
+				const that = this;
+				const TxvContext = requirePlugin("tencentvideo");  
+				let txvContext = TxvContext.getTxvContext('txv1');
+				if (that.isDone === true){
+					txvContext.play();
+					that.showQ = 'none';
+					that.darkBackQ = 'static';
+					that.darkQ = 'none';
+					that.isActiveAns = false;
+					that.checkboxList = [];
+					that.isDone = false;
+					if(that.numQ < that.question.length - 1){
+						that.numQ++;
+					}else{
+						that.numQ = that.question.length - 1;
+					}
+				}
 			}
 		},
 		computed:{
@@ -387,6 +483,13 @@
 			  } else {
 			    return ['视频列表', '推荐']
 			  }
+			},
+			questionChoice() {
+				if(this.question.length === 0){
+					return [];
+				}else{
+					return this.question[this.numQ].choice;
+				}
 			}
 		}
 	}
@@ -472,6 +575,100 @@
 		position: relative;
 		left: 0rpx;
 		top: 0rpx;
+	}
+	
+	.questionBox{
+		width: 80%;
+		height: auto;
+		border-radius: 20rpx;
+		padding: 20px;
+		background-color: #FFFFFF;
+		box-shadow: 0rpx 2rpx 4rpx rgba(0,0,0,0.15);
+		position: absolute;
+		top: 35%;
+		left: 50%;
+		transform: translate(-50%, -35%);
+		z-index: 999;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: space-between;
+		display: none;
+	}
+	
+	.question-title{
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		color: #382321;
+	}
+	
+	.question{
+		width: 100%;
+		height: auto;
+		margin-top: 24rpx;
+		justify-content: flex-start;
+		word-wrap: break-word;
+    word-break: normal;
+	}
+	
+	.question-img{
+		width: 32rpx;
+		height: 32rpx;
+	}
+	
+	.choice{
+		width: 102%;
+		height: auto;
+		background-color: #F7F3E8;
+		border-radius: 10rpx;
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-start;
+		margin-top: 28rpx;
+		margin-left: -3%;
+		padding-top: 20rpx;
+		padding-left: 4%;
+		padding-bottom: 20rpx;
+	}
+	
+	.choice-num{
+		width: 40rpx;
+		height: 40rpx;
+		text-align: center;
+		border-radius: 40rpx;
+		background-color: #FFFFFF;
+		border: #d1d1d1 1rpx solid;
+	}
+	
+	.activeAns{
+		width: 40rpx;
+		height: 40rpx;
+		text-align: center;
+		border-radius: 40rpx;
+		background-color: #382321;
+		color: #FFFFFF;
+		border: #d1d1d1 1rpx solid;
+	}
+	
+	.choice-content{
+		width: 85%;
+		margin-left: 24rpx;
+		word-wrap: break-word;
+    word-break: normal;
+	}
+	
+	.question-btn{
+		width: 104%;
+		margin-left: -2%;
+		background-color: #987744;
+		color: #FFFFFF;
+		font-size: 26rpx;
+		margin-top: 30rpx;
+	}
+	
+	.question-ans{
+		margin-top: 24rpx;
 	}
 	
 	.course_details{
