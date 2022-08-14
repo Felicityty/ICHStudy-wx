@@ -35,20 +35,28 @@
 					key: 'courseClick',
 					data: that.courseClick
 				})
-				if(this.courseClick > 3 && !token) {
-					uni.showToast({
-						title: '试看结束，请先登录',
-						icon: 'none'
-					})
-					setTimeout(() => { // 显示几秒后再跳转到index页面
-							wx.reLaunch({
-									url: '../../index/index',
-									// 这里的相对路径是course-index文件的相对路径
-							});
-						}, 1500)
+				if (that.courseClick > 3 && !that.isToken) {
+					uni.showModal({
+						title: that.isLanguage ? 'Tips' : '提示',
+						content: that.isLanguage ? 'Reach the upper limit' : '微课观看次数已达上限',
+						showCancel: true,
+						cancelText: that.isLanguage ? 'Login' : '去登录',
+						confirmText: that.isLanguage ? 'Other' : '观看其他',
+						cancelColor: '#73615D',
+						confirmColor: '#8F8F8F',
+						success: function(res) {
+							if (res.confirm) {
+								return
+							} else if (res.cancel) {
+								uni.reLaunch({
+									url: '/pages/index/index'
+								});
+							}
+						}
+					});
 				} else {
 					uni.navigateTo({
-						url: './detail?id=' + id
+						url: '/pages/home/course/detail?id=' + id
 					})
 				}
 			}

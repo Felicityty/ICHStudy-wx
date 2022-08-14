@@ -102,28 +102,28 @@
 			}
 		},
 		{
-	    "path" : "pages/me/setting/index",
-			"style" : {
-			  "navigationBarTitleText" : "Setting"
-		  }
-	  },
-		{
-		  "path" : "pages/me/setting/history",
-			"style" : {
-			  "navigationBarTitleText" : "History"
-		  }
+			"path": "pages/me/setting/index",
+			"style": {
+				"navigationBarTitleText": "Setting"
+			}
 		},
 		{
-		  "path" : "pages/me/setting/nickname",
-			"style" : {
-			  "navigationBarTitleText" : "Nickname"
-		  }
+			"path": "pages/me/setting/history",
+			"style": {
+				"navigationBarTitleText": "History"
+			}
 		},
 		{
-		  "path" : "pages/me/setting/signature",
-			"style" : {
-			  "navigationBarTitleText" : "Signature"
-		  }
+			"path": "pages/me/setting/nickname",
+			"style": {
+				"navigationBarTitleText": "Nickname"
+			}
+		},
+		{
+			"path": "pages/me/setting/signature",
+			"style": {
+				"navigationBarTitleText": "Signature"
+			}
 		},
 		{
 			"path": "pages/about/index",
@@ -149,7 +149,14 @@
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#F9F3EB",
 		"backgroundColor": "#F9F3EB"
+	},
+	"easycom": {
+		"autoscan": true,
+		"custom": {
+			// uni-ui 规则如下配置
+			"^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue"
+		}
 	}
-	
-	
+
+
 }

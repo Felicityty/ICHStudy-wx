@@ -89,11 +89,11 @@
 	import Track from '../../../components/course/Track'
 	import { getCourseList, getSection, uploadMy } from '../../../api/course/index.js'
 	import { getFileUrl } from '../../../common/index.js'
-	import { getSection_tourist, getCourseList_tourist } from '../../../api/course/index.js'
+	import { getSection_tourist, getCourseList_tourist, getQuestion } from '../../../api/course/index.js'
 	
 	export default {
 		name: 'av',
-		data(){
+		data() {
 			return{
 				index: '',
 				courseinfo: [],
@@ -157,6 +157,7 @@
 			// this.getSections()
 			if(token) {
 				this.getSection()
+				this.getQuestion()
 				// this.getBannerList()
 				console.log("有token啦")
 			} else {
@@ -233,7 +234,7 @@
 			  getSection(this.index)
 			    .then(res => {
 			      const data = JSON.parse(res.data).endata.data
-			      // console.log(data)
+			      console.log(data)
 						this.toLearnList = []
 			      data.forEach(item => {
 							if(item.vidfortx == 'vidfortx') { return }
@@ -257,7 +258,7 @@
 			  getSection_tourist(this.index)
 			    .then(res => {
 			      const data = JSON.parse(res.data).endata.data
-			      // console.log(data)
+			      console.log(data)
 						this.toLearnList = []
 			      data.forEach(item => {
 							if(item.vidfortx == 'vidfortx') { return }
@@ -349,6 +350,26 @@
 			},
 			timeUpdate (e) {
 				this.$refs.track.videoChangeEvent(e.target.currentTime * 1000)
+			},
+			getQuestion() {
+				getQuestion()
+					.then(res => {
+						const data = JSON.parse(res.data).endata.data
+						console.log(data)
+						console.log(1111)
+						// const vrs =[]
+						// data.forEach(item => {
+						// 	vrs.push({
+						// 		id: item.id,
+						// 		cnname: item.vrcnname,
+						// 		enname: item.vrenname,
+						// 		img: getFileUrl('img', item.cover)
+						// 	})
+						// })
+						// this.vrItem = vrs
+						// // console.log(this.vrItem)
+					})
+					.catch(err => console.log(err)) 
 			}
 		},
 		computed:{

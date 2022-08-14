@@ -114,16 +114,25 @@
 					key: 'vrClick',
 					data: that.vrClick
 				})
-				if(that.vrClick > 3 && !that.isToken) {
-					uni.showToast({
-						title: '试看结束，请先登录',
-						icon: 'none'
-					})
-					setTimeout(() => { // 显示几秒后再跳转到index页面
-							uni.reLaunch({
-									url: '../../index/index'
-							});
-						}, 1500)
+				if (that.vrClick > 3 && !that.isToken) {
+					uni.showModal({
+						title: that.isLanguage ? 'Tips' : '提示',
+						content: that.isLanguage ? 'Reach the upper limit' : 'VR观看次数已达上限',
+						showCancel: true,
+						cancelText: that.isLanguage ? 'Login' : '去登录',
+						confirmText: that.isLanguage ? 'Other' : '观看其他',
+						cancelColor: '#73615D',
+						confirmColor: '#8F8F8F',
+						success: function(res) {
+							if (res.confirm) {
+								return
+							} else if (res.cancel) {
+								uni.reLaunch({
+									url: '/pages/index/index'
+								});
+							}
+						}
+					});
 				} else {
 					uni.navigateTo({
 						url: './vrDetail?id=' + id

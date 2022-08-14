@@ -1,16 +1,16 @@
 <template>
-		<view class="content">
-			<view class="text-area">
-				<text class="title">{{title}}</text>
-			</view>
-			<tabbar :state="2"></tabbar>
-		</view>
+	<view class="content">
+
+		<tabbar :state="2"></tabbar>
+	</view>
 </template>
 
 <script>
-	import {tabbar} from '../../components/tabbar/tabbar.vue'
+	import {
+		tabbar
+	} from '../../components/tabbar/tabbar.vue'
 	export default {
-		components:{
+		components: {
 			tabbar
 		},
 		data() {
@@ -28,5 +28,5 @@
 </script>
 
 <style scoped>
-	
+
 </style>
