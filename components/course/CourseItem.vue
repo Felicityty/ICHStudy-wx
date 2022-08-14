@@ -21,13 +21,19 @@
 		},
 		data () {
 		  return {
-				courseClick: 0
+				courseClick: 0,
+				isToken: false
 		  }
+		},
+		created() {
+			const token = wx.getStorageSync('token')
+			if (token) {
+				this.isToken = true
+			}
 		},
 		methods:{
 			go(id){
 				const that = this
-				const token = wx.getStorageSync('token')
 				that.courseClick = wx.getStorageSync('courseClick')
 				that.courseClick++;
 				console.log(that.courseClick)
@@ -90,12 +96,12 @@
 		margin-top: 20rpx;
 		white-space: normal;
 		text-overflow: -o-ellipsis-lastline;
-		overflow: hidden;				//溢出内容隐藏
-		text-overflow: ellipsis;		//文本溢出部分用省略号表示
-		display: -webkit-box;			//特别显示模式
-		-webkit-line-clamp: 2;			//行数
+		overflow: hidden;				/*溢出内容隐藏*/
+		text-overflow: ellipsis;		/*文本溢出部分用省略号表示*/
+		display: -webkit-box;			/*特别显示模式*/
+		-webkit-line-clamp: 2;			/*行数*/
 		line-clamp: 2;					
-		-webkit-box-orient: vertical;	//盒子中内容竖直排列
+		-webkit-box-orient: vertical;	/*盒子中内容竖直排列*/
 	}
 	
 	.course_content_intro{
