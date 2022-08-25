@@ -20,13 +20,19 @@
 		},
 		data () {
 		  return {
-				courseClick: 0
+				courseClick: 0,
+				isToken: false
 		  }
+		},
+		created() {
+			const token = wx.getStorageSync('token')
+			if (token) {
+				this.isToken = true
+			}
 		},
 		methods:{
 			go(id){
 				const that = this
-				const token = wx.getStorageSync('token')
 				that.courseClick = wx.getStorageSync('courseClick')
 				that.courseClick++;
 				// console.log(that.courseClick)

@@ -109,7 +109,7 @@
 		display: flex;
 		justify-content: space-around;
 		background-color: #FEFBF3;
-		z-index: 999;
+		z-index: 900;
 		align-items: center;
 	}
 	
