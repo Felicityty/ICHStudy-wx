@@ -26,3 +26,16 @@ export function getTouristSectionList(tindex) {
 		}
 	})
 }
+
+// 获取registration_list表
+export function getRegistrationList() {
+	return request({
+		url: '/registration_list/visitor/getregistration_list/',
+		method: 'POST',
+		data: {
+			endata: {
+				action: 'getRegistration_list'
+			}
+		}
+	})
+}

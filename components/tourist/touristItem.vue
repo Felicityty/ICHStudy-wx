@@ -41,7 +41,7 @@
 			go(id) {
 				const that = this
 				uni.navigateTo({
-					url: ''
+					url: '/pages/tourist/tourDetail?id=' + id
 				})
 			}
 		}

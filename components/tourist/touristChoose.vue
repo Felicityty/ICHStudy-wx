@@ -2,7 +2,7 @@
 	<view class="choose">
 		
 		<view class="choose-top">
-			<image class="choose-top-close" src="/static/images/iCons/cha.png"></image>
+			<image class="choose-top-close" src="/static/images/iCons/cha.png" @click="closeChoose()"></image>
 			<view class="choose-top-title">{{title}}</view>
 		</view>
 		
@@ -99,7 +99,8 @@
 				},
 				selected: [],
 				chooseDate: '',
-				chooseTime: ''
+				chooseTime: '',
+				showChoose: false
 			}
 		},
 		computed: {
@@ -130,6 +131,9 @@
 			getLanguage() {
 				if(wx.getStorageSync('language') === 1) this.isLanguage = true
 				else this.isLanguage = false
+			},
+			closeChoose() {
+				this.$emit('itemclick', this.showChoose) 
 			},
 			change(index, item) {
 				if(item.surplus > 0) {
