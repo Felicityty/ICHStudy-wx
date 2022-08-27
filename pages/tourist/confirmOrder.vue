@@ -24,9 +24,9 @@
 			<view class="audience-add" v-show="isAdd">
 				<view class="audience-add-input">
 					<input type="text" v-model="newAudience.name" class="add"
-					placeholder="{{language ? 'Enter your real name' :'请输入真实姓名'}}" placeholder-class="phcolor" @blur="">
+					:placeholder='tip[0]' placeholder-class="phcolor" @blur="">
 					<input type="text" v-model="newAudience.id" class="add" style="margin-top: 4rpx;"
-					placeholder="{{language ? 'Enter your ID card' :'请输入身份证'}}" placeholder-class="phcolor" @blur="">
+					:placeholder='tip[1]' placeholder-class="phcolor" @blur="">
 				</view>
 				<view class="audience-add-icon">
 					<image src="../../static/images/iCons/chabrown.png" mode="aspectFill" class="add-icon-cha" @click="confirmCancel()"></image>
@@ -54,14 +54,14 @@
 		
 		<view class="phone">
 			<view class="head">{{language ? 'Phone number' :'手机号码'}}</view>
-			<input type="number" placeholder="{{language ? 'Required' :'必填'}}" v-model="phone"
+			<input type="number" :placeholder='tip[2]' v-model="phone"
 				placeholder-class="phcolor" @blur="checkPhone()">
 		</view>
 		
 		<view class="remark">
 			<view class="head">{{language ? 'Remarks' :'备注'}}</view>
-			<textarea type="text" auto-height="true" placeholder="{{language ? 'Optional' :'选填'}}" v-model="remark"
-				placeholder-class="phcolor" @blur="" class="remark-content"/>
+			<textarea type="text" auto-height="true" :placeholder='tip[3]' v-model="remark"
+				placeholder-class="phcolor" class="remark-content"/>
 		</view>
 		
 		<view class="tabbar">
@@ -178,6 +178,15 @@
 					})
 					.catch(err => console.log(err))
 			}
+		},
+		computed: {
+			tip() {
+				if (this.language) {
+					return ['Enter your real name', 'Enter your ID card', 'Required', 'Optional']
+				} else {
+				  return ['请输入真实姓名', '请输入身份证', '必填', '选填']
+				}
+			},
 		}
 	}
 </script>
