@@ -53,7 +53,7 @@
 			</view>
 			
 			<view :class="showChoose ? 'darkback' : ''"></view>
-			<choose :class="showChoose ? 'showChoose' : 'noneChoose'" @itemclick="closeChooseBox()"></choose>
+			<choose :class="showChoose ? 'showChoose' : 'noneChoose'" v-if="showSection" :tSection="section" @itemclick="closeChooseBox()"></choose>
 		</view>
 </template>
 
@@ -77,7 +77,9 @@
 					{
 						tips:[],
 					}
-				]
+				],
+				showSection: false,
+				section: []
 			}
 		},
 		onLoad(options) {
@@ -169,7 +171,9 @@
 				getTouristSectionList(this.id)
 					.then(res => {
 						const data = JSON.parse(res.data).endata.data
-						console.log(data)
+						// console.log(data)
+						this.section = data
+						this.showSection = true
 					})
 					.catch(err => console.log(err))
 			}

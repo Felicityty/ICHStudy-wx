@@ -73,6 +73,7 @@
 			// touristChooseDate,
 			touristChooseTime,
 		},
+		props: ['tSection'],
 		data() {
 			return {
 				title: '【渔民画】大海的渔家印记',
@@ -100,7 +101,8 @@
 				selected: [],
 				chooseDate: '',
 				chooseTime: '',
-				showChoose: false
+				showChoose: false,
+				sections: this.tSection
 			}
 		},
 		computed: {
