@@ -7,9 +7,7 @@
 			</view>
 		</view>
 
-		<tabbar :state="2"></tabbar>
-		
-		<!-- <choose></choose> -->
+		<tabbar :state="3"></tabbar>
 		
 	</view>
 </template>
@@ -20,7 +18,6 @@
 	import { choose } from '../../components/tourist/touristChoose.vue'
 	import { getTouristList } from '../../api/tourist/tourist.js'
 	import { getFileUrl } from '../../common/index.js'
-	import { getTouristSectionList } from '../../api/tourist/tourist.js'
 	export default {
 		components: {
 			tabbar,
@@ -39,7 +36,6 @@
 			this.language = language
 			this.getLanguage()
 			this.getTouristList()
-			this.getTouristSectionList()
 		},
 		methods: {
 			getLanguage() {
@@ -65,15 +61,7 @@
 							})
 						})
 						this.touristsItem = tourists
-						console.log(this.touristsItem)
-					})
-					.catch(err => console.log(err))
-			},
-			getTouristSectionList() {
-				getTouristSectionList('ymh')
-					.then(res => {
-						const data = JSON.parse(res.data).endata.data
-						// console.log(data)
+						// console.log(this.touristsItem)
 					})
 					.catch(err => console.log(err))
 			}

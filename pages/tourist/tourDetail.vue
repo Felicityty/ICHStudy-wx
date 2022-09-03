@@ -53,7 +53,9 @@
 			</view>
 			
 			<view :class="showChoose ? 'darkback' : ''"></view>
-			<choose :class="showChoose ? 'showChoose' : 'noneChoose'" v-if="showSection" :tSection="section" @itemclick="closeChooseBox()"></choose>
+			<choose :class="showChoose ? 'showChoose' : 'noneChoose'" @itemclick="closeChooseBox()" v-if="isTrans"
+			:priceDate="price" :visitTime="visitTime" :cntopHead="tourinfo[0].cntitle" :entopHead="tourinfo[0].entitle"
+			:language="language"></choose>
 		</view>
 </template>
 
@@ -78,8 +80,9 @@
 						tips:[],
 					}
 				],
-				showSection: false,
-				section: []
+				price: [],
+				visitTime: [],
+				isTrans: false
 			}
 		},
 		onLoad(options) {
@@ -164,6 +167,7 @@
 							}
 						})
 						this.tourinfo = tourists
+						// console.log(tourists)
 					})
 					.catch(err => console.log(err))
 			},
@@ -172,8 +176,50 @@
 					.then(res => {
 						const data = JSON.parse(res.data).endata.data
 						// console.log(data)
-						this.section = data
-						this.showSection = true
+						// const sections = []
+						const visitTime = []
+						var flag = 0
+						var id = 0
+						data.forEach(item => {
+							if(item.tindex === this.id){
+								var date_num = item.data_info.replace("/","-").replace("/","-")
+								var timeArr = date_num.split("-")
+								var month = ""
+								var days = ""
+								if(timeArr[1].length === 1) {
+									month = "0"+timeArr[1]
+								} else {
+									month = timeArr[1]
+								}
+								days = timeArr[2]
+								this.price.push({
+									tindex: item.tindex,
+									tsindex: item.tsindex,
+									date: date_num,
+									surplus: item.surplus,
+									isShow: 'none',
+									id: id,
+									month: month,
+									days: days
+								})
+								id++
+								visitTime.forEach((e) => {
+									if(e.time == item.specific_data) {
+										flag = 1
+									}
+								})
+								if(!flag) {
+										visitTime.push({
+										time: item.specific_data
+									})
+									flag = 0
+								}		
+							}
+						})
+						// this.price = sections
+						this.visitTime = visitTime
+						this.isTrans = true
+						// console.log(this.price)
 					})
 					.catch(err => console.log(err))
 			}
@@ -251,7 +297,7 @@
 	}
 	
 	.title{
-		font-size: 32rpx;
+		font-size: 34rpx;
 		line-height: 46rpx;
 		color: #382321;
 		font-weight: 600;
@@ -307,7 +353,7 @@
 	}
 	
 	.fold{
-		font-size: 24rpx;
+		font-size: 26rpx;
 		color: #382321;
 	}
 	

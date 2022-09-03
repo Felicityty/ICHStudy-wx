@@ -5,7 +5,7 @@
 			<image class="choose-time-tick-img" src="/static/images/iCons/tick.png"></image>
 		</view>
 		<view class="choose-time-asp">
-			<view>{{ info.time}}</view>
+			<view>{{ info.time }}</view>
 		</view>
 	</view>
 	

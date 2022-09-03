@@ -14,7 +14,7 @@
 			mode="aspectFill" v-if="state===2"></image>
 			<image class="tourist_pic" src="../../static/images/buttomIcons/tourist-1.png"
 			mode="aspectFill" v-if="state===1||state===3||state===4" @click="go(2)"></image>
-			<view class="title">{{isLanguage ? 'HIBL' : '研学'}}</view>
+			<view class="title">{{isLanguage ? 'Learn' : '学习'}}</view>
 		</view>
 		
 		<view class="product">
@@ -22,7 +22,7 @@
 			mode="aspectFill" v-if="state===3"></image>
 			<image class="product_pic" src="../../static/images/buttomIcons/product-1.png"
 			mode="aspectFill" v-if="state===1||state===2||state===4" @click="go(3)"></image>
-			<view class="title">{{isLanguage ? 'Learn' : '学习'}}</view>
+			<view class="title">{{isLanguage ? 'HIBL' : '研学'}}</view>
 		</view>
 		
 		<view class="me">
@@ -54,9 +54,7 @@
 			// const userInfo = wx.getStorageSync('userInfo')
 			const language = wx.getStorageSync('language')
 			this.language = language
-			// console.log(this.language)
 			this.getLanguage()
-			// console.log(this.isLanguage)
 		},
 		methods:{
 			go(num){
@@ -64,23 +62,18 @@
 				if(num===1){
 					uni.redirectTo({
 						url:"/pages/home/index",
-						// url:"../../pages/home/index",
 					})
 				}else if(num===2){
 					uni.redirectTo({
-						// url:"../../pages/tourist/index",
-						url:"/pages/tourist/index",
-						// url:"/pages/home/course/index",
+						url:"/pages/products/index",
 					})
 				}else if(num===3){
 					uni.redirectTo({
-						url:"/pages/products/index",
-						// url:"/pages/home/VR/index",
+						url:"/pages/tourist/index",
 					})
 				}else{
 					uni.redirectTo({
 						url:"/pages/me/index",
-						// url:"../../pages/me/index",
 					})
 				}
 			},

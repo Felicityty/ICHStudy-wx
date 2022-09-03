@@ -3,7 +3,7 @@
 		
 		<view class="choose-top">
 			<image class="choose-top-close" src="/static/images/iCons/cha.png" @click="closeChoose()"></image>
-			<view class="choose-top-title">{{title}}</view>
+			<view class="choose-top-title">{{language ? entopHead : cntopHead}}</view>
 		</view>
 		
 		<view class="choose-date">
@@ -58,7 +58,7 @@
 			已选择：{{chooseDate}} {{chooseTime}}
 		</view>
 		
-		<view class="choose-confirm">
+		<view class="choose-confirm" @click="go()">
 			<button type="default" class="btn">确定</button>
 		</view>
 		
@@ -70,25 +70,33 @@
 	export default {
 		name: 'choose',
 		components: {
-			// touristChooseDate,
 			touristChooseTime,
 		},
-		props: ['tSection'],
+		props: {
+			priceDate:{
+				type: Array,
+			  default: []
+			},
+			visitTime:{
+				type: Array,
+			  default: []
+			},
+			cntopHead:{
+				type: String,
+			  default: ''
+			},
+			entopHead:{
+				type: String,
+			  default: ''
+			},
+			language:{
+				type: Number,
+			  default: 1
+			}
+		},
 		data() {
 			return {
-				title: '【渔民画】大海的渔家印记',
-				priceDate: [
-					{ id: 0, isShow:'none',  date:"2022-08-22", year:"2022", month:"08", days:"22", surplus:0 },
-					{ id: 1, isShow:'block', date:"2022-08-23", year:"2022", month:"08", days:"23", surplus:12 },
-					{ id: 2, isShow:'none',  date:"2022-08-24", year:"2022", month:"08", days:"24", surplus:6 },
-					{ id: 3, isShow:'none',  date:"2022-08-25", year:"2022", month:"08", days:"25", surplus:12 },
-					{ id: 4, isShow:'none',  date:"2022-08-26", year:"2022", month:"08", days:"26", surplus:9 },
-					{ id: 5, isShow:'none',  date:"2022-08-27", year:"2022", month:"08", days:"27", surplus:23 },
-					{ id: 6, isShow:'none',  date:"2022-08-28", year:"2022", month:"08", days:"28", surplus:25 },
-				],
 				showDate: [],
-				visitTime: [ {time:'13:00-16:00'} ],
-				// 改成自动生成比较好可能，看后端数据吧~ 再说再说
 				sessions: [ '第一场', '第二场', '第三场'],
 				isShow: 'none',
 				info: {
@@ -102,7 +110,7 @@
 				chooseDate: '',
 				chooseTime: '',
 				showChoose: false,
-				sections: this.tSection
+				isToken: false
 			}
 		},
 		computed: {
@@ -115,19 +123,21 @@
 			},
 		},
 		created() {
+			const token = wx.getStorageSync('token')
+			if (token) {
+				this.isToken = true
+			}
 			// 之后写成传进来就好
 			const language = wx.getStorageSync('language')
 			this.language = language
 			this.getLanguage()
 			this.updateSelected()
 			this.updateData()
-			// console.log(this.showDate)
 			// console.log(this.priceDate)
 			// 给对象添加属性
 			// this.priceDate.forEach((item) => {
 			// 	item.name = '2222'
 			// })
-			// console.log(this.priceDate)
 		},
 		methods: {
 			getLanguage() {
@@ -151,11 +161,15 @@
 				this.$refs.calendar.open();
 			},
 			confirm(e) {
-				// console.log(e.fulldate)
+				console.log(e.fulldate)
+				console.log(this.priceDate)
+				var eArr = e.fulldate.split("-")
+				var e_month = eArr[1]
+				var e_days = eArr[2]
 				this.priceDate.forEach((item) => {
 					// 遍历所有，默认都没选中
 					item.isShow = 'none'
-					if(item.date == e.fulldate) {
+					if(item.month === e_month && item.days === e_days) {
 						if(item.id!=0 && item.id!=1) {
 							this.showDate.splice(2, 1, this.priceDate[item.id])
 							// console.log(item.id)
@@ -167,9 +181,6 @@
 						this.chooseDate = this.priceDate[item.id].date
 					} 
 				})
-				// this.$set(this.showDate[2],'date', "2022-08-28")  改不了
-				// console.log(this.showDate)
-				// console.log(this.priceDate)
 			},
 			updateSelected() {
 				this.showDate = this.priceDate.slice(0,3)
@@ -182,6 +193,7 @@
 					this.priceDate.forEach((item) => {
 						if(item.surplus > 0) {
 							// this.info.startDate = item.surplus
+							item.isShow = 'block'
 							throw new Error(item.date);
 						}
 					});
@@ -191,6 +203,36 @@
 					this.info.endDate = this.priceDate[this.priceDate.length-1].date
 					this.chooseDate = e.message.toString()
 					this.chooseTime = this.visitTime[0].time
+					// this.priceDate.forEach((item) => {
+					// 	item.isShow = 'none'
+					// })
+				}
+			},
+			go() {
+				const that = this
+				if(!that.isToken) {
+					uni.showModal({
+						title: that.isLanguage ? 'Tips' : '提示',
+						content: that.isLanguage ? 'Please Login First' : '请先登录',
+						showCancel: true,
+						cancelText: that.isLanguage ? 'Login' : '去登录',
+						confirmText: that.isLanguage ? 'Cancel' : '取消',
+						cancelColor: '#73615D',
+						confirmColor: '#8F8F8F',
+						success: function(res) {
+							if (res.confirm) {
+								return
+							} else if (res.cancel) {
+								uni.reLaunch({
+									url: '/pages/index/index'
+								});
+							}
+						}
+					});
+				} else {
+					uni.navigateTo({
+						url: '/pages/tourist/confirmOrder'
+					})
 				}
 			}
 		}

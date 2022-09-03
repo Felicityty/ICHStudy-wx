@@ -12,16 +12,16 @@
 					<view v-show="current === 1">
 						<vrPage :language="language"></vrPage>
 					</view>
-					<view v-show="current === 2">
+					<!-- <view v-show="current === 2">
 						选项卡3的内容
 					</view>
 					<view v-show="current === 3">
 						选项卡4的内容
-					</view>
+					</view> -->
 				</view>
 			</view>
 			
-			<tabbar :state="3"></tabbar>
+			<tabbar :state="2"></tabbar>
 		</view>
 </template>
 
@@ -38,7 +38,8 @@
 		},
 		data() {
 			return {
-				items: ['微课', 'VR/AR', '动画', '海报'],
+				items: ['微课', 'VR/AR'],
+				// items: ['微课', 'VR/AR', '动画', '海报'],
 				current: 0,
 				language: 1,
 				isLanguage: true,

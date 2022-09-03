@@ -86,13 +86,13 @@
 		{
 			"path": "pages/tourist/index",
 			"style": {
-				"navigationBarTitleText": "Courses"
+				"navigationBarTitleText": "HIBL"
 			}
 		},
 		{
 			"path": "pages/products/index",
 			"style": {
-				"navigationBarTitleText": "VR/AR"
+				"navigationBarTitleText": "Learn"
 			}
 		},
 		{

@@ -50,7 +50,7 @@
 				getCourseList()
 					.then(res => {
 						const data = JSON.parse(res.data).endata.data
-						console.log(data)
+						// console.log(data)
 						const courses = []
 						data.forEach(item => {
 							courses.push({
