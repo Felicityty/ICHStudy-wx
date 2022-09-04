@@ -2,7 +2,7 @@
 	<view class="container">
 		<view class="time">
 			<view class="head">{{language ? 'Visit time' :'参观时间'}}</view>
-			<view>{{time}}</view>
+			<view>{{chooseDate + ' ' + chooseTime}}</view>
 		</view>
 		
 		<view class="audience">
@@ -24,9 +24,9 @@
 			<view class="audience-add" v-show="isAdd">
 				<view class="audience-add-input">
 					<input type="text" v-model="newAudience.name" class="add"
-					:placeholder='tip[0]' placeholder-class="phcolor" @blur="">
+					:placeholder='tip[0]' placeholder-class="phcolor">
 					<input type="text" v-model="newAudience.id" class="add" style="margin-top: 4rpx;"
-					:placeholder='tip[1]' placeholder-class="phcolor" @blur="">
+					:placeholder='tip[1]' placeholder-class="phcolor">
 				</view>
 				<view class="audience-add-icon">
 					<image src="../../static/images/iCons/chabrown.png" mode="aspectFill" class="add-icon-cha" @click="confirmCancel()"></image>
@@ -82,7 +82,8 @@
 				user: {},
 				language: 0,
 				isToken: false,
-				time: '2022/5/22 13:00-16:00',
+				chooseDate: null,
+				chooseTime: null,
 				audience: [],
 				isAdd: false,
 				newAudience: {
@@ -95,7 +96,9 @@
 				remark: null
 			}
 		},
-		onLoad() {
+		onLoad(options) {
+			this.chooseDate = options.chooseDate;
+			this.chooseTime = options.chooseTime;
 			const token = wx.getStorageSync('token')
 			if(token) {
 				this.isToken = true

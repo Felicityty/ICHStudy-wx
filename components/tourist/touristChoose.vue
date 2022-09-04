@@ -231,7 +231,7 @@
 					});
 				} else {
 					uni.navigateTo({
-						url: '/pages/tourist/confirmOrder'
+						url: '/pages/tourist/confirmOrder?chooseDate=' + this.chooseDate + '&chooseTime=' + this.chooseTime
 					})
 				}
 			}
