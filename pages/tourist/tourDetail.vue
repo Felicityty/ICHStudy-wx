@@ -45,8 +45,8 @@
 			
 			<view class="tabbar">
 				<view class="tableft">
-					<view class="peoplenum">{{language ? 'Registered ' + tourinfo[0].regnumber + ' | ' +'Limited ' + tourinfo[0].limitnumber 
-					:'已报名' + tourinfo[0].regnumber + '人 | 限' + tourinfo[0].limitnumber + '人/场'}}</view>
+					<view class="peoplenum">{{language ? 'Registered ' + regNum + ' | ' +'Limited ' + tourinfo[0].limitnumber*price.length 
+					:'已报名' + regNum + '人 | 限' + tourinfo[0].limitnumber*price.length + '人'}}</view>
 					<view class="cost">{{'￥' + tourinfo[0].cost}}</view>
 				</view>
 				<button class="tour-btn" @click="Choose()">{{language ? 'Register' :'立即报名'}}</button>
@@ -62,7 +62,7 @@
 <script>
 	import { choose } from '../../components/tourist/touristChoose.vue'
 	import { getFileUrl } from '../../common/index.js'
-	import { getTouristList, getTouristSectionList } from '../../api/tourist/tourist.js'
+	import { getTouristList, getTouristSectionList, getRegistrationList } from '../../api/tourist/tourist.js'
 	export default {
 		components: {
 			choose
@@ -72,6 +72,7 @@
 				language: 0,
 				scrollTop: 0,
 				id: null,
+				len: 0,
 				isToken: false,
 				showing: true,
 				showChoose: false,
@@ -95,6 +96,7 @@
 			this.id = options.id
 			this.getTouristList()
 			this.getTouristSectionList()
+			this.getRegistrationList()
 			this.scrollTop = this.scrollTop * 2 + 14
 		},
 		onShow() {
@@ -222,6 +224,26 @@
 						// console.log(this.price)
 					})
 					.catch(err => console.log(err))
+			},
+			getRegistrationList() {
+				getRegistrationList()
+					.then(res => {
+						const data = JSON.parse(res.data).endata.data
+						// console.log(data)
+						let len =0
+						data.forEach(item => {
+							if(item.tindex === this.id){
+								len = len + 1
+							}
+						})
+						this.len = len;
+					})
+					.catch(err => console.log(err))
+			}
+		},
+		computed: {
+			regNum() {
+				return this.tourinfo[0].limitnumber*this.price.length-this.len
 			}
 		}
 	}

@@ -39,3 +39,22 @@ export function getRegistrationList() {
 		}
 	})
 }
+
+// 修改registration_list表
+export function addRegistrationList(uindex, tsindex, tindex, mates, phone_number, remarks) {
+	return request({
+		url: '/back/alterregistration_list/',
+		method: 'POST',
+		data: {
+			endata: {
+				action: 'addRegistration_list',
+				uindex,
+				tsindex,
+				tindex,
+				mates,
+				phone_number,
+				remarks
+			}
+		}
+	})
+}

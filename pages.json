@@ -109,6 +109,12 @@
 			}
 		},
 		{
+			"path": "pages/tourist/orderDetial",
+			"style": {
+				"navigationBarTitleText": "订单详情"
+			}
+		},
+		{
 			"path": "pages/me/index",
 			"style": {
 				"navigationBarTitleText": "My"
@@ -155,6 +161,12 @@
 			"style": {
 				"navigationBarTitleText": "About Us"
 			}
+		},
+		{
+      "path" : "pages/qrcode",
+      "style" : {
+        "navigationBarTitleText": "qrcode"
+      }
 		}
 	],
 	"globalStyle": {

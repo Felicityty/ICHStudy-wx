@@ -107,6 +107,8 @@
 					date: ''
 				},
 				selected: [],
+				tindex: '',
+				tsindex: '',
 				chooseDate: '',
 				chooseTime: '',
 				showChoose: false,
@@ -155,14 +157,14 @@
 				this.$set(this.priceDate[item.id],'isShow', 'block')
 				this.chooseDate = this.priceDate[item.id].date
 				// console.log(this.priceDate)
+				this.tindex = this.priceDate[item.id].tindex
+				this.tsindex = this.priceDate[item.id].tsindex
 				}
 			},
 			open() {
 				this.$refs.calendar.open();
 			},
 			confirm(e) {
-				console.log(e.fulldate)
-				console.log(this.priceDate)
 				var eArr = e.fulldate.split("-")
 				var e_month = eArr[1]
 				var e_days = eArr[2]
@@ -179,6 +181,8 @@
 						}
 						this.$set(this.priceDate[item.id],'isShow','block')
 						this.chooseDate = this.priceDate[item.id].date
+						this.tindex = this.priceDate[item.id].tindex
+						this.tsindex = this.priceDate[item.id].tsindex
 					} 
 				})
 			},
@@ -203,6 +207,12 @@
 					this.info.endDate = this.priceDate[this.priceDate.length-1].date
 					this.chooseDate = e.message.toString()
 					this.chooseTime = this.visitTime[0].time
+					this.priceDate.forEach((item) => {
+						if(this.info.date === item.date){
+							this.tsindex = item.tsindex
+							this.tindex = item.tindex
+						}
+					})
 					// this.priceDate.forEach((item) => {
 					// 	item.isShow = 'none'
 					// })
@@ -232,6 +242,7 @@
 				} else {
 					uni.navigateTo({
 						url: '/pages/tourist/confirmOrder?chooseDate=' + this.chooseDate + '&chooseTime=' + this.chooseTime
+						+ '&tindex=' + this.tindex + '&tsindex=' + this.tsindex
 					})
 				}
 			}
