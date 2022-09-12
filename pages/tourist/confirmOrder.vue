@@ -104,8 +104,8 @@
 				cnname: '',
 				enname: '',
 				cost: null,
-				phone: '18368255086',
-				remark: '12'
+				phone: '',
+				remark: ''
 			}
 		},
 		onLoad(options) {
@@ -368,7 +368,7 @@
 
 	.audience-add-input {
 		width: 70%;
-		font-size: 24rpx;
+		font-size: 22rpx;
 	}
 
 	.add {
@@ -385,13 +385,13 @@
 	}
 
 	.add-icon-cha {
-		width: 36rpx;
-		height: 36rpx;
+		width: 30rpx;
+		height: 30rpx;
 	}
 
 	.add-icon-check {
-		width: 51.3rpx;
-		height: 36rpx;
+		width: 42.7rpx;
+		height: 30rpx;
 	}
 
 	.info-audience {

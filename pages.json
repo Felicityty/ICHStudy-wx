@@ -145,6 +145,12 @@
 			}
 		},
 		{
+			"path": "pages/me/order/order",
+			"style": {
+				"navigationBarTitleText": "Order"
+			}
+		},
+		{
 			"path": "pages/about/index",
 			"style": {
 				"navigationBarTitleText": "About"
@@ -163,10 +169,10 @@
 			}
 		},
 		{
-      "path" : "pages/qrcode",
-      "style" : {
-        "navigationBarTitleText": "qrcode"
-      }
+			"path": "pages/qrcode",
+			"style": {
+				"navigationBarTitleText": "qrcode"
+			}
 		}
 	],
 	"globalStyle": {

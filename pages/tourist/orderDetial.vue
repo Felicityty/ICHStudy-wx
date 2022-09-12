@@ -94,11 +94,13 @@
 								time = new Date(+new Date(dateee) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')
 								if(Math.abs(new Date(time).getTime() - new Date(this.createTime).getTime()) < 3000){
 									len = len + 1
+									this.xulie = item.SN
+									this.orderNum = item.ON
 								}
 								console.log(time)
 							}
 						})
-						this.ticketNum = len
+						this.ticketNum = len					
 					})
 					.catch(err => console.log(err))
 			},

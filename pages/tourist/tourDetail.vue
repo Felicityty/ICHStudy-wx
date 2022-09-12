@@ -243,7 +243,7 @@
 		},
 		computed: {
 			regNum() {
-				return this.tourinfo[0].limitnumber*this.price.length-this.len
+				return this.len
 			}
 		}
 	}

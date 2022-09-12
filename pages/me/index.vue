@@ -35,6 +35,14 @@
 					<image :src="arrow" mode="aspectFill" class="setting_arrow"></image>
 				</view>
 			</view>
+			
+			<view class="order">
+				<view class="none" v-for="(item, index) in touristItems" :key="index" @click="go(item.url)">
+					<view class="text">{{isLanguage? item.enname : item.cnname}}</view>
+					<image :src="arrow" mode="aspectFill" class="setting_arrow"></image>
+				</view>
+			</view>
+			
 			<button type="default" class="btn" @click="logout()">{{title[4]}}</button>
 		</view>
 		<tabbar :state="4"></tabbar>
@@ -65,16 +73,11 @@
 						url: './../about/index'
 					}
 				],
-				shoppingItems: [
-					{
-						cnname: '我的地址',
-						enname: 'Address',
-						url: ''
-					},
+				touristItems: [
 					{
 						cnname: '我的订单',
 						enname: 'Order',
-						url: ''
+						url: './order/order'
 					}
 				],
 				total_time: 0,
@@ -360,6 +363,17 @@
 	.setting{
 		width: 654rpx;
 		height: 160rpx;
+		display: flex;
+		flex-direction: column;
+		border-radius: 20rpx;
+		margin-top: 30rpx;
+		box-shadow: 0rpx 2rpx 4rpx rgba(0,0,0,0.12);
+		background-color: #FFFFFF;
+	}	
+	
+	.order{
+		width: 654rpx;
+		height: 85rpx;
 		display: flex;
 		flex-direction: column;
 		border-radius: 20rpx;
