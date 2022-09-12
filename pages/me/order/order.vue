@@ -10,7 +10,7 @@
 <script>
 	import {
 		orders
-	} from '../../../components/tourist/touristOrder.vue'
+	} from '../../../subPackages/components/tourist/touristOrder.vue'
 	import {
 		getTouristList,
 		getRegistrationList,

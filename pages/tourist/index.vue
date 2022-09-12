@@ -15,14 +15,12 @@
 <script>
 	import { tabbar } from '../../components/tabbar/tabbar.vue'
 	import { touristItem } from '../../components/tourist/touristItem.vue'
-	import { choose } from '../../components/tourist/touristChoose.vue'
 	import { getTouristList } from '../../api/tourist/tourist.js'
 	import { getFileUrl } from '../../common/index.js'
 	export default {
 		components: {
 			tabbar,
-			touristItem,
-			choose
+			touristItem
 		},
 		data() {
 			return {

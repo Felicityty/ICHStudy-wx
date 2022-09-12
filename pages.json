@@ -96,25 +96,6 @@
 			}
 		},
 		{
-			"path": "pages/tourist/tourDetail",
-			"style": {
-				"navigationBarTitleText": "研学旅行详情",
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/tourist/confirmOrder",
-			"style": {
-				"navigationBarTitleText": "确认订单"
-			}
-		},
-		{
-			"path": "pages/tourist/orderDetial",
-			"style": {
-				"navigationBarTitleText": "订单详情"
-			}
-		},
-		{
 			"path": "pages/me/index",
 			"style": {
 				"navigationBarTitleText": "My"
@@ -173,6 +154,32 @@
 			"style": {
 				"navigationBarTitleText": "qrcode"
 			}
+		}
+	],
+	"subPackages": [
+		{
+			"root": "subPackages",
+			"pages": [
+				{
+					"path": "pages/tourist/tourDetail",
+					"style": {
+						"navigationBarTitleText": "研学旅行详情",
+						"navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "pages/tourist/confirmOrder",
+					"style": {
+						"navigationBarTitleText": "确认订单"
+					}
+				},
+				{
+					"path": "pages/tourist/orderDetial",
+					"style": {
+						"navigationBarTitleText": "订单详情"
+					}
+				}
+			]
 		}
 	],
 	"globalStyle": {

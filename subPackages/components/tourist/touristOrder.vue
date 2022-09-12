@@ -72,7 +72,7 @@
 				  return '/static/images/iCons/arrowUpBrown.png'    // false
 				}else{
 				  return '/static/images/iCons/arrowDownBrown.png'  // true
-				} 
+				}
 			},
 		}
 	}

@@ -6,7 +6,7 @@
 			</view>
 			
 			<view class="back" @click="goOff()" :style="{top: scrollTop + 'rpx'}">
-				<image class="arrow-left" src="../../static/images/iCons/arrowLeftBrown.png"></image>
+				<image class="arrow-left" src="../../../static/images/iCons/arrowLeftBrown.png"></image>
 			</view>
 			
 			<view class="container">
@@ -61,8 +61,8 @@
 
 <script>
 	import { choose } from '../../components/tourist/touristChoose.vue'
-	import { getFileUrl } from '../../common/index.js'
-	import { getTouristList, getTouristSectionList, getRegistrationList } from '../../api/tourist/tourist.js'
+	import { getFileUrl } from '../../../common/index.js'
+	import { getTouristList, getTouristSectionList, getRegistrationList } from '../../../api/tourist/tourist.js'
 	export default {
 		components: {
 			choose
@@ -123,9 +123,9 @@
 			},
 			folded(){
 				if(this.showing == false){
-				  return '../../static/images/iCons/arrowUpBrown.png'    // false
+				  return '../../../static/images/iCons/arrowUpBrown.png'    // false
 				}else{
-				  return '../../static/images/iCons/arrowDownBrown.png'  // true
+				  return '../../../static/images/iCons/arrowDownBrown.png'  // true
 				} 
 			},
 			Choose() {

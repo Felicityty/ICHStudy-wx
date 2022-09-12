@@ -77,5 +77,8 @@
 	},
 	"uniStatistics": {
 		"enable": false
+	},
+	"optimization": {
+		"subPackages": true
 	}
 }

@@ -9,15 +9,15 @@
 			<view class="audience-head">
 				<view class="head">{{language ? 'Add audience' :'添加观众'}}</view>
 				<view class="audience-operation">
-					<image src="../../static/images/iCons/sub.png" mode="aspectFill" class="audience-icon"
+					<image src="../../../static/images/iCons/sub.png" mode="aspectFill" class="audience-icon"
 						@click="audienceReduce()"></image>
 					<view>{{audience.length}}</view>
-					<image src="../../static/images/iCons/add.png" mode="aspectFill" class="audience-icon"
+					<image src="/static/images/iCons/add.png" mode="aspectFill" class="audience-icon"
 						@click="audienceAdd()"></image>
 				</view>
 			</view>
 			<view class="audience-operate" v-for="(item, index) in audience" :key="index">
-				<image src="../../static/images/iCons/subbrown.png" mode="aspectFill" class="audience-icon"
+				<image src="/static/images/iCons/subbrown.png" mode="aspectFill" class="audience-icon"
 					@click="deleteCur(index)"></image>
 				<view class="audience-info">
 					<view style="margin-bottom: 6rpx;">{{item.username}}</view>
@@ -32,9 +32,9 @@
 						:placeholder='tip[1]' placeholder-class="phcolor">
 				</view>
 				<view class="audience-add-icon">
-					<image src="../../static/images/iCons/chabrown.png" mode="aspectFill" class="add-icon-cha"
+					<image src="/static/images/iCons/chabrown.png" mode="aspectFill" class="add-icon-cha"
 						@click="confirmCancel()"></image>
-					<image src="../../static/images/iCons/checkbrown.png" mode="aspectFill" class="add-icon-check"
+					<image src="/static/images/iCons/checkbrown.png" mode="aspectFill" class="add-icon-check"
 						@click="confirmAdd()"></image>
 				</view>
 			</view>
@@ -83,7 +83,7 @@
 		getRegistrationList,
 		addRegistrationList,
 		getTouristList
-	} from '../../api/tourist/tourist.js'
+	} from '../../../api/tourist/tourist.js'
 	export default {
 		data() {
 			return {

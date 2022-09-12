@@ -31,7 +31,7 @@
 				
 				<!-- 最后展开日历的按钮 -->
 				<view class="choose-date-expand" @click="open()">
-					<image class="choose-date-expandbtn" src="../../static/images/iCons/arrowRightGrey.png" mode="aspectFit"></image>
+					<image class="choose-date-expandbtn" src="/static/images/iCons/arrowRightGrey.png" mode="aspectFit"></image>
 				</view>
 				
 			</view>
@@ -241,7 +241,7 @@
 					});
 				} else {
 					uni.navigateTo({
-						url: '/pages/tourist/confirmOrder?chooseDate=' + this.chooseDate + '&chooseTime=' + this.chooseTime
+						url: '/subPackages/pages/tourist/confirmOrder?chooseDate=' + this.chooseDate + '&chooseTime=' + this.chooseTime
 						+ '&tindex=' + this.tindex + '&tsindex=' + this.tsindex
 					})
 				}

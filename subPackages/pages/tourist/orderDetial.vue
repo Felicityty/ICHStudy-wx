@@ -29,7 +29,7 @@
 		getTouristList,
 		getRegistrationList,
 		getTouristSectionList
-	} from '../../api/tourist/tourist.js'
+	} from '../../../api/tourist/tourist.js'
 	export default {
 		data() {
 			return {
@@ -46,7 +46,7 @@
 				chooseDate: '',
 				chooseTime: '',
 				xulie: 123,
-				QRcode: '../../static/images/QRcode.jpg',
+				QRcode: '../../../static/images/QRcode.jpg',
 				orderNum: 12345,
 				cost: 0,
 				ticketNum: 0,
