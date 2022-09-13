@@ -4,8 +4,8 @@
 			<image class="bg-pic" src="../../static/images/indexPic.png" mode="widthFix"></image>
 		</view>
 		<view class="btns">
-			<view class="index-btn" @click="go('login')">{{isLanguage ? 'Sign In' : '登录'}}</view>
-			<view class="index-btn" @click="go('register')">{{isLanguage ? 'Sign Up' : '注册'}}</view>
+			<view class="index-btn" @click="go('/pages/index/login')">{{isLanguage ? 'Sign In' : '登录'}}</view>
+			<view class="index-btn" @click="go('/pages/index/register')">{{isLanguage ? 'Sign Up' : '注册'}}</view>
 		</view>
 	</view>
 </template>

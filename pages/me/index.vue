@@ -126,7 +126,7 @@
 				if (!this.userInfo.username) {
 					// this.wxGetUserProfile()
 					uni.navigateTo({
-						url: "../index/index",
+						url: "../../subPackages/pages/index/index",
 					})
 				}else {
 					uni.navigateTo({
