@@ -10,7 +10,7 @@
 <script>
 	import {
 		orders
-	} from '../../../subPackages/components/tourist/touristOrder.vue'
+	} from '../../../components/tourist/touristOrder.vue'
 	import {
 		getTouristList,
 		getRegistrationList,
@@ -97,6 +97,7 @@
 				getTouristList()
 					.then(res => {
 						const data = JSON.parse(res.data).endata.data
+						console.log(data)
 						const tourist = []
 						data.forEach(item => {
 							tourist.push({
@@ -115,21 +116,22 @@
 								}
 							})
 						})
-						this.orderinfo.forEach(orderItem => {
-							getTouristSectionList(orderItem.tindex)
+						for(let i = 0;i<this.orderinfo.length;i++){
+							getTouristSectionList(this.orderinfo[i].tindex)
 							.then(res => {
 								const data = JSON.parse(res.data).endata.data
-								data.forEach(item => {
-									if(item.tsindex === orderItem.tsindex){
-										orderItem.touristdate = item.data_info
-										orderItem.touristtime = item.specific_data
+								for(let j = 0;j<data.length;j++){
+									if(this.orderinfo[i].tsindex === data[j].tsindex){
+										this.orderinfo[i].touristdate = data[j].data_info
+										this.orderinfo[i].touristtime = data[j].specific_data
 									}
-								})
-								this.isOrder = true
+									if(i===this.orderinfo.length-1&&j===data.length-1){
+										this.isOrder = true
+									}
+								}
 							})
 							.catch(err => console.log(err))
-						})
-						console.log(this.orderinfo)
+						}
 					})
 					.catch(err => console.log(err))
 			},
