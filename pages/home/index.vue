@@ -238,7 +238,15 @@
 						this.courseItem = courses
 						// console.log(this.courseItem)
 					})
-					.catch(err => console.log(err))
+					.catch(err => {
+						console.log(err)
+						wx.removeStorageSync('openid')
+						wx.removeStorageSync('token')
+						wx.removeStorageSync('userInfo')
+						uni.redirectTo({
+							url: '/pages/home/index'
+						})
+					})
 			},
 			getVrList() {
 				getVrList()
@@ -257,7 +265,17 @@
 						this.vrItem = vrs
 						// console.log(this.vrItem)
 					})
-					.catch(err => console.log(err))
+					.catch(err => {
+						{
+							console.log(err)
+							wx.removeStorageSync('openid')
+							wx.removeStorageSync('token')
+							wx.removeStorageSync('userInfo')
+							uni.redirectTo({
+								url: '/pages/home/index'
+							})
+						}
+					})
 			},
 			// 游客模式
 			getCourseList_tourist() {
